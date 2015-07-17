@@ -10,16 +10,17 @@
 #import <Parse/Parse.h>
 #import "User.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "Key.h"
+
 
 @interface SignUpViewController ()
 
 @property NSMutableArray *objects;
 
 @property(nonatomic,retain)IBOutlet UIImageView *imageView;
-@property(nonatomic, strong) NSArray *pickerData;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextfield;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextfield;
+@property (unsafe_unretained, nonatomic) IBOutlet UITextField *emailTextfield;
 
 @end
 
@@ -29,34 +30,11 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    
-    self.pickerData = @[@"Casual Movie Fan", @"Movie Critic"];
-    self.pickerView.delegate = self;
-    self.pickerView.dataSource = self;
     self.navigationItem.hidesBackButton = YES;
-    
     [self.navigationController setToolbarHidden:YES];
 
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-}
-
-
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-    
-}
-
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.pickerData.count;
-}
-
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
-    //configures the pickerview
-
-    return self.pickerData[row];
 }
 
 
@@ -69,8 +47,6 @@
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
 
-    //connect to 'Cancel' button
-    
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
@@ -93,9 +69,8 @@
     
     User *newUser = [User object]; //returns instance of class
     newUser.favouritesArray = [NSMutableArray array];
+    newUser.email = self.emailTextfield.text;
     newUser.username = self.usernameTextfield.text;
-    newUser.pickerDataIndex = [self.pickerView selectedRowInComponent:0];
-    newUser.userType = self.pickerData[newUser.pickerDataIndex];
     newUser.password = self.passwordTextfield.text;
     
     NSData* data = UIImageJPEGRepresentation(self.imageView.image, 0.5f);
@@ -114,7 +89,7 @@
         } else if (error) {
             
             UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Error"
-                                                             message:error.description
+                                                             message:error.localizedDescription
                                                             delegate:self
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];
@@ -125,7 +100,7 @@
             UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Congrats!"
                                                              message:@"You have successfully made a new account."
                                                             delegate:self
-                                                   cancelButtonTitle:@"Cool!"
+                                                   cancelButtonTitle:@"Cool"
                                                    otherButtonTitles: nil];
             [alert show];
             

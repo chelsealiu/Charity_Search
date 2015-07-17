@@ -28,7 +28,6 @@
 //
 
 #import "MWFeedParserAppDelegate.h"
-#import "RootViewController.h"
 
 @implementation MWFeedParserAppDelegate
 

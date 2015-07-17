@@ -10,6 +10,8 @@
 #import "ProfileViewController.h"
 #import "User.h"
 #import "LoginViewController.h"
+#import "Key.h"
+
 
 @interface HomeViewController ()
 

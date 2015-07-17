@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CustomCell.h"
 #import "User.h"
+#import "MWFeedParser.h"
 
-@interface CollectionViewController : UICollectionViewController
+@interface NewsHomeViewController : UICollectionViewController <MWFeedParserDelegate>
 
-@property (strong, nonatomic) User *detailItem;
+@property (strong, nonatomic) MWFeedParser *feedParser;
 
 @end

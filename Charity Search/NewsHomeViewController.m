@@ -6,30 +6,28 @@
 //  Copyright (c) 2015 Chelsea Liu. All rights reserved.
 //
 
-#import "CollectionViewController.h"
+#import "NewsHomeViewController.h"
 #import "DetailTableViewController.h"
 #import "Movies.h"
 #import "CustomCell.h"
 #import "MapViewController.h"
 #import "ProfileViewController.h"
 #import "SignUpViewController.h"
+#import "MWFeedParser.h"
+#import "Key.h"
 
-@interface CollectionViewController ()
 
-@property NSMutableArray *objects;
+@interface NewsHomeViewController ()
+
+@property NSMutableArray *newsObjects;
+@property NSArray *itemsToDisplay;
+
 
 @end
 
 //static NSString *apiKey = ;
 
-@implementation CollectionViewController
-
-- (void)setDetailItem:(User*)newDetailItem {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-        
-    }
-}
+@implementation NewsHomeViewController
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -38,68 +36,123 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController setToolbarHidden:YES];
+    //CNN RSS Feeds
+    NSURL *CNNTopStoriesFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_topstories.rss"];
+    NSURL *CNNWorldFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_world.rss"];
+    NSURL *CNNHealthFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_health.rss"];
+    NSURL *CNNTechFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_tech.rss"];
+    NSURL *CNNLivingFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_living.rss"];
+    NSURL *CNNLatestFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_latest.rss"];
+    NSURL *CNNBusinessFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/money_latest.rss"];
 
-    if ([self.objects count] != 0) {
-        return;
-        //exit early/no network request if reviews already exist
-    }
+    //BBC RSS Feeds
+    NSURL *BBCEducationFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/health/rss.xml"];
+    NSURL *BBCWorldFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml"];
+    NSURL *BBCScienceFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/sci/tech/rss.xml"];
+    NSURL *BBCTechFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml"];
+    NSURL *BBCBusinessFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/business/rss.xml"];
     
-    NSString *urlString = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=sr9tdu3checdyayjz85mff8j&page_limit=50";
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"%@", urlString);
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
-        
-        if (fetchingError) {
-            
-            NSLog(@"Fetching Error: %@", fetchingError);
-            return;
-        }
-        
-        NSError *jsonError;
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-        
-        if (jsonError) {
-            
-            NSLog(@"JSON Error: %@", jsonError);
-            return;
-        }
-        
-        NSArray *allMovies = responseDictionary[@"movies"];
-        
-        if (!allMovies) {
-            
-            NSLog(@"Nonexistent key 'movies'");
-            
-        } else {
-            
-            NSMutableArray *moviesArray = [NSMutableArray array];
-            
-            for (NSDictionary *movieDict in allMovies) {
-                Movies *newMovie = [[Movies alloc] init];
-                newMovie.title = movieDict[@"title"];
-                newMovie.reviewsAPI = [movieDict[@"links"][@"reviews"] stringByAppendingString:@"?apikey=sr9tdu3checdyayjz85mff8j"];
-                newMovie.movieIcon = movieDict[@"posters"][@"thumbnail"]; //string links to thumbnail
-                newMovie.movieSynopsis = movieDict[@"synopsis"];
-                newMovie.criticsScore = movieDict[@"ratings"][@"critics_score"];
-                newMovie.freshnessOfMovie = movieDict[@"ratings"][@"critics_rating"];
-                
-                [moviesArray addObject: newMovie];
-                
-            }
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                self.objects = moviesArray;
-                [self.collectionView reloadData];
-                
-            });
-            //end main thread code
-        }
-        
-    }];
+    //CBC RSS Feeds
+    NSURL *CBCTechFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/technology.xml"];
+    NSURL *CBCAboriginalFeed = [NSURL URLWithString:@"http://www.cbc.ca/cmlink/rss-cbcaboriginal"];
+    NSURL *CBCHealthFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/health.xml"];
+    NSURL *CBCBusinessFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/business.xml"];
+    NSURL *CBCCanadaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada.xml"];
+    NSURL *CBCWorldFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/world.xml"];
+    NSURL *CBCTopStoriesFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/topstories.xml"];
+    NSURL *CBCOffbeatFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/offbeat.xml"];
     
-    [task resume];
+    
+    //CBC Regional Feeds
+    NSURL *CBCBritishColumbiaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-britishcolumbia.xml"];
+    NSURL *CBCOttawaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-ottawa.xml"];
+    NSURL *CBCTorontoFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-toronto.xml"];
+    NSURL *CBCMontrealFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-montreal.xml"];
+    NSURL *CBCNovaScotiaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-novascotia.xml"];
+    NSURL *CBCPEIFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-pei"];
+    NSURL *CBCNewBrunswickFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-newbrunswick.xml"];
+    NSURL *CBCNewfoundlandFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-newfoundland.xml"];
+    NSURL *CBCEdmontonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-edmonton.xml"];
+    NSURL *CBCCalgaryFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-calgary.xml"];
+    NSURL *CBCSaskatchewanFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-saskatchewan.xml"];
+    NSURL *CBCThunderBayFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-thunderbay.xml"];
+    NSURL *CBCKamloopsFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-kamloops.xml"];
+    NSURL *CBCSaskatoonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-saskatoon.xml"];
+    NSURL *CBCWindsorFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-windsor.xml"];
+    NSURL *CBCSudburyFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-sudbury.xml"];
+    NSURL *CBCKitchenerWaterlooFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-kitchenerwaterloo.xml"];
+    NSURL *CBCHamiltonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-hamiltonnews.xml"];
+    
+    self.feedParser = [[MWFeedParser alloc] initWithFeedURL:CNNTopStoriesFeed];
+    self.feedParser.delegate = self;
+    self.feedParser.feedParseType = ParseTypeFull;
+    self.feedParser.connectionType = ConnectionTypeAsynchronously;
+    [self.feedParser parse];
+
 }
+
+
+
+#pragma mark -
+#pragma mark Parsing
+
+// Reset and reparse
+- (void)refresh {
+    self.title = @"Refreshing...";
+    [self.newsObjects removeAllObjects];
+    [self.feedParser stopParsing];
+    [self.feedParser parse];
+    self.collectionView.userInteractionEnabled = NO;
+    self.collectionView.alpha = 0.3;
+}
+
+- (void)updateTableWithParsedItems {
+    self.itemsToDisplay = [self.newsObjects sortedArrayUsingDescriptors:
+                           [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"date"
+                                                                                ascending:NO]]];
+    self.collectionView.userInteractionEnabled = YES;
+    self.collectionView.alpha = 1;
+    [self.collectionView reloadData];
+}
+
+#pragma mark -
+#pragma mark MWFeedParserDelegate
+
+- (void)feedParserDidStart:(MWFeedParser *)parser {
+    NSLog(@"Started Parsing: %@", parser.url);
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
+    NSLog(@"Parsed Feed Info: “%@”", info.title);
+    self.title = info.title;
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
+    NSLog(@"Parsed Feed Item: “%@”", item.title);
+    if (item) [self.newsObjects addObject:item];
+}
+
+- (void)feedParserDidFinish:(MWFeedParser *)parser {
+    NSLog(@"Finished Parsing%@", (parser.stopped ? @" (Stopped)" : @""));
+    [self updateTableWithParsedItems];
+}
+
+- (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error {
+    NSLog(@"Finished Parsing With Error: %@", error);
+    if (self.newsObjects.count == 0) {
+        self.title = @"Failed"; // Show failed message in title
+    } else {
+        // Failed but some items parsed, so show and inform of error
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Parsing Incomplete"
+                                                        message:@"There was an error during the parsing of this feed. Not all of the feed items could parsed."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Dismiss"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    [self updateTableWithParsedItems];
+}
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -111,7 +164,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(CustomCell*)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
-        Movies *movie = self.objects[indexPath.row];
+        Movies *movie = self.newsObjects[indexPath.row];
         [[segue destinationViewController] setDetailItem: movie];
     } 
 }
@@ -131,18 +184,18 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.objects.count;
+    return self.newsObjects.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
         
     CustomCell *customCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    Movies *newMovie = self.objects[indexPath.row];
+    Movies *newMovie = self.newsObjects[indexPath.row];
     customCell.textLabel.text = [newMovie valueForKey:@"title"];
     
     //make background queue
     dispatch_async(dispatch_get_main_queue(), ^{
-        Movies *movie = [self.objects objectAtIndex:indexPath.row];
+        Movies *movie = [self.newsObjects objectAtIndex:indexPath.row];
         NSString *imageString = movie.movieIcon;
         NSURL *imageURL = [NSURL URLWithString:imageString];
         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
@@ -158,15 +211,5 @@
 {
     return 4;
 }
-
-
-//- (IBAction)goToProfile:(id)sender {
-//    
-//    for (UIViewController*vc in [self.navigationController viewControllers]) {
-//        if ([vc isKindOfClass: [ProfileViewController class]]){
-//            [[self navigationController] popToViewController:vc animated:YES];
-//        }
-//    }
-//}
 
 @end

@@ -14,6 +14,8 @@
 #import "User.h"
 #import <Parse/Parse.h>
 #import "ProfileViewController.h"
+#import "Key.h"
+
 
 @interface DetailTableViewController ()
 

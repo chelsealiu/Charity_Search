@@ -14,8 +14,6 @@
 
 
 @property (nonatomic, strong) UIImage *userImage;
-@property (nonatomic) NSInteger pickerDataIndex;
-@property (nonatomic, strong) NSString *userType;
 @property (nonatomic, strong) PFFile *imageFile;
 @property (nonatomic, strong) NSMutableArray *favouritesArray;
 

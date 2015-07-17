@@ -7,8 +7,14 @@
 //
 
 #import "ForgotPswdViewController.h"
+#import "User.h"
+#import "Key.h"
+
 
 @interface ForgotPswdViewController ()
+
+@property (unsafe_unretained, nonatomic) IBOutlet UITextField *forgotPasswordEmailTextfield;
+
 
 @end
 
@@ -16,22 +22,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)submitResetRequest:(id)sender {
+    
+    [User requestPasswordResetForEmailInBackground:self.forgotPasswordEmailTextfield.text block:^(BOOL succeeded, NSError *error){
+        if (error) {
 
-/*
-#pragma mark - Navigation
+            
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Error"
+                                                             message:error.localizedDescription
+                                                            delegate:self
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
+            
+        } else {
+            
+            [self dismissViewControllerAnimated: YES completion:nil];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Success"
+                                                             message:@"An email has been sent with instructions on how to reset your password"
+                                                            delegate:self
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
+        }
+    }];
 }
-*/
+
+- (IBAction)cancelAction:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

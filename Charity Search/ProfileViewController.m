@@ -10,8 +10,10 @@
 #import <Parse/Parse.h>
 #import "User.h"
 #import "Movies.h"
-#import "CollectionViewController.h"
+#import "NewsHomeViewController.h"
 #import "HomeViewController.h"
+#import "Key.h"
+
 
 @interface ProfileViewController ()
 
@@ -51,16 +53,14 @@
     User *currentUser = [User currentUser];//implementing singleton method
     
     self.usernameLabel.text = currentUser.username;
-    self.userTypeLabel.text = currentUser.userType;
     [currentUser.imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
             self.profileImageView.image = [UIImage imageWithData:data];
         }
     }];
-    NSLog(@"username: %@, pswd: %@, fav: %@", currentUser.username, currentUser.userType, currentUser.favouritesArray);
+
     
 }
-
 
 - (IBAction)logoutAction:(id)sender {
     
@@ -68,12 +68,7 @@
     [User logOutInBackground];
     
 }
-//
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([[segue identifier] isEqualToString:@"showMovies"]) {
-//        [[segue destinationViewController] setDetailItem:self.userItem];
-//    }
-//}
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
