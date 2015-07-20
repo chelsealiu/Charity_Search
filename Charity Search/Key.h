@@ -14,5 +14,8 @@ static const NSString* CLIENT_KEY = @"huk7Cq3hPUZxkHTQYCvYjXZecOtHDUdrHf2dUvHB";
 static const NSString* API_APP_ID = @"4f16efd1-5d89-47c3-b787-860aaa0c5ecd";
 static const NSString* API_APP_SECRET = @"ce6b55b8-ace5-4579-84e7-1c6d9f7c3040";
 
+static const NSString *CHARITY_KEY = @"29bdccc4-f8f3-4302-8e46-0f093387ccf0";
+
+
 #endif
 
