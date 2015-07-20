@@ -14,6 +14,8 @@
 #import "NewsMainViewController.h"
 #import "CharityViewController.h"
 #import "LoginViewController.h"
+#import "CharityData.h"
+
 
 @interface AppDelegate ()
 
@@ -35,6 +37,7 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
