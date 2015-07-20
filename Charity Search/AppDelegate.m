@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "Key.h"
+#import "CharityData.h"
 
 
 @interface AppDelegate ()
@@ -31,7 +32,8 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
+    [CharityData getCharityObjects];
+    //[CharityData getCharityKeywordsForCharity];
     return YES;
 }
 
