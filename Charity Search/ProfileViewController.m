@@ -10,9 +10,9 @@
 #import <Parse/Parse.h>
 #import "User.h"
 #import "Movies.h"
-#import "NewsHomeViewController.h"
 #import "HomeViewController.h"
 #import "Key.h"
+#import "MWFeedItem.h"
 
 
 @interface ProfileViewController ()
@@ -74,7 +74,8 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavouriteCell" forIndexPath:indexPath];
     User *currentUser = [User currentUser];
-    cell.textLabel.text = currentUser.favouritesArray[indexPath.row];
+    MWFeedItem *feedItem= currentUser.favouritesArray[indexPath.row];
+    cell.textLabel.text = feedItem.title;
     return cell;
 }
 

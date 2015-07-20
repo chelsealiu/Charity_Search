@@ -1,14 +1,13 @@
 //
-//  CollectionViewController.m
+//  NewsMainViewController.m
 //  Charity Search
 //
-//  Created by Chelsea Liu on 7/1/15.
+//  Created by Chelsea Liu on 7/17/15.
 //  Copyright (c) 2015 Chelsea Liu. All rights reserved.
 //
 
-#import "NewsHomeViewController.h"
-#import "DetailTableViewController.h"
-#import "Movies.h"
+#import "NewsMainViewController.h"
+#import "NewsDetailViewController.h"
 #import "CustomCell.h"
 #import "MapViewController.h"
 #import "ProfileViewController.h"
@@ -16,18 +15,16 @@
 #import "MWFeedParser.h"
 #import "Key.h"
 
+@interface NewsMainViewController ()
 
-@interface NewsHomeViewController ()
-
-@property NSMutableArray *newsObjects;
-@property NSArray *itemsToDisplay;
-
+@property (strong, nonatomic) NSArray *categoriesArray;
+//@property NSArray *itemsToDisplay;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *newsTypeSegment;
 
 @end
 
-//static NSString *apiKey = ;
-
-@implementation NewsHomeViewController
+@implementation NewsMainViewController
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -44,9 +41,9 @@
     NSURL *CNNLivingFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_living.rss"];
     NSURL *CNNLatestFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_latest.rss"];
     NSURL *CNNBusinessFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/money_latest.rss"];
-
+    
     //BBC RSS Feeds
-    NSURL *BBCEducationFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/health/rss.xml"];
+    NSURL *BBCEducationFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/education/rss.xml"];
     NSURL *BBCWorldFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml"];
     NSURL *BBCScienceFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/sci/tech/rss.xml"];
     NSURL *BBCTechFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml"];
@@ -57,11 +54,12 @@
     NSURL *CBCAboriginalFeed = [NSURL URLWithString:@"http://www.cbc.ca/cmlink/rss-cbcaboriginal"];
     NSURL *CBCHealthFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/health.xml"];
     NSURL *CBCBusinessFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/business.xml"];
+    NSURL *CBCPoliticsFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/politics.xml"];
     NSURL *CBCCanadaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada.xml"];
     NSURL *CBCWorldFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/world.xml"];
     NSURL *CBCTopStoriesFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/topstories.xml"];
     NSURL *CBCOffbeatFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/offbeat.xml"];
-    
+    NSURL *CBCArtsFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/arts.xml"];
     
     //CBC Regional Feeds
     NSURL *CBCBritishColumbiaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-britishcolumbia.xml"];
@@ -83,77 +81,12 @@
     NSURL *CBCKitchenerWaterlooFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-kitchenerwaterloo.xml"];
     NSURL *CBCHamiltonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-hamiltonnews.xml"];
     
-    self.feedParser = [[MWFeedParser alloc] initWithFeedURL:CNNTopStoriesFeed];
-    self.feedParser.delegate = self;
-    self.feedParser.feedParseType = ParseTypeFull;
-    self.feedParser.connectionType = ConnectionTypeAsynchronously;
-    [self.feedParser parse];
-
+    
+    NSDictionary *allNewsDict = @{@"Top Stories":CBCTopStoriesFeed, @"World":CBCWorldFeed, @"Health":CBCHealthFeed, @"Politics": @"http://rss.cbc.ca/lineup/politics.xml", @"Technology":CBCTechFeed, @"Offbeat":CBCOffbeatFeed, @"Business":CBCBusinessFeed, @"Entertainment":CBCArtsFeed};
+    NSDictionary *localNewsDict = @{@"Canada":CBCCanadaFeed, @"Aboriginal":CBCAboriginalFeed, @"Toronto":CBCTorontoFeed, @"Ottawa":CBCOttawaFeed, @"Montreal":CBCMontrealFeed, @"British Columbia":CBCBritishColumbiaFeed, @"Nova Scotia":CBCNovaScotiaFeed, @"PEI":CBCPEIFeed, @"New Brunswick":CBCNewBrunswickFeed, @"NewfoundLand":CBCNewfoundlandFeed, @"Saskatchewan":CBCSaskatchewanFeed, @"Calgary":CBCCalgaryFeed};
+    
+    self.categoriesArray = @[allNewsDict, localNewsDict];
 }
-
-
-
-#pragma mark -
-#pragma mark Parsing
-
-// Reset and reparse
-- (void)refresh {
-    self.title = @"Refreshing...";
-    [self.newsObjects removeAllObjects];
-    [self.feedParser stopParsing];
-    [self.feedParser parse];
-    self.collectionView.userInteractionEnabled = NO;
-    self.collectionView.alpha = 0.3;
-}
-
-- (void)updateTableWithParsedItems {
-    self.itemsToDisplay = [self.newsObjects sortedArrayUsingDescriptors:
-                           [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"date"
-                                                                                ascending:NO]]];
-    self.collectionView.userInteractionEnabled = YES;
-    self.collectionView.alpha = 1;
-    [self.collectionView reloadData];
-}
-
-#pragma mark -
-#pragma mark MWFeedParserDelegate
-
-- (void)feedParserDidStart:(MWFeedParser *)parser {
-    NSLog(@"Started Parsing: %@", parser.url);
-}
-
-- (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
-    NSLog(@"Parsed Feed Info: “%@”", info.title);
-    self.title = info.title;
-}
-
-- (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
-    NSLog(@"Parsed Feed Item: “%@”", item.title);
-    if (item) [self.newsObjects addObject:item];
-}
-
-- (void)feedParserDidFinish:(MWFeedParser *)parser {
-    NSLog(@"Finished Parsing%@", (parser.stopped ? @" (Stopped)" : @""));
-    [self updateTableWithParsedItems];
-}
-
-- (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error {
-    NSLog(@"Finished Parsing With Error: %@", error);
-    if (self.newsObjects.count == 0) {
-        self.title = @"Failed"; // Show failed message in title
-    } else {
-        // Failed but some items parsed, so show and inform of error
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Parsing Incomplete"
-                                                        message:@"There was an error during the parsing of this feed. Not all of the feed items could parsed."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Dismiss"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
-    [self updateTableWithParsedItems];
-}
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -163,53 +96,67 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(CustomCell*)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
-        Movies *movie = self.newsObjects[indexPath.row];
-        [[segue destinationViewController] setDetailItem: movie];
-    } 
+        NSURL *url = [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] objectForKey:sender.textLabel.text];
+        [[segue destinationViewController] setDetailItem: url];
+    }
 }
+
 
 #pragma mark - Collection View
 
-- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return CGSizeMake(108, 160);
-    //size of each cell in collection
-
-}
-
+//- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    return CGSizeMake(100, 10);
+//    //size of each cell in collection
+//    
+//}
 
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.newsObjects.count;
+
+    return [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] count];
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-        
-    CustomCell *customCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    Movies *newMovie = self.newsObjects[indexPath.row];
-    customCell.textLabel.text = [newMovie valueForKey:@"title"];
+-(CustomCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    //make background queue
-    dispatch_async(dispatch_get_main_queue(), ^{
-        Movies *movie = [self.newsObjects objectAtIndex:indexPath.row];
-        NSString *imageString = movie.movieIcon;
-        NSURL *imageURL = [NSURL URLWithString:imageString];
-        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-        
-        customCell.movieImageView.image = [UIImage imageWithData:imageData];
-    });
-
+    CustomCell *customCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NewsListCell" forIndexPath:indexPath];
+    customCell.contentMode = UIViewContentModeScaleAspectFit;
+    NSArray *tempArray = [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] allKeys];
+    customCell.textLabel.text = tempArray[indexPath.row];
+    customCell.layer.masksToBounds = YES;
+    customCell.layer.cornerRadius = customCell.frame.size.width/2;
+   
+    
     return customCell;
     
 }
+- (IBAction)changedSegment:(id)sender {
+    
+    [self.collectionView reloadData];
+    
+}
+
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    
+    return UIEdgeInsetsMake(10, 10, 10, 10);
+    
+}
+
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 4;
+    return 15;
 }
+
+- (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 5;
+}
+
+
 
 @end

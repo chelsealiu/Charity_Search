@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWFeedItem.h"
 
 @class Movies;
 
-@interface DetailTableViewController : UITableViewController
+@interface tempViewController : UITableViewController
 
-@property (strong, nonatomic) Movies *detailItem;
+@property (strong, nonatomic) MWFeedItem *detailItem;
 
 @end

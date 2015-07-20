@@ -1,14 +1,14 @@
 //
-//  TableViewCell.m
+//  NewsListCell.m
 //  Charity Search
 //
-//  Created by Chelsea Liu on 7/1/15.
+//  Created by Chelsea Liu on 7/17/15.
 //  Copyright (c) 2015 Chelsea Liu. All rights reserved.
 //
 
-#import "TableViewCell.h"
+#import "NewsListCell.h"
 
-@implementation TableViewCell
+@implementation NewsListCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -19,5 +19,6 @@
 
     // Configure the view for the selected state
 }
+
 
 @end

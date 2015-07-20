@@ -10,12 +10,7 @@
 		5E6B042C1B443CB300AAA2FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B042B1B443CB300AAA2FE /* main.m */; };
 		5E6B042F1B443CB300AAA2FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B042E1B443CB300AAA2FE /* AppDelegate.m */; };
 		5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04391B443CB300AAA2FE /* Images.xcassets */; };
-		5E6B04541B44411800AAA2FE /* Movies.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04531B44411800AAA2FE /* Movies.m */; };
-		5E6B04571B44530600AAA2FE /* NewsHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04561B44530600AAA2FE /* NewsHomeViewController.m */; };
 		5E6B045A1B44559500AAA2FE /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04591B44559500AAA2FE /* CustomCell.m */; };
-		5E6B04601B44722100AAA2FE /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B045F1B44722100AAA2FE /* DetailTableViewController.m */; };
-		5E6B04631B44870400AAA2FE /* Reviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04621B44870400AAA2FE /* Reviews.m */; };
-		5E6B04661B448B8100AAA2FE /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04651B448B8100AAA2FE /* TableViewCell.m */; };
 		5E6B04721B458EBC00AAA2FE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04711B458EBC00AAA2FE /* MapViewController.m */; };
 		5E6B04741B459BCC00AAA2FE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E6B04731B459BCC00AAA2FE /* MapKit.framework */; };
 		5E6B04761B459F6400AAA2FE /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04751B459F6400AAA2FE /* Location.gpx */; };
@@ -30,8 +25,16 @@
 		5E8CB93A1B59782F008DCA9D /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9301B59782F008DCA9D /* NSDate+InternetDateTime.m */; };
 		5E8CB93B1B59782F008DCA9D /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9321B59782F008DCA9D /* NSString+HTML.m */; };
 		5E8CB93C1B59782F008DCA9D /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9341B59782F008DCA9D /* NSString+XMLEntities.m */; };
-		5E8CB9411B5978D7008DCA9D /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9401B5978D7008DCA9D /* News.m */; };
 		5E8CB9441B5978E0008DCA9D /* Charity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9431B5978E0008DCA9D /* Charity.m */; };
+		5EA13ACA1B59D5F00098CD64 /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13AC91B59D5F00098CD64 /* NewsDetailViewController.m */; };
+		5EA13ACD1B59D6EC0098CD64 /* NewsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13ACC1B59D6EC0098CD64 /* NewsListViewController.m */; };
+		5EA13AD01B59DAE00098CD64 /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13ACF1B59DAE00098CD64 /* NewsListCell.m */; };
+		5EA13AD31B59E5830098CD64 /* NewsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13AD21B59E5830098CD64 /* NewsMainViewController.m */; };
+		5EA13AD91B5B03BC0098CD64 /* UIColor+ListCellColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13AD81B5B03BC0098CD64 /* UIColor+ListCellColor.m */; };
+		5EA13AE51B5B239F0098CD64 /* UIColor+ButtonColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13ADB1B5B239F0098CD64 /* UIColor+ButtonColor.m */; };
+		5EA13AE61B5B239F0098CD64 /* FloatingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13ADD1B5B239F0098CD64 /* FloatingButton.m */; };
+		5EA13AE71B5B239F0098CD64 /* FloatingMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13ADF1B5B239F0098CD64 /* FloatingMenuController.m */; };
+		5EA13AE91B5B239F0098CD64 /* TapReceiverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13AE41B5B239F0098CD64 /* TapReceiverViewController.m */; };
 		5EDC94A31B5420FF007C0EE8 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDC94A21B5420FF007C0EE8 /* SignUpViewController.m */; };
 		5EDC94AA1B5422FE007C0EE8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94A41B5422FE007C0EE8 /* Bolts.framework */; };
 		5EDC94AB1B5422FE007C0EE8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94A51B5422FE007C0EE8 /* Parse.framework */; };
@@ -64,18 +67,8 @@
 		5E6B043C1B443CB300AAA2FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5E6B04471B443CB300AAA2FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6B04481B443CB300AAA2FE /* Rotten_MangoesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Rotten_MangoesTests.m; sourceTree = "<group>"; };
-		5E6B04521B44411800AAA2FE /* Movies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movies.h; sourceTree = "<group>"; };
-		5E6B04531B44411800AAA2FE /* Movies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movies.m; sourceTree = "<group>"; };
-		5E6B04551B44530600AAA2FE /* NewsHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsHomeViewController.h; sourceTree = "<group>"; };
-		5E6B04561B44530600AAA2FE /* NewsHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsHomeViewController.m; sourceTree = "<group>"; };
 		5E6B04581B44559500AAA2FE /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		5E6B04591B44559500AAA2FE /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
-		5E6B045E1B44722100AAA2FE /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
-		5E6B045F1B44722100AAA2FE /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
-		5E6B04611B44870400AAA2FE /* Reviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reviews.h; sourceTree = "<group>"; };
-		5E6B04621B44870400AAA2FE /* Reviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reviews.m; sourceTree = "<group>"; };
-		5E6B04641B448B8100AAA2FE /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
-		5E6B04651B448B8100AAA2FE /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		5E6B04701B458EBC00AAA2FE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		5E6B04711B458EBC00AAA2FE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		5E6B04731B459BCC00AAA2FE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -99,11 +92,28 @@
 		5E8CB9321B59782F008DCA9D /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		5E8CB9331B59782F008DCA9D /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XMLEntities.h"; sourceTree = "<group>"; };
 		5E8CB9341B59782F008DCA9D /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
-		5E8CB93F1B5978D7008DCA9D /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
-		5E8CB9401B5978D7008DCA9D /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
 		5E8CB9421B5978E0008DCA9D /* Charity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Charity.h; sourceTree = "<group>"; };
 		5E8CB9431B5978E0008DCA9D /* Charity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Charity.m; sourceTree = "<group>"; };
 		5E8CB9451B599F85008DCA9D /* Key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
+		5EA13AC81B59D5F00098CD64 /* NewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
+		5EA13AC91B59D5F00098CD64 /* NewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
+		5EA13ACB1B59D6EC0098CD64 /* NewsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListViewController.h; sourceTree = "<group>"; };
+		5EA13ACC1B59D6EC0098CD64 /* NewsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListViewController.m; sourceTree = "<group>"; };
+		5EA13ACE1B59DAE00098CD64 /* NewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListCell.h; sourceTree = "<group>"; };
+		5EA13ACF1B59DAE00098CD64 /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
+		5EA13AD11B59E5830098CD64 /* NewsMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsMainViewController.h; sourceTree = "<group>"; };
+		5EA13AD21B59E5830098CD64 /* NewsMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsMainViewController.m; sourceTree = "<group>"; };
+		5EA13AD71B5B03BC0098CD64 /* UIColor+ListCellColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ListCellColor.h"; sourceTree = "<group>"; };
+		5EA13AD81B5B03BC0098CD64 /* UIColor+ListCellColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ListCellColor.m"; sourceTree = "<group>"; };
+		5EA13ADA1B5B239F0098CD64 /* UIColor+ButtonColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ButtonColor.h"; sourceTree = "<group>"; };
+		5EA13ADB1B5B239F0098CD64 /* UIColor+ButtonColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ButtonColor.m"; sourceTree = "<group>"; };
+		5EA13ADC1B5B239F0098CD64 /* FloatingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingButton.h; sourceTree = "<group>"; };
+		5EA13ADD1B5B239F0098CD64 /* FloatingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatingButton.m; sourceTree = "<group>"; };
+		5EA13ADE1B5B239F0098CD64 /* FloatingMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatingMenuController.h; sourceTree = "<group>"; };
+		5EA13ADF1B5B239F0098CD64 /* FloatingMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatingMenuController.m; sourceTree = "<group>"; };
+		5EA13AE01B5B239F0098CD64 /* MenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuDelegate.h; sourceTree = "<group>"; };
+		5EA13AE31B5B239F0098CD64 /* TapReceiverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapReceiverViewController.h; sourceTree = "<group>"; };
+		5EA13AE41B5B239F0098CD64 /* TapReceiverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapReceiverViewController.m; sourceTree = "<group>"; };
 		5EDC94A11B5420FF007C0EE8 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		5EDC94A21B5420FF007C0EE8 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		5EDC94A41B5422FE007C0EE8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -197,15 +207,12 @@
 				5E6B042E1B443CB300AAA2FE /* AppDelegate.m */,
 				5E8CB9451B599F85008DCA9D /* Key.h */,
 				5E8CB93D1B597836008DCA9D /* RSSParser */,
-				5E8CB91E1B596A69008DCA9D /* Account Flow */,
-				5E8CB93E1B597892008DCA9D /* News and Charities */,
+				5E8CB91E1B596A69008DCA9D /* Login Flow */,
+				5EA13AEA1B5B23A80098CD64 /* Charity Button */,
+				5E8CB93E1B597892008DCA9D /* News Viewer */,
 				5E6B04701B458EBC00AAA2FE /* MapViewController.h */,
 				5E6B04711B458EBC00AAA2FE /* MapViewController.m */,
-				5E6B04611B44870400AAA2FE /* Reviews.h */,
-				5E6B04621B44870400AAA2FE /* Reviews.m */,
 				5E6B04751B459F6400AAA2FE /* Location.gpx */,
-				5E6B04521B44411800AAA2FE /* Movies.h */,
-				5E6B04531B44411800AAA2FE /* Movies.m */,
 				5EDC94D31B55AA46007C0EE8 /* heart.png */,
 				5E6B04361B443CB300AAA2FE /* Main.storyboard */,
 				5E6B04391B443CB300AAA2FE /* Images.xcassets */,
@@ -243,7 +250,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5E8CB91E1B596A69008DCA9D /* Account Flow */ = {
+		5E8CB91E1B596A69008DCA9D /* Login Flow */ = {
 			isa = PBXGroup;
 			children = (
 				5EDC94D01B554297007C0EE8 /* HomeViewController.h */,
@@ -259,7 +266,7 @@
 				5EDC94B31B543DCF007C0EE8 /* User.h */,
 				5EDC94B41B543DCF007C0EE8 /* User.m */,
 			);
-			name = "Account Flow";
+			name = "Login Flow";
 			sourceTree = "<group>";
 		};
 		5E8CB93D1B597836008DCA9D /* RSSParser */ = {
@@ -286,23 +293,41 @@
 			name = RSSParser;
 			sourceTree = "<group>";
 		};
-		5E8CB93E1B597892008DCA9D /* News and Charities */ = {
+		5E8CB93E1B597892008DCA9D /* News Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				5E6B04551B44530600AAA2FE /* NewsHomeViewController.h */,
-				5E6B04561B44530600AAA2FE /* NewsHomeViewController.m */,
+				5EA13AD71B5B03BC0098CD64 /* UIColor+ListCellColor.h */,
+				5EA13AD81B5B03BC0098CD64 /* UIColor+ListCellColor.m */,
+				5EA13AD11B59E5830098CD64 /* NewsMainViewController.h */,
+				5EA13AD21B59E5830098CD64 /* NewsMainViewController.m */,
+				5EA13ACB1B59D6EC0098CD64 /* NewsListViewController.h */,
+				5EA13ACC1B59D6EC0098CD64 /* NewsListViewController.m */,
+				5EA13AC81B59D5F00098CD64 /* NewsDetailViewController.h */,
+				5EA13AC91B59D5F00098CD64 /* NewsDetailViewController.m */,
+				5EA13ACE1B59DAE00098CD64 /* NewsListCell.h */,
+				5EA13ACF1B59DAE00098CD64 /* NewsListCell.m */,
 				5E6B04581B44559500AAA2FE /* CustomCell.h */,
 				5E6B04591B44559500AAA2FE /* CustomCell.m */,
-				5E6B045E1B44722100AAA2FE /* DetailTableViewController.h */,
-				5E6B045F1B44722100AAA2FE /* DetailTableViewController.m */,
-				5E6B04641B448B8100AAA2FE /* TableViewCell.h */,
-				5E6B04651B448B8100AAA2FE /* TableViewCell.m */,
-				5E8CB93F1B5978D7008DCA9D /* News.h */,
-				5E8CB9401B5978D7008DCA9D /* News.m */,
 				5E8CB9421B5978E0008DCA9D /* Charity.h */,
 				5E8CB9431B5978E0008DCA9D /* Charity.m */,
 			);
-			name = "News and Charities";
+			name = "News Viewer";
+			sourceTree = "<group>";
+		};
+		5EA13AEA1B5B23A80098CD64 /* Charity Button */ = {
+			isa = PBXGroup;
+			children = (
+				5EA13ADA1B5B239F0098CD64 /* UIColor+ButtonColor.h */,
+				5EA13ADB1B5B239F0098CD64 /* UIColor+ButtonColor.m */,
+				5EA13ADC1B5B239F0098CD64 /* FloatingButton.h */,
+				5EA13ADD1B5B239F0098CD64 /* FloatingButton.m */,
+				5EA13ADE1B5B239F0098CD64 /* FloatingMenuController.h */,
+				5EA13ADF1B5B239F0098CD64 /* FloatingMenuController.m */,
+				5EA13AE01B5B239F0098CD64 /* MenuDelegate.h */,
+				5EA13AE31B5B239F0098CD64 /* TapReceiverViewController.h */,
+				5EA13AE41B5B239F0098CD64 /* TapReceiverViewController.m */,
+			);
+			name = "Charity Button";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,31 +403,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E6B04601B44722100AAA2FE /* DetailTableViewController.m in Sources */,
-				5E6B04631B44870400AAA2FE /* Reviews.m in Sources */,
 				5E8CB93C1B59782F008DCA9D /* NSString+XMLEntities.m in Sources */,
+				5EA13AE61B5B239F0098CD64 /* FloatingButton.m in Sources */,
+				5EA13AD01B59DAE00098CD64 /* NewsListCell.m in Sources */,
 				5EDC94CC1B548C5A007C0EE8 /* LoginViewController.m in Sources */,
 				5E6B042F1B443CB300AAA2FE /* AppDelegate.m in Sources */,
+				5EA13AE71B5B239F0098CD64 /* FloatingMenuController.m in Sources */,
+				5EA13ACA1B59D5F00098CD64 /* NewsDetailViewController.m in Sources */,
 				5E6B04721B458EBC00AAA2FE /* MapViewController.m in Sources */,
 				5E8CB9391B59782F008DCA9D /* MWFeedParserAppDelegate.m in Sources */,
 				5EDC94D21B554297007C0EE8 /* HomeViewController.m in Sources */,
-				5E6B04571B44530600AAA2FE /* NewsHomeViewController.m in Sources */,
 				5E6B045A1B44559500AAA2FE /* CustomCell.m in Sources */,
 				5E8CB9381B59782F008DCA9D /* MWFeedParser.m in Sources */,
 				5E8CB93A1B59782F008DCA9D /* NSDate+InternetDateTime.m in Sources */,
 				5EDC94A31B5420FF007C0EE8 /* SignUpViewController.m in Sources */,
-				5E6B04661B448B8100AAA2FE /* TableViewCell.m in Sources */,
-				5E8CB9411B5978D7008DCA9D /* News.m in Sources */,
 				5E8CB9211B596C8E008DCA9D /* ForgotPswdViewController.m in Sources */,
 				5E8CB93B1B59782F008DCA9D /* NSString+HTML.m in Sources */,
+				5EA13AE91B5B239F0098CD64 /* TapReceiverViewController.m in Sources */,
 				5E8CB9361B59782F008DCA9D /* MWFeedInfo.m in Sources */,
+				5EA13AD91B5B03BC0098CD64 /* UIColor+ListCellColor.m in Sources */,
 				5E8CB9371B59782F008DCA9D /* MWFeedItem.m in Sources */,
 				5E8CB9441B5978E0008DCA9D /* Charity.m in Sources */,
 				5EDC94B51B543DCF007C0EE8 /* User.m in Sources */,
+				5EA13ACD1B59D6EC0098CD64 /* NewsListViewController.m in Sources */,
+				5EA13AD31B59E5830098CD64 /* NewsMainViewController.m in Sources */,
 				5EDC94B21B542532007C0EE8 /* ProfileViewController.m in Sources */,
 				5E8CB9351B59782F008DCA9D /* GTMNSString+HTML.m in Sources */,
-				5E6B04541B44411800AAA2FE /* Movies.m in Sources */,
 				5E6B042C1B443CB300AAA2FE /* main.m in Sources */,
+				5EA13AE51B5B239F0098CD64 /* UIColor+ButtonColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
