@@ -42,6 +42,7 @@
     
     [super viewDidLoad];
 
+    self.tabBarItem.title = @"Profile";
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.tableView.delegate = self;

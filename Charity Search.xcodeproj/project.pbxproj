@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E11ACAC1B5D8E3000CB4A35 /* CharityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */; };
+		5E11ACAF1B5D914E00CB4A35 /* InitialNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11ACAE1B5D914E00CB4A35 /* InitialNewsViewController.m */; };
 		5E6B042C1B443CB300AAA2FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B042B1B443CB300AAA2FE /* main.m */; };
 		5E6B042F1B443CB300AAA2FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B042E1B443CB300AAA2FE /* AppDelegate.m */; };
 		5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04391B443CB300AAA2FE /* Images.xcassets */; };
@@ -25,7 +27,6 @@
 		5E8CB93A1B59782F008DCA9D /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9301B59782F008DCA9D /* NSDate+InternetDateTime.m */; };
 		5E8CB93B1B59782F008DCA9D /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9321B59782F008DCA9D /* NSString+HTML.m */; };
 		5E8CB93C1B59782F008DCA9D /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9341B59782F008DCA9D /* NSString+XMLEntities.m */; };
-		5E8CB9441B5978E0008DCA9D /* Charity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9431B5978E0008DCA9D /* Charity.m */; };
 		5EA13ACA1B59D5F00098CD64 /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13AC91B59D5F00098CD64 /* NewsDetailViewController.m */; };
 		5EA13ACD1B59D6EC0098CD64 /* NewsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13ACC1B59D6EC0098CD64 /* NewsListViewController.m */; };
 		5EA13AD01B59DAE00098CD64 /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA13ACF1B59DAE00098CD64 /* NewsListCell.m */; };
@@ -57,6 +58,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E11ACAA1B5D8E3000CB4A35 /* CharityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityViewController.h; sourceTree = "<group>"; };
+		5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityViewController.m; sourceTree = "<group>"; };
+		5E11ACAD1B5D914E00CB4A35 /* InitialNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialNewsViewController.h; sourceTree = "<group>"; };
+		5E11ACAE1B5D914E00CB4A35 /* InitialNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialNewsViewController.m; sourceTree = "<group>"; };
 		5E6B04261B443CB300AAA2FE /* Charity Search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Charity Search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6B042A1B443CB300AAA2FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6B042B1B443CB300AAA2FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -92,8 +97,6 @@
 		5E8CB9321B59782F008DCA9D /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		5E8CB9331B59782F008DCA9D /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XMLEntities.h"; sourceTree = "<group>"; };
 		5E8CB9341B59782F008DCA9D /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
-		5E8CB9421B5978E0008DCA9D /* Charity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Charity.h; sourceTree = "<group>"; };
-		5E8CB9431B5978E0008DCA9D /* Charity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Charity.m; sourceTree = "<group>"; };
 		5E8CB9451B599F85008DCA9D /* Key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
 		5EA13AC81B59D5F00098CD64 /* NewsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
 		5EA13AC91B59D5F00098CD64 /* NewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
@@ -296,6 +299,8 @@
 		5E8CB93E1B597892008DCA9D /* News Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				5E11ACAD1B5D914E00CB4A35 /* InitialNewsViewController.h */,
+				5E11ACAE1B5D914E00CB4A35 /* InitialNewsViewController.m */,
 				5EA13AD71B5B03BC0098CD64 /* UIColor+ListCellColor.h */,
 				5EA13AD81B5B03BC0098CD64 /* UIColor+ListCellColor.m */,
 				5EA13AD11B59E5830098CD64 /* NewsMainViewController.h */,
@@ -308,8 +313,6 @@
 				5EA13ACF1B59DAE00098CD64 /* NewsListCell.m */,
 				5E6B04581B44559500AAA2FE /* CustomCell.h */,
 				5E6B04591B44559500AAA2FE /* CustomCell.m */,
-				5E8CB9421B5978E0008DCA9D /* Charity.h */,
-				5E8CB9431B5978E0008DCA9D /* Charity.m */,
 			);
 			name = "News Viewer";
 			sourceTree = "<group>";
@@ -326,6 +329,8 @@
 				5EA13AE01B5B239F0098CD64 /* MenuDelegate.h */,
 				5EA13AE31B5B239F0098CD64 /* TapReceiverViewController.h */,
 				5EA13AE41B5B239F0098CD64 /* TapReceiverViewController.m */,
+				5E11ACAA1B5D8E3000CB4A35 /* CharityViewController.h */,
+				5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */,
 			);
 			name = "Charity Button";
 			sourceTree = "<group>";
@@ -422,8 +427,8 @@
 				5EA13AE91B5B239F0098CD64 /* TapReceiverViewController.m in Sources */,
 				5E8CB9361B59782F008DCA9D /* MWFeedInfo.m in Sources */,
 				5EA13AD91B5B03BC0098CD64 /* UIColor+ListCellColor.m in Sources */,
+				5E11ACAC1B5D8E3000CB4A35 /* CharityViewController.m in Sources */,
 				5E8CB9371B59782F008DCA9D /* MWFeedItem.m in Sources */,
-				5E8CB9441B5978E0008DCA9D /* Charity.m in Sources */,
 				5EDC94B51B543DCF007C0EE8 /* User.m in Sources */,
 				5EA13ACD1B59D6EC0098CD64 /* NewsListViewController.m in Sources */,
 				5EA13AD31B59E5830098CD64 /* NewsMainViewController.m in Sources */,
@@ -431,6 +436,7 @@
 				5E8CB9351B59782F008DCA9D /* GTMNSString+HTML.m in Sources */,
 				5E6B042C1B443CB300AAA2FE /* main.m in Sources */,
 				5EA13AE51B5B239F0098CD64 /* UIColor+ButtonColor.m in Sources */,
+				5E11ACAF1B5D914E00CB4A35 /* InitialNewsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

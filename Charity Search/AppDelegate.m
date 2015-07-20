@@ -9,7 +9,11 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "Key.h"
-
+#import "HomeViewController.h"
+#import "ProfileViewController.h"
+#import "NewsMainViewController.h"
+#import "CharityViewController.h"
+#import "LoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -31,6 +35,33 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    
+    HomeViewController *homeController = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Home"];
+    ProfileViewController *profileController = (ProfileViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Profile"];
+    CharityViewController *charityController = (CharityViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Charities"];
+    NewsMainViewController *categoriesController = (NewsMainViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Categories"];
+
+    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeController];
+    UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profileController];
+    UINavigationController *charityNav = [[UINavigationController alloc] initWithRootViewController:charityController];
+    UINavigationController *categoriesNav = [[UINavigationController alloc] initWithRootViewController:categoriesController];
+    
+    homeController.tabBarItem.title = @"Home";
+    profileController.tabBarItem.title = @"Profile";
+    categoriesController.tabBarItem.title = @"Categories";
+    charityController.tabBarItem.title = @"Popular Charities";
+    
+    NSArray* allControllers = [NSArray arrayWithObjects: homeNav, categoriesNav, charityNav, profileNav, nil];
+    tabBarController.viewControllers = allControllers;
+
+    //Add the tab bar controller to the window
+    [self.window setRootViewController:tabBarController];
     
     return YES;
 }
