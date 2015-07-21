@@ -9,6 +9,11 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "Key.h"
+#import "HomeViewController.h"
+#import "ProfileViewController.h"
+#import "NewsMainViewController.h"
+#import "CharityViewController.h"
+#import "LoginViewController.h"
 #import "CharityData.h"
 
 

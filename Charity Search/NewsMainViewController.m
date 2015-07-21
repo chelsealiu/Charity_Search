@@ -33,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tabBarItem.title = @"Home";
+    
     //CNN RSS Feeds
     NSURL *CNNTopStoriesFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_topstories.rss"];
     NSURL *CNNWorldFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_world.rss"];

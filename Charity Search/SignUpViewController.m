@@ -35,6 +35,7 @@
 
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
 }
 
 
@@ -72,6 +73,7 @@
     newUser.email = self.emailTextfield.text;
     newUser.username = self.usernameTextfield.text;
     newUser.password = self.passwordTextfield.text;
+    newUser.favouritesArray = [NSMutableArray array];
     
     NSData* data = UIImageJPEGRepresentation(self.imageView.image, 0.5f);
     newUser.imageFile = [PFFile fileWithName:@"Image.jpg" data:data];

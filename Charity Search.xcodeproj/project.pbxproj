@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E11ACAC1B5D8E3000CB4A35 /* CharityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */; };
+		5E11ACAF1B5D914E00CB4A35 /* InitialNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11ACAE1B5D914E00CB4A35 /* InitialNewsViewController.m */; };
 		5E6B042C1B443CB300AAA2FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B042B1B443CB300AAA2FE /* main.m */; };
 		5E6B042F1B443CB300AAA2FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B042E1B443CB300AAA2FE /* AppDelegate.m */; };
 		5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04391B443CB300AAA2FE /* Images.xcassets */; };
@@ -59,6 +61,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E11ACAA1B5D8E3000CB4A35 /* CharityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityViewController.h; sourceTree = "<group>"; };
+		5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityViewController.m; sourceTree = "<group>"; };
+		5E11ACAD1B5D914E00CB4A35 /* InitialNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialNewsViewController.h; sourceTree = "<group>"; };
+		5E11ACAE1B5D914E00CB4A35 /* InitialNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialNewsViewController.m; sourceTree = "<group>"; };
 		5E6B04261B443CB300AAA2FE /* Charity Search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Charity Search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6B042A1B443CB300AAA2FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6B042B1B443CB300AAA2FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -333,6 +339,8 @@
 				5EA13AE01B5B239F0098CD64 /* MenuDelegate.h */,
 				5EA13AE31B5B239F0098CD64 /* TapReceiverViewController.h */,
 				5EA13AE41B5B239F0098CD64 /* TapReceiverViewController.m */,
+				5E11ACAA1B5D8E3000CB4A35 /* CharityViewController.h */,
+				5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */,
 			);
 			name = "Charity Button";
 			sourceTree = "<group>";
@@ -442,6 +450,7 @@
 				5E8CB9361B59782F008DCA9D /* MWFeedInfo.m in Sources */,
 				FABC0F401B5D50390025C851 /* CharityData.m in Sources */,
 				5EA13AD91B5B03BC0098CD64 /* UIColor+ListCellColor.m in Sources */,
+				5E11ACAC1B5D8E3000CB4A35 /* CharityViewController.m in Sources */,
 				5E8CB9371B59782F008DCA9D /* MWFeedItem.m in Sources */,
 				5EDC94B51B543DCF007C0EE8 /* User.m in Sources */,
 				5EA13ACD1B59D6EC0098CD64 /* NewsListViewController.m in Sources */,
@@ -451,6 +460,7 @@
 				5E8CB9351B59782F008DCA9D /* GTMNSString+HTML.m in Sources */,
 				5E6B042C1B443CB300AAA2FE /* main.m in Sources */,
 				5EA13AE51B5B239F0098CD64 /* UIColor+ButtonColor.m in Sources */,
+				5E11ACAF1B5D914E00CB4A35 /* InitialNewsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

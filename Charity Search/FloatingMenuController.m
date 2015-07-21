@@ -57,6 +57,7 @@
 
 -(void) dismissViewController {
     [self dismissViewControllerAnimated:YES completion:nil];
+    
     [_delegate cancelPressed];
 }
 

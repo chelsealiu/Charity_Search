@@ -13,6 +13,7 @@
 #import "ProfileViewController.h"
 #import "HomeViewController.h"
 #import "Key.h"
+#import "AppDelegate.h"
 
 
 @interface LoginViewController ()
@@ -36,6 +37,8 @@
     
     self.navigationItem.hidesBackButton = YES;
     [self.navigationController setToolbarHidden:YES];
+
+
     
 }
 

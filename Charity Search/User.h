@@ -12,7 +12,6 @@
 
 @interface User : PFUser <PFSubclassing>
 
-
 @property (nonatomic, strong) UIImage *userImage;
 @property (nonatomic, strong) PFFile *imageFile;
 @property (nonatomic, strong) NSMutableArray *favouritesArray;
