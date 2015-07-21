@@ -58,7 +58,10 @@
 }
 
 +(void)getCharityObjects {
-    NSString *charityString = [NSString stringWithFormat:@"https://app.place2give.com/Service.svc/give-api?action=searchCharities&token=%@&format=json&PageNumber=1&NumPerPage=100&CharitySize=VERY%%20LARGE", CHARITY_KEY];
+    for (int i = 2; i < 11; i++) {
+        
+    
+    NSString *charityString = [NSString stringWithFormat:@"https://app.place2give.com/Service.svc/give-api?action=searchCharities&token=%@&format=json&PageNumber=%d&NumPerPage=100&CharitySize=VERY%%20LARGE", CHARITY_KEY, i];
     NSURL *charityURL = [NSURL URLWithString:charityString];
    // NSLog(@"%@", charityURL);
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:charityURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -74,6 +77,7 @@
         }
     }];
     [task resume];
+    }
 }
 
 

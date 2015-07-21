@@ -309,8 +309,8 @@
 		5E8CB93E1B597892008DCA9D /* News Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				FAD7B9251B5D9C50002919E5 /* NewsItem.h */,
-				FAD7B9261B5D9C50002919E5 /* NewsItem.m */,
+FAD7B9251B5D9C50002919E5 /* NewsItem.h */,
+FAD7B9261B5D9C50002919E5 /* NewsItem.m */,
 				5EA13AD71B5B03BC0098CD64 /* UIColor+ListCellColor.h */,
 				5EA13AD81B5B03BC0098CD64 /* UIColor+ListCellColor.m */,
 				5EA13AD11B59E5830098CD64 /* NewsMainViewController.h */,
