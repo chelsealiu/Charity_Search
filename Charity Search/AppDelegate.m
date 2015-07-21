@@ -37,9 +37,7 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
-    
-    
+
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
@@ -66,7 +64,7 @@
     //Add the tab bar controller to the window
     [CharityData getCharityObjects];
     [self.window setRootViewController:tabBarController];
-    
+ 
     return YES;
 }
 

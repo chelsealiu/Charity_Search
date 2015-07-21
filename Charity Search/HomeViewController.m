@@ -11,11 +11,10 @@
 #import "User.h"
 #import "LoginViewController.h"
 #import "Key.h"
+#import "NewsListViewController.h"
 
 
 @interface HomeViewController ()
-
-@property (nonatomic) BOOL loginStatus;
 
 @end
 
@@ -23,18 +22,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar
-     setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    self.navigationController.navigationBar.translucent = NO;
+
     
-    self.tabBarItem.title = @"Home";
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"skipToNews"]) {
+        [[segue destinationViewController] setDetailItem: [NSURL URLWithString: @"http://rss.cbc.ca/lineup/topstories.xml"]];
+    }
+    
+    
 }
 
 

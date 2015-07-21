@@ -14,7 +14,8 @@
 
 @property (nonatomic, strong) UIImage *userImage;
 @property (nonatomic, strong) PFFile *imageFile;
-@property (nonatomic, strong) NSMutableArray *favouritesArray;
+@property (nonatomic, strong) NSMutableArray *savedArticlesArray;
+@property (nonatomic, strong) NSMutableArray *savedCharitiesArray;
 
 
 @end

@@ -42,11 +42,6 @@
     
 }
 
-- (IBAction)cancelAction:(id)sender {
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
 - (IBAction)submitLoginInfo:(id)sender {
     [User logInWithUsernameInBackground:self.usernameLoginTextfield.text password:self.passwordLoginTextfield.text block:^(PFUser *user, NSError *error) {
         
@@ -66,7 +61,7 @@
         }
         
         [self performSegueWithIdentifier:@"showProfile" sender:self];
-        
+//
     }];
 
 }

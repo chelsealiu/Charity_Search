@@ -19,10 +19,9 @@
 
 @property (nonatomic, strong) User *profileUser;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *userTypeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (weak, nonatomic) IBOutlet UISegmentedControl *saveDataTypeSegment;
 
 @end
 
@@ -46,7 +45,7 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.tableView.delegate = self;
-    
+    self.view.backgroundColor =[UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1]; 
     [self updateFavouritesArray];
 }
 
@@ -65,7 +64,10 @@
 
 - (IBAction)logoutAction:(id)sender {
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    HomeViewController *homeVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Home"];
+    [self.navigationController pushViewController:homeVC animated:YES];
+    
+
     [User logOutInBackground];
     
 }
@@ -75,13 +77,19 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavouriteCell" forIndexPath:indexPath];
     User *currentUser = [User currentUser];
-    MWFeedItem *feedItem= currentUser.favouritesArray[indexPath.row];
+    MWFeedItem *feedItem = [[MWFeedItem alloc] init];
+    
+    if (self.saveDataTypeSegment.selected == 0) {
+       feedItem= currentUser.savedArticlesArray[indexPath.row];
+    } else {
+        feedItem= currentUser.savedCharitiesArray[indexPath.row];
+    }
+    //don't repeat code?
     cell.textLabel.text = feedItem.title;
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     
 }
      
@@ -94,7 +102,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     User *currentUser = [User currentUser];
-    return [currentUser.favouritesArray count]; //change to number of movies favourited
+    if (self.saveDataTypeSegment.selected == 0) {
+        return [currentUser.savedArticlesArray count];
+    } else {
+        return [currentUser.savedCharitiesArray count];
+    }
     
 }
 
@@ -107,9 +119,13 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     User *currentUser = [User currentUser];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [currentUser.favouritesArray removeObjectAtIndex:indexPath.row];
+        if (self.saveDataTypeSegment.selected == 0) {
+            [currentUser.savedArticlesArray removeObjectAtIndex:indexPath.row];
+        } else {
+            [currentUser.savedCharitiesArray removeObjectAtIndex:indexPath.row];
+        }
         [tableView reloadData];
-}
+    }
 }
 
 

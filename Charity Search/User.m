@@ -12,7 +12,8 @@
 
 @dynamic userImage;
 @dynamic imageFile;
-@dynamic favouritesArray;
+@dynamic savedArticlesArray;
+@dynamic savedCharitiesArray;
 
 
 +(void)load {
