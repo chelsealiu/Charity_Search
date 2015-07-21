@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FloatingButton.h"
 #import "MenuDelegate.h"
+#import "NewsItem.h"
 
 typedef enum {
     up,
@@ -26,6 +27,8 @@ typedef enum {
 @property (nonatomic) CGFloat buttonPadding;
 @property (nonatomic, strong) NSArray *buttonItems;
 @property (nonatomic, strong) id<MenuDelegate> delegate;
+
+@property (nonatomic, strong) NewsItem *newsItem;
 
 -(id)initWithView:(UIView *)view;
 

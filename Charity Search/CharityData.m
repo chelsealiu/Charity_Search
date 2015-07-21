@@ -26,7 +26,6 @@
             
             [query getFirstObjectInBackgroundWithBlock:^(PFObject *object,  NSError *error){
                 if (object) {
-                //    NSLog(@"Object %@ exists already!", object);
                     Charity *charity = (Charity *)object;
                     if ([charity.keywords count] < 1) {
                 
@@ -68,7 +67,7 @@
         NSDictionary *resultsDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
         
         if(!resultsDict) {
-            NSLog(@"there was an error! %@", error);
+            NSLog(@"there was an error getting the Charity objects! %@", error);
         } else {
             NSArray *charityArray = [[[[resultsDict objectForKey:@"give-api"] objectForKey:@"data"]objectForKey:@"charities"] objectForKey:@"charity"];
             [self loadCharitiesFromArray:charityArray];
@@ -91,7 +90,7 @@
         NSArray *keywordsArray = [resultsDict objectForKey:@"keywords"];
         
         if(!resultsDict || !keywordsArray) {
-            NSLog(@"there was an error! %@", error);
+            NSLog(@"there was an error getting keywords! %@", error);
         } else {
             NSMutableArray *charityTemp = [NSMutableArray array];
             for(NSDictionary *keywordDict in keywordsArray) {

@@ -32,8 +32,8 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    [CharityData getCharityObjects];
-    //[CharityData getCharityKeywordsForCharity];
+    //[CharityData getCharityObjects];
+   
     return YES;
 }
 

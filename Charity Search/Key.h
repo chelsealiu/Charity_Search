@@ -16,6 +16,6 @@ static const NSString* API_APP_SECRET = @"ce6b55b8-ace5-4579-84e7-1c6d9f7c3040";
 
 static const NSString *CHARITY_KEY = @"29bdccc4-f8f3-4302-8e46-0f093387ccf0";
 
-
+static const NSString *ALCHEMY_KEY = @"ecca512f13434ef2b41ec854624eeb722cb872de";
 #endif
 
