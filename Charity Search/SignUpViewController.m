@@ -69,11 +69,12 @@
 - (IBAction)saveUserInfo:(id)sender {
     
     User *newUser = [User object]; //returns instance of class
-    newUser.favouritesArray = [NSMutableArray array];
+    newUser.savedArticlesArray = [NSMutableArray array];
+    newUser.savedCharitiesArray = [NSMutableArray array];
     newUser.email = self.emailTextfield.text;
     newUser.username = self.usernameTextfield.text;
     newUser.password = self.passwordTextfield.text;
-    newUser.favouritesArray = [NSMutableArray array];
+    newUser.savedArticlesArray = [NSMutableArray array];
     
     NSData* data = UIImageJPEGRepresentation(self.imageView.image, 0.5f);
     newUser.imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
@@ -115,7 +116,8 @@
 
 - (IBAction)cancelSignUp:(id)sender {
     NSLog(@"action cancelled");
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
 }
 
 

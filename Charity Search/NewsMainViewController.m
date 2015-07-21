@@ -34,6 +34,7 @@
     [super viewDidLoad];
     
     self.tabBarItem.title = @"Home";
+    self.collectionView.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     
     //CNN RSS Feeds
     NSURL *CNNTopStoriesFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_topstories.rss"];

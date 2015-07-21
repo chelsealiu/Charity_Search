@@ -33,7 +33,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.savedView setAlpha:0.0f];
-  
 }
 
 
@@ -42,12 +41,13 @@
     [super viewDidLoad];
     NSString *fullURL = self.detailFeedItem.link;
     self.hideButton.titleLabel.text = @"Hide";
-
+    
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
     self.charitiesButton.layer.masksToBounds = YES;
     self.charitiesButton.layer.cornerRadius = 8;
+    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     
     CABasicAnimation *theAnimation;
     theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
@@ -89,12 +89,12 @@
     
     User *currentUser = [User currentUser];
     
-    if (![currentUser.favouritesArray containsObject:self.detailFeedItem]) {
-        [currentUser.favouritesArray addObject:self.detailFeedItem];
+    if (![currentUser.savedArticlesArray containsObject:self.detailFeedItem]) {
+        [currentUser.savedArticlesArray addObject:self.detailFeedItem];
         sender.tintColor = [UIColor redColor];
         self.savedView.text = @"Saved";
     } else {
-        [currentUser.favouritesArray removeObject:self.detailFeedItem];
+        [currentUser.savedArticlesArray removeObject:self.detailFeedItem];
         sender.tintColor = nil;
         self.savedView.text = @"Removed";
         

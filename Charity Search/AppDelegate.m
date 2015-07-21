@@ -38,7 +38,7 @@
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    
+//    [CharityData getCharityObjects];
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     

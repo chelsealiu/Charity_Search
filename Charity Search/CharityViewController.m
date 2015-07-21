@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBarItem.title = @"Popular Charities";
+    self.view.backgroundColor =[UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
 }
 
 - (void)didReceiveMemoryWarning {
