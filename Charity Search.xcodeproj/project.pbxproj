@@ -62,6 +62,7 @@
 		5EDC94D41B55AA46007C0EE8 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDC94D31B55AA46007C0EE8 /* heart.png */; };
 		FABC0F3D1B5D4DF70025C851 /* Charity.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3C1B5D4DF70025C851 /* Charity.m */; };
 		FABC0F401B5D50390025C851 /* CharityData.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3F1B5D50390025C851 /* CharityData.m */; };
+		FAD7B9271B5D9C50002919E5 /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD7B9261B5D9C50002919E5 /* NewsItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -160,6 +161,8 @@
 		FABC0F3C1B5D4DF70025C851 /* Charity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Charity.m; path = ../Charity.m; sourceTree = "<group>"; };
 		FABC0F3E1B5D50390025C851 /* CharityData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityData.h; sourceTree = "<group>"; };
 		FABC0F3F1B5D50390025C851 /* CharityData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityData.m; sourceTree = "<group>"; };
+		FAD7B9251B5D9C50002919E5 /* NewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsItem.h; path = ../NewsItem.h; sourceTree = "<group>"; };
+		FAD7B9261B5D9C50002919E5 /* NewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsItem.m; path = ../NewsItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,10 +228,7 @@
 				5E6B042D1B443CB300AAA2FE /* AppDelegate.h */,
 				5E6B042E1B443CB300AAA2FE /* AppDelegate.m */,
 				5E8CB9451B599F85008DCA9D /* Key.h */,
-				FABC0F3B1B5D4DF60025C851 /* Charity.h */,
-				FABC0F3C1B5D4DF70025C851 /* Charity.m */,
-				FABC0F3E1B5D50390025C851 /* CharityData.h */,
-				FABC0F3F1B5D50390025C851 /* CharityData.m */,
+				FAD7B9281B5D9C67002919E5 /* Charity */,
 				5E8CB93D1B597836008DCA9D /* RSSParser */,
 				5E8CB91E1B596A69008DCA9D /* Login Flow */,
 				5EA13AEA1B5B23A80098CD64 /* Charity Button */,
@@ -324,8 +324,8 @@
 		5E8CB93E1B597892008DCA9D /* News Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				5E11ACAD1B5D914E00CB4A35 /* InitialNewsViewController.h */,
-				5E11ACAE1B5D914E00CB4A35 /* InitialNewsViewController.m */,
+				FAD7B9251B5D9C50002919E5 /* NewsItem.h */,
+				FAD7B9261B5D9C50002919E5 /* NewsItem.m */,
 				5EA13AD71B5B03BC0098CD64 /* UIColor+ListCellColor.h */,
 				5EA13AD81B5B03BC0098CD64 /* UIColor+ListCellColor.m */,
 				5EA13AD11B59E5830098CD64 /* NewsMainViewController.h */,
@@ -358,6 +358,17 @@
 				5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */,
 			);
 			name = "Charity Button";
+			sourceTree = "<group>";
+		};
+		FAD7B9281B5D9C67002919E5 /* Charity */ = {
+			isa = PBXGroup;
+			children = (
+				FABC0F3B1B5D4DF60025C851 /* Charity.h */,
+				FABC0F3C1B5D4DF70025C851 /* Charity.m */,
+				FABC0F3E1B5D50390025C851 /* CharityData.h */,
+				FABC0F3F1B5D50390025C851 /* CharityData.m */,
+			);
+			name = Charity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -441,6 +452,7 @@
 				5E8CB93C1B59782F008DCA9D /* NSString+XMLEntities.m in Sources */,
 				5EA13AE61B5B239F0098CD64 /* FloatingButton.m in Sources */,
 				5EA13AD01B59DAE00098CD64 /* NewsListCell.m in Sources */,
+				FAD7B9271B5D9C50002919E5 /* NewsItem.m in Sources */,
 				5EDC94CC1B548C5A007C0EE8 /* LoginViewController.m in Sources */,
 				5E6B042F1B443CB300AAA2FE /* AppDelegate.m in Sources */,
 				5EA13AE71B5B239F0098CD64 /* FloatingMenuController.m in Sources */,

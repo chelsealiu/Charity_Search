@@ -121,6 +121,8 @@
     FloatingMenuController *menuController = [[FloatingMenuController alloc] initWithView:sender];
     menuController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     menuController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    menuController.newsItem = [[NewsItem alloc] init];
+    menuController.newsItem.newsURL = self.detailFeedItem.link;
     [self presentViewController:menuController animated:YES completion:nil];
 //    self.hideButton.titleLabel.text = @"Show";
     
