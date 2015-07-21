@@ -231,7 +231,7 @@
         <!--Home-->
         <scene sceneID="7eu-Oh-0w7">
             <objects>
-                <viewController storyboardIdentifier="Home" title="Home" id="QYl-nE-j0z" customClass="InitialNewsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" title="Home" id="QYl-nE-j0z" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5vE-aR-6V6"/>
                         <viewControllerLayoutGuide type="bottom" id="GYn-lE-tO3"/>
@@ -306,9 +306,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Fwn-E2-Jtl"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="goToNewsButton" destination="3CK-Q0-5oj" id="E8A-UV-idS"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W4z-De-MXV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -959,6 +956,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Dtv-WE-y4k"/>
+        <segue reference="UtF-dD-5AR"/>
     </inferredMetricsTieBreakers>
 </document>
