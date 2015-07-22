@@ -62,7 +62,7 @@
     tabBarController.viewControllers = allControllers;
 
     //Add the tab bar controller to the window
-    [CharityData getCharityObjects];
+   // [CharityData getCharityObjects];
     [self.window setRootViewController:tabBarController];
  
     return YES;

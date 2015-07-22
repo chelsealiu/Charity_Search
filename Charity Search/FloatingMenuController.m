@@ -78,7 +78,7 @@
         [self.view addSubview:charityButton];
         [charityButton addTarget:self action:@selector(iconButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 100, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 100, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 200, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
         NSDictionary *charity = [self.newsItem.charityRankings objectAtIndex:idx];
         
         label.text = [charity objectForKey:@"CharityName"];
@@ -169,13 +169,14 @@
         NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
         [newsKeywords intersectSet:charityKeywords];
         NSArray *matches = [newsKeywords allObjects];
-        float rank = (float)[matches count]/((float)[charityKeywords count]*(float)[newsKeywords count]);
+        float rank = (float)[matches count];
+        ///((float)[charityKeywords count]*(float)[newsKeywords count]);
         if(rank != rank) {
             rank = 0;
         }
         NSNumber *rankAsNSNumber = [NSNumber numberWithFloat:rank];
         if(rank != 0) {
-            NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity.name, rankAsNSNumber] forKeys:@[@"CharityName", @"Rank"]];
+            NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity.name, rankAsNSNumber, matches] forKeys:@[@"CharityName", @"Rank", @"Matches"]];
             [tempRankings addObject:charityDictionary];
         }
     }
