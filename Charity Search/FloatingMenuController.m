@@ -17,7 +17,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    [self configureButtons];
+   // [self configureButtons];
     
 }
 
@@ -28,11 +28,15 @@
         _fromView = view;
         _buttonDirection = up; //default direction
         _buttonItems = @[[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"]];
+        
+        
         _buttonPadding = 80;
     }
     
     return self;
 }
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,13 +74,22 @@
     
     [self.buttonItems enumerateObjectsUsingBlock:^(UIImage* image, NSUInteger idx, BOOL *stop) {
 
-        FloatingButton *personButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:image andBackgroundColor:nil];
-        [self.view addSubview:personButton];
-        [personButton addTarget:self action:@selector(iconButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        FloatingButton *charityButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:image andBackgroundColor:nil];
+        [self.view addSubview:charityButton];
+        [charityButton addTarget:self action:@selector(iconButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 100, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 100, 30)];
+        NSDictionary *charity = [self.newsItem.charityRankings objectAtIndex:idx];
+        
+        label.text = [charity objectForKey:@"CharityName"];
+        label.numberOfLines = 0;
+        [label sizeToFit];
+        [self.view addSubview:label];
+    
     }];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -107,8 +120,6 @@
             newsItem.keywords = newsTemp;
             NSLog(@"newsSet: %@", newsItem.keywords);
         }
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSMutableArray *allObjects = [[NSMutableArray alloc] init];
             [self rankMatches:0 :allObjects];
@@ -138,8 +149,6 @@
         if (objects.count == limit) {
             // There might be more objects in the table. Update the skip value and execute the query again.
             [self rankMatches:(skipValue += limit) :blockObjects];
-            //[query findObjects];
-          //  [allObjects addObjectsFromArray:objects];
             NSLog(@"%lu", limit);
         }
         
@@ -155,6 +164,7 @@
     NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
 
     for (Charity *charity in allObjects) {
+        //make description into array, then add the objects
         NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
         NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
         [newsKeywords intersectSet:charityKeywords];
@@ -169,10 +179,20 @@
             [tempRankings addObject:charityDictionary];
         }
     }
-     self.newsItem.charityRankings = [tempRankings mutableCopy];
+    NSMutableArray *unsortedCharites = [tempRankings mutableCopy];
+    self.newsItem.charityRankings = [self sortCharitiesByRank:unsortedCharites];
     NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
     NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
+    NSDictionary *firstCharity = [self.newsItem.charityRankings firstObject];
+    self.charity1.text = [firstCharity objectForKey:@"CharityName"];
+    [self configureButtons];
+}
 
+-(NSMutableArray *)sortCharitiesByRank:(NSMutableArray *)charities {
+    NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Rank" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:rankDescriptor];
+    NSArray *sortedArray = [charities sortedArrayUsingDescriptors:sortDescriptors];
+    return [sortedArray mutableCopy];
 }
 
 @end

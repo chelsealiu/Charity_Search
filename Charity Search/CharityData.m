@@ -21,6 +21,7 @@
             
         }
         else {
+            //this is making duplicates for some reason
             PFQuery *query = [[PFQuery alloc]initWithClassName:[Charity parseClassName]];
             [query whereKey:@"charityID" equalTo:regNum];
             
@@ -82,6 +83,9 @@
 
 
 +(void)getCharityKeywordsForCharity:(Charity *)charity {
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfig.HTTPMaximumConnectionsPerHost= 1;
+    
    
     NSString *charityString = [NSString stringWithFormat:@"http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey=%@&outputMode=json&url=%@", ALCHEMY_KEY, charity.website];
     NSURL *charityURL = [NSURL URLWithString:charityString];
@@ -104,7 +108,6 @@
             NSLog(@"%@", charity.keywords);
             NSLog(@"charity set count: %lu", (unsigned long)[charity.keywords count]);
             [charity saveInBackground];
-            
         }
         
     }];
