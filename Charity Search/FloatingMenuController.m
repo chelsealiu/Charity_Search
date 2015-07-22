@@ -110,7 +110,8 @@
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self rankMatches];
+            NSMutableArray *allObjects = [[NSMutableArray alloc] init];
+            [self rankMatches:0 :allObjects];
         });
     }];
     [task resume];
@@ -118,32 +119,60 @@
 
 //compare the news and charity keywords and rank the matches
 
--(void)rankMatches {
+-(void)rankMatches:(NSUInteger)skip :(NSMutableArray *)allObjects {
     
-    NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
-    NSMutableArray *allObjects = [NSMutableArray array];
+  //  NSMutableArray *allObjects = [NSMutableArray array];
+    NSUInteger limit = 100;
+   // __block NSUInteger skip = 0;
+    __block NSUInteger skipValue = skip;
+    __block NSMutableArray *blockObjects = [allObjects mutableCopy];
+    //skip = 0;
     
     PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
+ 
+    [query setLimit:limit];
+    [query setSkip:skip];
     [query findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
-        [allObjects addObjectsFromArray:objects];
-        for (Charity *charity in allObjects) {
-            NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
-            NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
-            [newsKeywords intersectSet:charityKeywords];
-            NSArray *matches = [newsKeywords allObjects];
-            float rank = (float)[matches count]/((float)[charityKeywords count]*(float)[newsKeywords count]);
-            if(rank != rank) {
-                rank = 0;
-            }
-            NSNumber *rankAsNSNumber = [NSNumber numberWithFloat:rank];
-            if(rank != 0) {
+        [blockObjects addObjectsFromArray:objects];
+
+        if (objects.count == limit) {
+            // There might be more objects in the table. Update the skip value and execute the query again.
+            [self rankMatches:(skipValue += limit) :blockObjects];
+            //[query findObjects];
+          //  [allObjects addObjectsFromArray:objects];
+            NSLog(@"%lu", limit);
+        }
+        
+        else {
+         [self getCharityRankings:blockObjects];
+        }
+    
+    }];
+   
+}
+
+-(void)getCharityRankings:(NSMutableArray *)allObjects{
+    NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
+
+    for (Charity *charity in allObjects) {
+        NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
+        NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
+        [newsKeywords intersectSet:charityKeywords];
+        NSArray *matches = [newsKeywords allObjects];
+        float rank = (float)[matches count]/((float)[charityKeywords count]*(float)[newsKeywords count]);
+        if(rank != rank) {
+            rank = 0;
+        }
+        NSNumber *rankAsNSNumber = [NSNumber numberWithFloat:rank];
+        if(rank != 0) {
             NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity.name, rankAsNSNumber] forKeys:@[@"CharityName", @"Rank"]];
             [tempRankings addObject:charityDictionary];
-            }
         }
-        self.newsItem.charityRankings = [tempRankings mutableCopy];
-        NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
-    }];
+    }
+     self.newsItem.charityRankings = [tempRankings mutableCopy];
+    NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
+    NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
+
 }
 
 @end
