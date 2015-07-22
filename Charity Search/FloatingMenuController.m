@@ -69,8 +69,8 @@
 -(void)configureButtons {
     
     [self.buttonItems enumerateObjectsUsingBlock:^(UIImage* image, NSUInteger idx, BOOL *stop) {
-        
-        FloatingButton *personButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 70, 70) image:image andBackgroundColor:nil];
+
+        FloatingButton *personButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:image andBackgroundColor:nil];
         [self.view addSubview:personButton];
         [personButton addTarget:self action:@selector(iconButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         

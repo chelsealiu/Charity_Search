@@ -37,9 +37,7 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
-//    [CharityData getCharityObjects];
-    
+
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
@@ -71,6 +69,7 @@
     tabBarController.tabBar.tintColor = [UIColor whiteColor];
     
     //Add the tab bar controller to the window
+    [CharityData getCharityObjects];
     [self.window setRootViewController:tabBarController];
     
     
