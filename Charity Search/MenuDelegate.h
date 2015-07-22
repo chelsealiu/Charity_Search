@@ -15,7 +15,7 @@
 @optional
 
 -(void) cancelPressed;
--(void) somethingElsePressed;
+-(void) charityButtonPressed;
 
 @end
 

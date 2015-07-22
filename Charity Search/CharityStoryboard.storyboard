@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Charity Detail View Controller-->
+        <scene sceneID="mtI-Be-uCC">
+            <objects>
+                <viewController storyboardIdentifier="charityDetailViewController" modalPresentationStyle="currentContext" id="seg-CD-Z3x" customClass="CharityDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="69j-JT-Pan"/>
+                        <viewControllerLayoutGuide type="bottom" id="hQ1-f4-4mD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TUy-zQ-PQW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleAspectFit" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bie-p8-r1X">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hQ1-f4-4mD" firstAttribute="top" secondItem="Bie-p8-r1X" secondAttribute="bottom" id="AC6-wI-dNC"/>
+                            <constraint firstItem="Bie-p8-r1X" firstAttribute="leading" secondItem="TUy-zQ-PQW" secondAttribute="leading" id="BDf-tT-lrE"/>
+                            <constraint firstAttribute="trailing" secondItem="Bie-p8-r1X" secondAttribute="trailing" id="bbB-gE-gcq"/>
+                            <constraint firstItem="Bie-p8-r1X" firstAttribute="top" secondItem="TUy-zQ-PQW" secondAttribute="topMargin" id="kTR-j6-P9A"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="charityWebView" destination="Bie-p8-r1X" id="5tU-sB-iHn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="26j-r5-52G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="548" y="345"/>
+        </scene>
+    </scenes>
+</document>

@@ -43,7 +43,9 @@
     NSLog(@"cancel pressed");
 }
 
--(void) somethingElsePressed {
+-(void) charityButtonPressed {
+    
+    
     
     NSLog(@"something else pressed");
     
