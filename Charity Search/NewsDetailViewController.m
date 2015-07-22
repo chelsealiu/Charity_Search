@@ -11,13 +11,14 @@
 #import "FloatingButton.h"
 #import "FloatingMenuController.h"
 #import <Parse/Parse.h>
+#import "LoginViewController.h"
 
 @interface NewsDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *savedView;
 @property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
-@property (nonatomic) BOOL blinkStatus;
 @property (weak, nonatomic) IBOutlet UIButton *hideButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 
 @end
 
@@ -33,9 +34,19 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.savedView setAlpha:0.0f];
+    self.navigationController.navigationBarHidden = NO;
+
+    //sets colour of heart button before view loads
+    User *currentUser = [User currentUser];
+    
+    if (currentUser == nil) {
+        [self.heartButton setTintColor:[UIColor lightGrayColor]];
+    } else if ([currentUser.savedArticlesArray containsObject:self.detailFeedItem.title]) {
+        [self.heartButton setTintColor:[UIColor redColor]];
+    } else {
+        [self.heartButton setTintColor:nil];
+    }
 }
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,48 +70,66 @@
     [self.charitiesButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
     [self.hideButton setTitle:@"Hide" forState:UIControlStateNormal];
 
+    if (![User currentUser]) {
+        [self.navigationItem.rightBarButtonItem setTintColor:[UIColor lightGrayColor]];
+    }
+    
 }
 
 
 - (IBAction)articleFavourited:(UIBarButtonItem *)sender {
-
+    
+    User *currentUser = [User currentUser];
     
     //shows on view that article has been saved
     [self.savedView setAlpha:0.0f];
     [self.savedView.layer setCornerRadius:8.0];
+    
     self.savedView.layer.masksToBounds = YES;
     
     //fade in
-    [UIView animateWithDuration:1.0 animations:^{
-        
-        [self.savedView setAlpha:1.0f];
-        
-    } completion:^(BOOL finished) {
-        
-        //fade out
-        [UIView animateWithDuration:1.0f animations:^{
-            
-            [self.savedView setAlpha:0.0f];
-            
-        } completion:nil];
-        
-    }];
 
-    
-    User *currentUser = [User currentUser];
-    
-    if (![currentUser.savedArticlesArray containsObject:self.detailFeedItem]) {
-        [currentUser.savedArticlesArray addObject:self.detailFeedItem];
+    if (currentUser == nil) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"You must log in to save articles." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Login", nil];
+        
+        [alertView show];
+        
+        return;
+    }
+    else if (![currentUser.savedArticlesArray containsObject:self.detailFeedItem.title]) {
+        [currentUser.savedArticlesArray addObject:self.detailFeedItem.title];
         sender.tintColor = [UIColor redColor];
         self.savedView.text = @"Saved";
     } else {
-        [currentUser.savedArticlesArray removeObject:self.detailFeedItem];
+        [currentUser.savedArticlesArray removeObject:self.detailFeedItem.title];
         sender.tintColor = nil;
         self.savedView.text = @"Removed";
         
-    }
+    } //refactor
     
-//    [currentUser saveEventually]; //crash on this line
+    [UIView animateWithDuration:1.2 animations:^{
+        [self.savedView setAlpha:1.0f];
+        
+    } completion:^(BOOL finished) {
+        //fade out
+        [UIView animateWithDuration:1.0f animations:^{
+            [self.savedView setAlpha:0.0f];
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }];
+    
+    [currentUser saveInBackground]; //crash on this line?
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        LoginViewController *loginVC = (LoginViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"Login"];
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
 }
 
 - (IBAction)showOrHideCharitiesButton:(UIButton*)sender {
@@ -115,7 +144,6 @@
 }
 
 
-
 - (IBAction)showFloatingMenu:(UIButton*)sender {
     
     FloatingMenuController *menuController = [[FloatingMenuController alloc] initWithView:sender];
@@ -124,7 +152,6 @@
     menuController.newsItem = [[NewsItem alloc] init];
     menuController.newsItem.newsURL = self.detailFeedItem.link;
     [self presentViewController:menuController animated:YES completion:nil];
-//    self.hideButton.titleLabel.text = @"Show";
     
 }
 

@@ -9,11 +9,11 @@
 #import "NewsMainViewController.h"
 #import "NewsDetailViewController.h"
 #import "CustomCell.h"
-#import "MapViewController.h"
 #import "ProfileViewController.h"
 #import "SignUpViewController.h"
 #import "MWFeedParser.h"
 #import "Key.h"
+#import "NewsListViewController.h"
 
 @interface NewsMainViewController ()
 
@@ -21,6 +21,8 @@
 //@property NSArray *itemsToDisplay;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *newsTypeSegment;
+@property(strong, nonatomic) NSMutableArray *tempCitiesArray;
+@property (strong, nonatomic) NSMutableArray *tempProvinceArray;
 
 @end
 
@@ -30,27 +32,19 @@
     [super awakeFromNib];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    
+    self.navigationController.navigationBarHidden = YES;
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.newsTypeSegment.layer.masksToBounds = YES;
+    self.newsTypeSegment.layer.cornerRadius = 4;
     self.tabBarItem.title = @"Home";
     self.collectionView.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
-    
-    //CNN RSS Feeds
-    NSURL *CNNTopStoriesFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_topstories.rss"];
-    NSURL *CNNWorldFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_world.rss"];
-    NSURL *CNNHealthFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_health.rss"];
-    NSURL *CNNTechFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_tech.rss"];
-    NSURL *CNNLivingFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_living.rss"];
-    NSURL *CNNLatestFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/cnn_latest.rss"];
-    NSURL *CNNBusinessFeed = [NSURL URLWithString:@"http://rss.cnn.com/rss/money_latest.rss"];
-    
-    //BBC RSS Feeds
-    NSURL *BBCEducationFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/education/rss.xml"];
-    NSURL *BBCWorldFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml"];
-    NSURL *BBCScienceFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/sci/tech/rss.xml"];
-    NSURL *BBCTechFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml"];
-    NSURL *BBCBusinessFeed = [NSURL URLWithString:@"http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/business/rss.xml"];
+    self.view.backgroundColor = self.collectionView.backgroundColor;
     
     //CBC RSS Feeds
     NSURL *CBCTechFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/technology.xml"];
@@ -70,7 +64,6 @@
     NSURL *CBCTorontoFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-toronto.xml"];
     NSURL *CBCMontrealFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-montreal.xml"];
     NSURL *CBCNovaScotiaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-novascotia.xml"];
-    NSURL *CBCPEIFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-pei"];
     NSURL *CBCNewBrunswickFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-newbrunswick.xml"];
     NSURL *CBCNewfoundlandFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-newfoundland.xml"];
     NSURL *CBCEdmontonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-edmonton.xml"];
@@ -84,11 +77,32 @@
     NSURL *CBCKitchenerWaterlooFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-kitchenerwaterloo.xml"];
     NSURL *CBCHamiltonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-hamiltonnews.xml"];
     
+    NSDictionary *allNewsDict = @{@"Top Stories":CBCTopStoriesFeed, @"World":CBCWorldFeed, @"Health":CBCHealthFeed, @"Politics": @"http://rss.cbc.ca/lineup/politics.xml", @"Technology":CBCTechFeed, @"Offbeat":CBCOffbeatFeed, @"Business":CBCBusinessFeed, @"Entertainment":CBCArtsFeed, @"Politics":CBCPoliticsFeed, @"Aboriginal":CBCAboriginalFeed};
     
-    NSDictionary *allNewsDict = @{@"Top Stories":CBCTopStoriesFeed, @"World":CBCWorldFeed, @"Health":CBCHealthFeed, @"Politics": @"http://rss.cbc.ca/lineup/politics.xml", @"Technology":CBCTechFeed, @"Offbeat":CBCOffbeatFeed, @"Business":CBCBusinessFeed, @"Entertainment":CBCArtsFeed};
-    NSDictionary *localNewsDict = @{@"Canada":CBCCanadaFeed, @"Aboriginal":CBCAboriginalFeed, @"Toronto":CBCTorontoFeed, @"Ottawa":CBCOttawaFeed, @"Montreal":CBCMontrealFeed, @"British Columbia":CBCBritishColumbiaFeed, @"Nova Scotia":CBCNovaScotiaFeed, @"PEI":CBCPEIFeed, @"New Brunswick":CBCNewBrunswickFeed, @"NewfoundLand":CBCNewfoundlandFeed, @"Saskatchewan":CBCSaskatchewanFeed, @"Calgary":CBCCalgaryFeed};
+    NSDictionary *localNewsDict = @{@"Canada":CBCCanadaFeed, @"Toronto":CBCTorontoFeed, @"Ottawa":CBCOttawaFeed, @"Montreal":CBCMontrealFeed, @"British Columbia":CBCBritishColumbiaFeed, @"Nova Scotia":CBCNovaScotiaFeed, @"New Brunswick":CBCNewBrunswickFeed, @"NewfoundLand":CBCNewfoundlandFeed, @"Saskatchewan":CBCSaskatchewanFeed, @"Calgary, AB":CBCCalgaryFeed, @"Edmonton":CBCEdmontonFeed, @"Thunder Bay, ON": CBCThunderBayFeed, @"Kamloops, BC": CBCKamloopsFeed, @"Saskatoon, SK": CBCSaskatoonFeed, @"Windsor, ON":CBCWindsorFeed, @"Kitchener, ON": CBCKitchenerWaterlooFeed, @"Hamilton, ON":CBCHamiltonFeed, @"Sudbury, ON":CBCSudburyFeed};
     
     self.categoriesArray = @[allNewsDict, localNewsDict];
+    
+    [self separateFeedTypes:[localNewsDict allKeys]];
+    
+}
+
+
+- (void) separateFeedTypes: (NSArray*) localNewsArray {
+    
+    NSArray *tempArray = [[NSArray alloc] initWithArray:localNewsArray];
+    self.tempCitiesArray = [[NSMutableArray alloc] init];
+    self.tempProvinceArray = [[NSMutableArray alloc] init];
+    for (NSString *string in tempArray) {
+        NSRange range = [string rangeOfString:@","];
+        if (range.length != 0) { //is a city
+            [self.tempCitiesArray addObject:string];
+        } else {
+            [self.tempProvinceArray addObject:string];
+        }
+    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,10 +114,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(CustomCell*)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSURL *url = [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] objectForKey:sender.textLabel.text];
-        [[segue destinationViewController] setDetailItem: url];
+        [[segue destinationViewController] setDetailItem:url];
+        [[segue destinationViewController] setTitle:sender.textLabel.text];
     }
 }
-
 
 #pragma mark - Collection View
 
@@ -115,11 +129,22 @@
 //}
 
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    if (self.newsTypeSegment.selectedSegmentIndex == 0) {
+        return 1;
+    }
+    return 2;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-
+    
+    if (self.newsTypeSegment.selectedSegmentIndex == 1) {
+        if (section == 0) {
+            return self.tempProvinceArray.count;
+        } else if (section == 1) {
+            return self.tempCitiesArray.count;
+        }
+    }
+    
     return [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] count];
 }
 
@@ -128,20 +153,33 @@
     CustomCell *customCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NewsListCell" forIndexPath:indexPath];
     customCell.contentMode = UIViewContentModeScaleAspectFit;
     NSArray *tempArray = [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] allKeys];
-    customCell.textLabel.text = tempArray[indexPath.row];
+
+    if (self.newsTypeSegment.selectedSegmentIndex == 0) {
+
+        customCell.textLabel.text = tempArray[indexPath.row];
+        
+    } else if (self.newsTypeSegment.selectedSegmentIndex == 1) {
+        if (indexPath.section == 0) {
+            customCell.textLabel.text = self.tempProvinceArray[indexPath.row];
+        } else if (indexPath.section == 1) {
+            customCell.textLabel.text = self.tempCitiesArray[indexPath.row];
+            }
+
+    }
+    
     customCell.layer.masksToBounds = YES;
     customCell.layer.cornerRadius = customCell.frame.size.width/2;
-   
     
     return customCell;
-    
 }
+    
+    
+
 - (IBAction)changedSegment:(id)sender {
     
     [self.collectionView reloadData];
     
 }
-
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     
@@ -160,6 +198,54 @@
     return 5;
 }
 
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    
+    return CGSizeMake(self.view.frame.size.width, 65);
+}
+
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UICollectionReusableView *sectionHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
+    
+    UILabel *headerLabel1 = [[UILabel alloc] init];
+    UILabel *headerLabel2 = [[UILabel alloc] init];
+    
+    headerLabel1=[[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 45)];
+    headerLabel1.textColor = [UIColor colorWithRed:206.0/255 green:248.0/255 blue:249.0/255 alpha:1.0];
+    headerLabel1.backgroundColor = [UIColor darkGrayColor];
+    
+    headerLabel2=[[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 45)];
+    headerLabel2.textColor = [UIColor colorWithRed:206.0/255 green:248.0/255 blue:249.0/255 alpha:1.0];
+    headerLabel2.backgroundColor = [UIColor darkGrayColor];
+    
+    
+    
+    if (self.newsTypeSegment.selectedSegmentIndex == 1) {
+        
+        sectionHeader.hidden = NO;
+        
+        if (indexPath.section == 0) {
+            NSString *title1 = @" Province";
+            headerLabel1.text=title1;
+            [sectionHeader addSubview:headerLabel1];
+            
+        } else if (indexPath.section == 1) {
+            NSString *title2 = @" Cities";
+            headerLabel2.text=title2;
+            [sectionHeader addSubview:headerLabel2];
+        }
+        return sectionHeader;
+        
+    } else {
+        
+        sectionHeader.hidden = YES;
+    }
+    
+    return sectionHeader;
+}
 
 
 @end

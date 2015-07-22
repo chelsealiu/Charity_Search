@@ -14,7 +14,6 @@
 
 @interface NewsListViewController ()
 
-
 @property (strong, nonatomic) NSMutableArray *newsObjects;
 @property (strong, nonatomic) NSCache *imageCache;
 @property (strong, nonatomic) MWFeedItem *passedOnFeedItem;
@@ -32,12 +31,17 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
-    
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.tableView.separatorColor = [UIColor whiteColor];
     if (self.newsObjects.count!=0) {
         
         NSLog(@"early exit");
@@ -80,8 +84,11 @@
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
 //    NSLog(@"Parsed Feed Item: “%@”", item.title);
-    [self.newsObjects addObject:item];
-    [self.tableView reloadData];
+    
+    if (item!=nil) {
+        [self.newsObjects addObject:item];
+    }
+        [self.tableView reloadData];
     
 }
 
@@ -127,11 +134,17 @@
 
 - (NewsListCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListCell" forIndexPath:indexPath];
+    NewsListCell *cell;
+    
+    if (indexPath.row == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"LargeNewsCell" forIndexPath:indexPath];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListCell" forIndexPath:indexPath];
+    }
     
     if (self.newsObjects.count == 0) {
         
-        cell.articleDescription.text = nil;
+//        cell.articleDescription.text = nil;
         cell.articleTitle.text = nil;
         
         return cell;
@@ -139,7 +152,7 @@
     } else {
         
         MWFeedItem *feedItem = self.newsObjects[indexPath.row];
-
+        
         //TODO: Load images
         NSArray *imageUrls = [self imagesFromString:feedItem.summary];
         NSData *data = [NSData dataWithContentsOfURL:imageUrls[0]];
@@ -168,25 +181,27 @@
                     });
                 });
             }
-
+            
         }
         
         cell.articleDescription.text = [self descriptionFromString:feedItem.summary];
         cell.articleTitle.text = feedItem.title;
     }
     
-//    cell.task = task; //attach
-//    [task resume];
-//    
-    if (indexPath.row % 3 == 0) {
-        cell.backgroundColor = [UIColor yellowCellColour];
-    } else if (indexPath.row % 3 == 1) {
-        cell.backgroundColor = [UIColor redCellColour];
-    } else if (indexPath.row % 3 == 2) {
-        cell.backgroundColor = [UIColor blueCellColour];
+    //    cell.task = task; //attach
+    //    [task resume];
+    //
+    if (indexPath.row == 0) {
+        cell.backgroundColor = [UIColor blackColor];
+        cell.articleDescription.textColor = [UIColor whiteColor];
+        cell.articleTitle.textColor = [UIColor whiteColor];
     }
+//    else if (indexPath.row % 3 == 1) {
+//        cell.backgroundColor = [UIColor redCellColour];
+//    } else if (indexPath.row % 3 == 2) {
+//        cell.backgroundColor = [UIColor blueCellColour];
+//    }
     return cell;
-    
 }
 
 
@@ -224,6 +239,18 @@
                              [imageUrls addObject:[NSURL URLWithString:imgUrlString]];
                          }];
     return imageUrls;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
+        return 390;
+    }
+    return 90;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self performSegueWithIdentifier:@"showWebView" sender:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
 

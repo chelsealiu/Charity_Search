@@ -12,7 +12,6 @@
 
 @interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) Movies *favouritesItem;
 -(IBAction)unwindToProfile:(UIStoryboardSegue*)sender;
 
 

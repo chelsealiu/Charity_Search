@@ -50,7 +50,7 @@
 }
 
 -(void) updateFavouritesArray {
-    User *currentUser = [User currentUser];//implementing singleton method
+    User *currentUser = [User currentUser];
     
     self.usernameLabel.text = currentUser.username;
     [currentUser.imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -64,12 +64,27 @@
 
 - (IBAction)logoutAction:(id)sender {
     
-    HomeViewController *homeVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Home"];
-    [self.navigationController pushViewController:homeVC animated:YES];
-    
+    [User logOutInBackgroundWithBlock:^(NSError *error){
+        
+        if (!error) {
+            NSMutableArray *tempVCsArray = [self.tabBarController.viewControllers mutableCopy];
+            [tempVCsArray removeObject:[tempVCsArray lastObject]];
+            self.tabBarController.viewControllers = tempVCsArray;
+            [[self navigationController] popToRootViewControllerAnimated:YES];
 
-    [User logOutInBackground];
-    
+           //            NSArray *viewControllers=[[self navigationController] viewControllers];
+//            for( int i=0;i<[viewControllers count];i++)
+//            {
+//                id object =[viewControllers objectAtIndex:i];
+//                if([object isKindOfClass:[HomeViewController class]])
+//                {
+//                    
+//                     
+//                }
+            }
+        
+    }];
+  
 }
 
 
@@ -77,15 +92,15 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavouriteCell" forIndexPath:indexPath];
     User *currentUser = [User currentUser];
-    MWFeedItem *feedItem = [[MWFeedItem alloc] init];
+    NSString *feedItem = [[NSString alloc] init];
     
     if (self.saveDataTypeSegment.selected == 0) {
-       feedItem= currentUser.savedArticlesArray[indexPath.row];
+       feedItem = currentUser.savedArticlesArray[indexPath.row];
     } else {
-        feedItem= currentUser.savedCharitiesArray[indexPath.row];
+        feedItem = currentUser.savedCharitiesArray[indexPath.row];
     }
     //don't repeat code?
-    cell.textLabel.text = feedItem.title;
+    cell.textLabel.text = feedItem;
     return cell;
 }
 
@@ -128,9 +143,9 @@
     }
 }
 
-
--(IBAction)unwindToProfile:(UIStoryboardSegue*)sender {
-    //unwind segue
+- (IBAction)changedSegment:(UISegmentedControl*)sender {
+    NSLog(@"reload data");
+    [self.tableView reloadData];
 }
 
 

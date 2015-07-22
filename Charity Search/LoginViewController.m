@@ -58,14 +58,36 @@
                                                    otherButtonTitles: nil];
             [alert show];
             return;
-        }
         
-        [self performSegueWithIdentifier:@"showProfile" sender:self];
-//
+        }
+//        [self performSegueWithIdentifier:@"showProfile" sender:self];
+
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
+    
+    [self checkAuthentication];
+    
 
 }
 
+-(void) checkAuthentication {
+    
+    if ([User currentUser] != nil) {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        ProfileViewController *profileController = (ProfileViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Profile"];
+        UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profileController];
+        NSMutableArray *tempVCsArray = [self.tabBarController.viewControllers mutableCopy];
+        [tempVCsArray addObject:profileNav];
+        self.tabBarController.viewControllers = tempVCsArray;
+    }
+    
+}
+
+- (IBAction)cancelSignIn:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
 
 

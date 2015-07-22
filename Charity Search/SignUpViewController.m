@@ -107,7 +107,7 @@
                                                    otherButtonTitles: nil];
             [alert show];
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.presentingViewController.navigationController popToRootViewControllerAnimated:YES];
         }
     
     }];

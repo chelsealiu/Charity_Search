@@ -60,11 +60,20 @@
     categoriesController.tabBarItem.title = @"Categories";
     charityController.tabBarItem.title = @"Popular Charities";
     
-    NSArray* allControllers = [NSArray arrayWithObjects: homeNav, categoriesNav, charityNav, profileNav, nil];
+    NSMutableArray* allControllers = [NSMutableArray arrayWithObjects: homeNav, categoriesNav, charityNav, nil];
+    
+    if ([User currentUser] != nil) {
+        [allControllers addObject:profileNav];
+    }
+    
     tabBarController.viewControllers = allControllers;
-
+    tabBarController.tabBar.barTintColor = [UIColor blackColor];
+    tabBarController.tabBar.tintColor = [UIColor whiteColor];
+    
     //Add the tab bar controller to the window
     [self.window setRootViewController:tabBarController];
+    
+    
     
     return YES;
 }

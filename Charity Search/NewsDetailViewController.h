@@ -16,6 +16,5 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) MWFeedItem *detailFeedItem;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 
 @end
