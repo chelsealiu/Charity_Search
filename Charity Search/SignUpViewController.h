@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignUpViewController : UIViewController <UIImagePickerControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface SignUpViewController : UIViewController 
 
 //what's accessibility delegate for UIPickerView?
 

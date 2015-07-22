@@ -48,6 +48,24 @@
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    
+    CABasicAnimation *theAnimation;
+    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+    theAnimation.duration=1.2;
+    theAnimation.repeatCount=HUGE_VALF;
+    theAnimation.autoreverses=YES;
+    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+    theAnimation.toValue=[NSNumber numberWithFloat:0];
+    [self.charitiesButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
+    [self.hideButton setTitle:@"Hide" forState:UIControlStateNormal];
+    
+    if (![User currentUser]) {
+        [self.navigationItem.rightBarButtonItem setTintColor:[UIColor lightGrayColor]];
+    }
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *fullURL = self.detailFeedItem.link;
@@ -60,19 +78,6 @@
     self.charitiesButton.layer.cornerRadius = 8;
     self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     
-    CABasicAnimation *theAnimation;
-    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-    theAnimation.duration=1.2;
-    theAnimation.repeatCount=HUGE_VALF;
-    theAnimation.autoreverses=YES;
-    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-    theAnimation.toValue=[NSNumber numberWithFloat:0];
-    [self.charitiesButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
-    [self.hideButton setTitle:@"Hide" forState:UIControlStateNormal];
-
-    if (![User currentUser]) {
-        [self.navigationItem.rightBarButtonItem setTintColor:[UIColor lightGrayColor]];
-    }
     
 }
 

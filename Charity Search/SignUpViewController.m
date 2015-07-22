@@ -32,39 +32,40 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
     [self.navigationController setToolbarHidden:YES];
-
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//
+//    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+//    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
 }
 
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
-    self.imageView.image = [info valueForKey:UIImagePickerControllerEditedImage];
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-}
-
-- (IBAction)selectPhoto:(id)sender {
-    
-    //connects to + button on UIImageView
-    
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.allowsEditing = YES;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    [self.navigationController presentViewController:picker animated:YES completion:NULL];
-
-}
-
+//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+//    
+//    self.imageView.image = [info valueForKey:UIImagePickerControllerEditedImage];
+//    
+//    [picker dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+//
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    
+//}
+//
+//- (IBAction)selectPhoto:(id)sender {
+//    
+//    //connects to + button on UIImageView
+//    
+//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+//    picker.delegate = self;
+//    picker.allowsEditing = YES;
+//    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//    
+//    self.view.backgroundColor =[UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
+//    [self.navigationController presentViewController:picker animated:YES completion:NULL];
+//
+//}
+//
 
 - (IBAction)saveUserInfo:(id)sender {
     
@@ -74,10 +75,6 @@
     newUser.email = self.emailTextfield.text;
     newUser.username = self.usernameTextfield.text;
     newUser.password = self.passwordTextfield.text;
-    newUser.savedArticlesArray = [NSMutableArray array];
-    
-    NSData* data = UIImageJPEGRepresentation(self.imageView.image, 0.5f);
-    newUser.imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
     
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
     
@@ -107,7 +104,7 @@
                                                    otherButtonTitles: nil];
             [alert show];
             
-            [self.presentingViewController.navigationController popToRootViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     
     }];

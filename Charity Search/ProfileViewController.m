@@ -15,9 +15,9 @@
 #import "MWFeedItem.h"
 
 
-@interface ProfileViewController ()
+@interface ProfileViewController () <UITabBarControllerDelegate, UIImagePickerControllerDelegate>
 
-@property (nonatomic, strong) User *profileUser;
+
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -31,7 +31,7 @@
 -(void)viewWillAppear:(BOOL)animated {
 
     [self.navigationController setToolbarHidden:YES];
-    [self updateFavouritesArray];
+    [self updateProfileImage];
     [self.tableView reloadData];
     
 }
@@ -40,24 +40,51 @@
 -(void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    User *currentUser = [User currentUser];
+    self.usernameLabel.text = currentUser.username;
+
+    //share on facebook, over email, etc.
+//    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"Check out my photo!",[self usernameLabel]] applicationActivities:nil]; //change to article
+//    [self presentViewController:activityViewController animated:YES completion:nil];
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    
+    CALayer *borderLayer = [CALayer layer];
+    CGRect borderFrame = CGRectMake(0, 0, (self.profileImageView.frame.size.width), (self.profileImageView.frame.size.height));
+    [borderLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
+    [borderLayer setFrame:borderFrame];
+    [borderLayer setBorderWidth:5];
+    [borderLayer setBorderColor:[[UIColor whiteColor] CGColor]];
+    [self.profileImageView.layer addSublayer:borderLayer];
 
     self.tabBarItem.title = @"Profile";
-    self.navigationItem.hidesBackButton = YES;
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.navigationController.navigationBarHidden = YES;
     self.tableView.delegate = self;
-    self.view.backgroundColor =[UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1]; 
-    [self updateFavouritesArray];
+    self.tableView.separatorColor = [UIColor whiteColor];
+    self.saveDataTypeSegment.tintColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.55 blue:0.72 alpha:1];
+//
+//    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
+//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+//    [self updateProfile];
 }
 
--(void) updateFavouritesArray {
+-(void) updateProfileImage {
     User *currentUser = [User currentUser];
     
-    self.usernameLabel.text = currentUser.username;
     [currentUser.imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
             self.profileImageView.image = [UIImage imageWithData:data];
         }
     }];
+    
+    [currentUser saveEventually];
 
     
 }
@@ -67,30 +94,78 @@
     [User logOutInBackgroundWithBlock:^(NSError *error){
         
         if (!error) {
+            
             NSMutableArray *tempVCsArray = [self.tabBarController.viewControllers mutableCopy];
             [tempVCsArray removeObject:[tempVCsArray lastObject]];
-            self.tabBarController.viewControllers = tempVCsArray;
-            [[self navigationController] popToRootViewControllerAnimated:YES];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                UITabBarController *tabController = self.tabBarController;
+                
+                tabController.viewControllers = tempVCsArray;
+                
+                for (UINavigationController *navController in tabController.viewControllers) {
+                    [navController popToRootViewControllerAnimated:YES];
+                    
+                    NSLog(@"pop");
+                }
 
-           //            NSArray *viewControllers=[[self navigationController] viewControllers];
-//            for( int i=0;i<[viewControllers count];i++)
-//            {
-//                id object =[viewControllers objectAtIndex:i];
-//                if([object isKindOfClass:[HomeViewController class]])
-//                {
-//                    
-//                     
-//                }
-            }
-        
+            });
+            
+        }
     }];
-  
+    
+} 
+
+
+
+#pragma mark ImagePickerView
+
+
+- (IBAction)selectPhoto:(id)sender {
+    
+    //connects to + button on UIImageView
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self.navigationController presentViewController:picker animated:YES completion:NULL];
+    
 }
 
+- (void)saveImage {
+    User *currentUser = [User currentUser];
+    NSData* data = UIImageJPEGRepresentation(self.profileImageView.image, 0.5f);
+    currentUser.imageFile = [PFFile fileWithName:@"img.jpg" data:data];
+    [currentUser saveInBackground];
+    
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    
+    self.profileImageView.image = [info valueForKey:UIImagePickerControllerEditedImage];
+    [self saveImage];
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+#pragma mark TableView
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavouriteCell" forIndexPath:indexPath];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
+    
     User *currentUser = [User currentUser];
     NSString *feedItem = [[NSString alloc] init];
     
@@ -99,7 +174,6 @@
     } else {
         feedItem = currentUser.savedCharitiesArray[indexPath.row];
     }
-    //don't repeat code?
     cell.textLabel.text = feedItem;
     return cell;
 }

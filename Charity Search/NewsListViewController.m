@@ -31,7 +31,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -58,8 +58,8 @@
     self.feedParser.delegate = self;
     self.feedParser.feedParseType = ParseTypeFull;
     self.feedParser.connectionType = ConnectionTypeAsynchronously;
-    
     [self.feedParser parse];
+    
     [self.tableView reloadData];
 
 }

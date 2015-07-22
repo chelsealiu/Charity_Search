@@ -13,6 +13,7 @@
 		5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04391B443CB300AAA2FE /* Images.xcassets */; };
 		5E6B045A1B44559500AAA2FE /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04591B44559500AAA2FE /* CustomCell.m */; };
 		5E6B04741B459BCC00AAA2FE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E6B04731B459BCC00AAA2FE /* MapKit.framework */; };
+		5E6F236F1B60065000BA0085 /* cover_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F236E1B60065000BA0085 /* cover_image.jpg */; };
 		5E8CB9211B596C8E008DCA9D /* ForgotPswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */; };
 		5E8CB9221B597236008DCA9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04361B443CB300AAA2FE /* Main.storyboard */; };
 		5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B043B1B443CB300AAA2FE /* LaunchScreen.xib */; };
@@ -79,6 +80,8 @@
 		5E6B04581B44559500AAA2FE /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		5E6B04591B44559500AAA2FE /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		5E6B04731B459BCC00AAA2FE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		5E6F236B1B5FFC6700BA0085 /* LogoutDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutDelegate.h; sourceTree = "<group>"; };
+		5E6F236E1B60065000BA0085 /* cover_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_image.jpg; sourceTree = "<group>"; };
 		5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPswdViewController.h; sourceTree = "<group>"; };
 		5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPswdViewController.m; sourceTree = "<group>"; };
 		5E8CB9241B59782F008DCA9D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -229,6 +232,7 @@
 				5EA13AEA1B5B23A80098CD64 /* Charity Button */,
 				5E8CB93E1B597892008DCA9D /* News Viewer */,
 				5ED314101B5DA545007F999B /* colour_tree.jpg */,
+				5E6F236E1B60065000BA0085 /* cover_image.jpg */,
 				5ED314121B5DA945007F999B /* hand_earth.png */,
 				5ED314161B5DCC14007F999B /* hands_tree.png */,
 				5ED314181B5DD3D9007F999B /* convo_box.png */,
@@ -279,6 +283,7 @@
 				5EDC94A21B5420FF007C0EE8 /* SignUpViewController.m */,
 				5EDC94CA1B548C5A007C0EE8 /* LoginViewController.h */,
 				5EDC94CB1B548C5A007C0EE8 /* LoginViewController.m */,
+				5E6F236B1B5FFC6700BA0085 /* LogoutDelegate.h */,
 				5EDC94B01B542532007C0EE8 /* ProfileViewController.h */,
 				5EDC94B11B542532007C0EE8 /* ProfileViewController.m */,
 				5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */,
@@ -423,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */,
+				5E6F236F1B60065000BA0085 /* cover_image.jpg in Resources */,
 				5ED314111B5DA545007F999B /* colour_tree.jpg in Resources */,
 				5E8CB9221B597236008DCA9D /* Main.storyboard in Resources */,
 				5EDC94C91B547433007C0EE8 /* default_user.png in Resources */,

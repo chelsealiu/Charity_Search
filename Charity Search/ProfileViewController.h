@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "Movies.h"
+#import "LogoutDelegate.h"
 
 @interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
--(IBAction)unwindToProfile:(UIStoryboardSegue*)sender;
+
 
 
 @end
