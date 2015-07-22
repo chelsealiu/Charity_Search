@@ -27,8 +27,12 @@ typedef enum {
 @property (nonatomic) CGFloat buttonPadding;
 @property (nonatomic, strong) NSArray *buttonItems;
 @property (nonatomic, strong) id<MenuDelegate> delegate;
+@property (nonatomic, strong) UILabel *charity1;
 
+@property (strong, nonatomic) NSArray *labelItems;
 @property (nonatomic, strong) NewsItem *newsItem;
+//@property (strong, nonatomic) UIImageView *imageView;
+
 
 -(id)initWithView:(UIView *)view;
 

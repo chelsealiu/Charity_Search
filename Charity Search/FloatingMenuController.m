@@ -17,7 +17,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    [self configureButtons];
+   // [self configureButtons];
     
 }
 
@@ -28,11 +28,15 @@
         _fromView = view;
         _buttonDirection = up; //default direction
         _buttonItems = @[[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"]];
+        
+        
         _buttonPadding = 80;
     }
     
     return self;
 }
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,13 +74,22 @@
     
     [self.buttonItems enumerateObjectsUsingBlock:^(UIImage* image, NSUInteger idx, BOOL *stop) {
 
-        FloatingButton *personButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:image andBackgroundColor:nil];
-        [self.view addSubview:personButton];
-        [personButton addTarget:self action:@selector(iconButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        FloatingButton *charityButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:image andBackgroundColor:nil];
+        [self.view addSubview:charityButton];
+        [charityButton addTarget:self action:@selector(iconButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 200, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
+        NSDictionary *charity = [self.newsItem.charityRankings objectAtIndex:idx];
+        
+        label.text = [charity objectForKey:@"CharityName"];
+        label.numberOfLines = 0;
+        [label sizeToFit];
+        [self.view addSubview:label];
+    
     }];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -107,10 +120,9 @@
             newsItem.keywords = newsTemp;
             NSLog(@"newsSet: %@", newsItem.keywords);
         }
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self rankMatches];
+            NSMutableArray *allObjects = [[NSMutableArray alloc] init];
+            [self rankMatches:0 :allObjects];
         });
     }];
     [task resume];
@@ -118,32 +130,70 @@
 
 //compare the news and charity keywords and rank the matches
 
--(void)rankMatches {
+-(void)rankMatches:(NSUInteger)skip :(NSMutableArray *)allObjects {
     
-    NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
-    NSMutableArray *allObjects = [NSMutableArray array];
+  //  NSMutableArray *allObjects = [NSMutableArray array];
+    NSUInteger limit = 100;
+   // __block NSUInteger skip = 0;
+    __block NSUInteger skipValue = skip;
+    __block NSMutableArray *blockObjects = [allObjects mutableCopy];
+    //skip = 0;
     
     PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
+ 
+    [query setLimit:limit];
+    [query setSkip:skip];
     [query findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
-        [allObjects addObjectsFromArray:objects];
-        for (Charity *charity in allObjects) {
-            NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
-            NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
-            [newsKeywords intersectSet:charityKeywords];
-            NSArray *matches = [newsKeywords allObjects];
-            float rank = (float)[matches count]/((float)[charityKeywords count]*(float)[newsKeywords count]);
-            if(rank != rank) {
-                rank = 0;
-            }
-            NSNumber *rankAsNSNumber = [NSNumber numberWithFloat:rank];
-            if(rank != 0) {
-            NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity.name, rankAsNSNumber] forKeys:@[@"CharityName", @"Rank"]];
-            [tempRankings addObject:charityDictionary];
-            }
+        [blockObjects addObjectsFromArray:objects];
+
+        if (objects.count == limit) {
+            // There might be more objects in the table. Update the skip value and execute the query again.
+            [self rankMatches:(skipValue += limit) :blockObjects];
+            NSLog(@"%lu", limit);
         }
-        self.newsItem.charityRankings = [tempRankings mutableCopy];
-        NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
+        
+        else {
+         [self getCharityRankings:blockObjects];
+        }
+    
     }];
+   
+}
+
+-(void)getCharityRankings:(NSMutableArray *)allObjects{
+    NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
+
+    for (Charity *charity in allObjects) {
+        //make description into array, then add the objects
+        NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
+        NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
+        [newsKeywords intersectSet:charityKeywords];
+        NSArray *matches = [newsKeywords allObjects];
+        float rank = (float)[matches count];
+        ///((float)[charityKeywords count]*(float)[newsKeywords count]);
+        if(rank != rank) {
+            rank = 0;
+        }
+        NSNumber *rankAsNSNumber = [NSNumber numberWithFloat:rank];
+        if(rank != 0) {
+            NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity.name, rankAsNSNumber, matches] forKeys:@[@"CharityName", @"Rank", @"Matches"]];
+            [tempRankings addObject:charityDictionary];
+        }
+    }
+    NSMutableArray *unsortedCharites = [tempRankings mutableCopy];
+    self.newsItem.charityRankings = [self sortCharitiesByRank:unsortedCharites];
+    NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
+    NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
+    NSDictionary *firstCharity = [self.newsItem.charityRankings firstObject];
+    self.charity1.text = [firstCharity objectForKey:@"CharityName"];
+    [self configureButtons];
+}
+
+-(NSMutableArray *)sortCharitiesByRank:(NSMutableArray *)charities {
+    NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Rank" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:rankDescriptor];
+    NSArray *sortedArray = [charities sortedArrayUsingDescriptors:sortDescriptors];
+    return [sortedArray mutableCopy];
 }
 
 @end
