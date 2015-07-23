@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
 @property (weak, nonatomic) IBOutlet UIButton *hideButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
+@property (strong, nonatomic) UIView *topWhiteView;
 
 @end
 
@@ -59,11 +60,50 @@
     theAnimation.toValue=[NSNumber numberWithFloat:0];
     [self.charitiesButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
     [self.hideButton setTitle:@"Hide" forState:UIControlStateNormal];
+ 
     
     if (![User currentUser]) {
         [self.navigationItem.rightBarButtonItem setTintColor:[UIColor lightGrayColor]];
     }
 
+}
+
+- (void)setupTopWhiteView {
+    self.topWhiteView = [[UIView alloc] init];
+    self.topWhiteView.backgroundColor = [UIColor whiteColor];
+    [self.webView addSubview:self.topWhiteView];
+    
+    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+                                                             attribute:NSLayoutAttributeTop
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.webView
+                                                             attribute:NSLayoutAttributeTop
+                                                            multiplier:1.0
+                                                              constant:0.0]];
+    
+    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+                                                             attribute:NSLayoutAttributeRight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.webView
+                                                             attribute:NSLayoutAttributeRight
+                                                            multiplier:1.0
+                                                              constant:0.0]];
+    
+    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+                                                             attribute:NSLayoutAttributeLeft
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.webView
+                                                             attribute:NSLayoutAttributeLeft
+                                                            multiplier:1.0
+                                                              constant:0.0]];
+    
+    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+                                                             attribute:NSLayoutAttributeHeight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:nil
+                                                             attribute:NSLayoutAttributeNotAnAttribute
+                                                            multiplier:1.0
+                                                              constant:110]];
 }
 
 - (void)viewDidLoad {
@@ -80,6 +120,8 @@
     
     self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
     self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
+    [self setupTopWhiteView];
+    
 }
 
 
@@ -176,6 +218,8 @@
 - (void)loadData:(NSData *)data MIMEType:(NSString *)MIMEType textEncodingName:(NSString *)textEncodingName baseURL:(NSURL *)baseURL {
     
 }
+
+
 
 /*
 #pragma mark - Navigation

@@ -17,6 +17,7 @@
 @dynamic charityID;
 @dynamic type;
 @dynamic charitableSpending;
+@dynamic concepts;
 
 +(void)load {
     [self registerSubclass];
