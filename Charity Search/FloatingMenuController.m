@@ -29,8 +29,6 @@
         _fromView = view;
         _buttonDirection = up; //default direction
         _buttonItems = @[[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"]];
-        
-        
         _buttonPadding = 80;
     }
     
@@ -81,7 +79,8 @@
     
     [self.navigationController pushViewController:charityDetailVC animated:YES];
     
-    [_delegate charityButtonPressed];
+    [self.delegate charityButtonPressed];
+    [self.delegate charityLabelPressed];
 }
 
 -(void)configureButtons {
@@ -93,14 +92,17 @@
         [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         charityButton.tag = idx;
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 200, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 200, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
         NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
         
         Charity *charity = [charityDict objectForKey:@"Charity"];
-        label.text = charity.name;
-        label.numberOfLines = 0;
-        [label sizeToFit];
-        [self.view addSubview:label];
+        button.titleLabel.text = charity.name;
+     //   button.numberOfLines = 0;
+      //  [button sizeToFit];
+        
+        [self.view addSubview:button];
+        [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
     }];
 }
 
@@ -132,8 +134,19 @@
             }
             
             newsItem.keywords = newsTemp;
-            NSLog(@"newsSet: %@", newsItem.keywords);
+            [newsItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                if(succeeded) {
+                     NSLog(@"newsSet: %@", newsItem.keywords);
+                }
+                else {
+                //     There was a problem, check error.description
+                            NSLog(@"error! %@", error.localizedDescription);
+                }
+                
+            }];
+           
         }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSMutableArray *allObjects = [[NSMutableArray alloc] init];
             [self rankMatches:0 :allObjects];
@@ -141,17 +154,21 @@
     }];
     [task resume];
 }
+//[charity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//    if (succeeded) {
+//        [self getCharityKeywordsForCharity:charity];
+//    } else {
+//        // There was a problem, check error.description
+//        NSLog(@"error! %@", error.localizedDescription);
+//    }
 
 //compare the news and charity keywords and rank the matches
 
 -(void)rankMatches:(NSUInteger)skip :(NSMutableArray *)allObjects {
     
-  //  NSMutableArray *allObjects = [NSMutableArray array];
     NSUInteger limit = 100;
-   // __block NSUInteger skip = 0;
     __block NSUInteger skipValue = skip;
     __block NSMutableArray *blockObjects = [allObjects mutableCopy];
-    //skip = 0;
     
     PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
  
@@ -194,12 +211,21 @@
             [tempRankings addObject:charityDictionary];
         }
     }
+    
     NSMutableArray *unsortedCharites = [tempRankings mutableCopy];
+
     self.newsItem.charityRankings = [self sortCharitiesByRank:unsortedCharites];
+    [self.newsItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(succeeded) {
+            NSLog(@"saved charity rankings!");
+        }
+        else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        
+    }];
     NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
     NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
-//    NSDictionary *firstCharity = [self.newsItem.charityRankings firstObject];
-//    self.charity1.text = [firstCharity objectForKey:@"CharityName"];
     [self configureButtons];
 }
 
@@ -210,13 +236,6 @@
     return [sortedArray mutableCopy];
 }
 
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if([segue.identifier isEqualToString:@"showCharityDetail"]) {
-//        CharityDetailViewController *charityDetailViewController = (CharityDetailViewController *)segue.destinationViewController;
-//        charityDetailViewController.charity = self.charity;
-//        
-//        
-//    }
-//}
+
 
 @end

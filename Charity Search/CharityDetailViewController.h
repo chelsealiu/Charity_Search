@@ -11,7 +11,6 @@
 
 @interface CharityDetailViewController : UIViewController
 
-@property (strong, nonatomic) NSString *charityURL;
 @property (strong, nonatomic) Charity *charity;
 
 

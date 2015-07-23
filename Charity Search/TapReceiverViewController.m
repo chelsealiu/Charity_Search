@@ -45,10 +45,12 @@
 
 -(void) charityButtonPressed {
     
-    
-    
     NSLog(@"something else pressed");
     
+}
+
+-(void) charityLabelPressed {
+    NSLog(@"label was pressed");
 }
 
 @end

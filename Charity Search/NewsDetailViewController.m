@@ -161,7 +161,6 @@
     menuController.newsItem = [[NewsItem alloc] init];
     menuController.newsItem.newsURL = self.detailFeedItem.link;
     [self presentViewController:navigationController animated:YES completion:nil];
-    
 }
 
 - (void)didReceiveMemoryWarning {
