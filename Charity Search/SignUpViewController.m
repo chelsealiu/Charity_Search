@@ -25,9 +25,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *blurbLabel;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextfield;
 @property (nonatomic) BOOL didPerformAnimation;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelTopConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIView *pusheenView;
+@property (strong, nonatomic) NSArray *textfieldsArray;
 
 @end
 
@@ -35,12 +34,7 @@
 @implementation SignUpViewController
 
 -(void)viewWillAppear:(BOOL)animated {
-//    self.labelTopConstraint = [NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.blurbLabel attribute:NSLayoutAttributeTop multiplier:1.0 constant:-60];
-//    [self.view addConstraint:self.labelTopConstraint];
-//    
-//    self.labelBottomConstraint = [NSLayoutConstraint constraintWithItem:self.blurbLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.lastNameTextfield attribute:NSLayoutAttributeTop multiplier:1.0 constant:-110];
-//    [self.view addConstraint:self.labelBottomConstraint];
-//
+
     [super viewWillAppear:animated];
     
     self.blurbLabel.alpha = 0;
@@ -58,7 +52,7 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
     [self.navigationController setToolbarHidden:YES];
-
+    self.textfieldsArray = @[self.firstNameTextfield, self.lastNameTextfield, self.usernameTextfield, self.passwordTextfield, self.emailTextfield];
     
 }
 
@@ -80,46 +74,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithImage:sequence];
     imageView.center = self.pusheenView.center;
     [self.pusheenView addSubview:imageView];
-    
-//    [self.view addSubview:newView];
-//    [UIView transitionFromView:self.view toView:newView duration:1 options:UIViewAnimationOptionTransitionCrossDissolve completion:^(BOOL finished) {
-//        
-//        self.view = newView;
-//        
-//        //self.view is still in memory after transitions
-//        //must adjust properties of self.view to show new view
-//        //option: transition cross-dissolve
-//        
-//        
-//    }];
 
-    
-//    [UIView animateWithDuration:0.2 animations:^{
-//        self.blurbLabel.alpha = 1;
-//        CGRect blurbFrame = self.blurbLabel.frame;
-//        blurbFrame.origin.x += 40;
-//        self.blurbLabel.frame = blurbFrame;
-//        
-//    } completion:^(BOOL finished) {
-//        [UIView animateWithDuration:0.2 animations:^{
-//            self.blurbLabel.alpha = 1;
-//            CGRect blurbFrame = self.blurbLabel.frame;
-//            blurbFrame.origin.x -= 80;
-//            self.blurbLabel.frame = blurbFrame;
-//            
-//        } completion:^(BOOL finished) {
-//            
-//            [UIView animateWithDuration:0.2 animations:^{
-//                self.blurbLabel.alpha = 1;
-//                CGRect blurbFrame = self.blurbLabel.frame;
-//                blurbFrame.origin.x += 40;
-//                self.blurbLabel.frame = blurbFrame;
-//                
-//            } completion:^(BOOL finished) {
-//                
-//            }];
-//        }];
-//    }];
 }
 
 
@@ -134,6 +89,19 @@
     newUser.firstName = self.firstNameTextfield.text;
     newUser.lastName = self.lastNameTextfield.text;
     
+    for (UITextField *textField in self.textfieldsArray) {
+        if (textField == nil) {
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Error"
+                                                             message:@"You must complete all fields."
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Go Back"
+                                                   otherButtonTitles: nil];
+            
+            [alert show];
+            return;
+        }
+    }
+    
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
     
         if (succeeded) {
@@ -144,10 +112,7 @@
                                                    cancelButtonTitle:@"Cool"
                                                    otherButtonTitles: nil];
             
-//            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pusheen_happy"]];
-//            [imageView setContentMode:UIViewContentModeScaleAspectFit];
-//            imageView.center = alert.center;
-//            [alert setValue:imageView forKey:@"accessoryView"];
+
             
             [alert show];
             
@@ -161,7 +126,6 @@
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];
             
-
             [alert show];
             
         } else if (![self.passwordTextfield.text isEqualToString:self.confirmPasswordTextfield.text]) {
@@ -172,20 +136,10 @@
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];
             
-            
-//            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pusheen_angry"]];
-//            [imageView setContentMode:UIViewContentModeScaleAspectFit];
-//            imageView.center = alert.center;
-//            [alert setValue:imageView forKey:@"accessoryView"];
             [alert show];
             
         }
-        
-        
-        
-        
     }];
-        
 }
 
 - (IBAction)cancelSignUp:(id)sender {
@@ -193,10 +147,6 @@
     [self dismissViewControllerAnimated:YES
                              completion:nil];
 }
-
-
-
-
 
 
 @end

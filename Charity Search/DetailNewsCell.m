@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Chelsea Liu. All rights reserved.
 //
 
-#import "CustomCell.h"
+#import "DetailNewsCell.h"
 
-@implementation CustomCell
+@implementation DetailNewsCell
 
 @end

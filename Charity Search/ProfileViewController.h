@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "Movies.h"
-#import "LogoutDelegate.h"
+#import "LoginAnimateDelegate.h"
 
 @interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

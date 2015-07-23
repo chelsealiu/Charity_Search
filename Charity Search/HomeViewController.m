@@ -12,10 +12,10 @@
 #import "LoginViewController.h"
 #import "Key.h"
 #import "NewsListViewController.h"
-#import "LogoutDelegate.h"
+#import "LoginAnimateDelegate.h"
 
 
-@interface HomeViewController () <LogoutDelegate>
+@interface HomeViewController () <LoginAnimateDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *goToNewsButton;
@@ -78,7 +78,7 @@
     self.loginSuccessLabel.layer.masksToBounds = YES;
     
     CABasicAnimation *loginAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    loginAnimation.duration = 0.9;
+    loginAnimation.duration = 1.2;
     loginAnimation.repeatCount = 0;
     loginAnimation.autoreverses = YES;
     loginAnimation.fromValue = [NSNumber numberWithFloat:0.0f];

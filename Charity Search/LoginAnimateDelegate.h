@@ -11,7 +11,7 @@
 @class HomeViewController;
 
 
-@protocol LogoutDelegate <NSObject>
+@protocol LoginAnimateDelegate <NSObject>
 
 @required
 - (void) showLoginAnimation;

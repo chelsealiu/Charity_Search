@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomCell : UICollectionViewCell
+@interface DetailNewsCell : UICollectionViewCell
 
 @property (strong, nonatomic) NSURLSessionTask *task; 
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *newsImageView;
+//@property (weak, nonatomic) IBOutlet UIImageView *newsImageView;
 
 @end
 

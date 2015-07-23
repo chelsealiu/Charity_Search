@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5E11ACAC1B5D8E3000CB4A35 /* CharityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */; };
+		5E11ACAC1B5D8E3000CB4A35 /* PopularCharitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11ACAB1B5D8E3000CB4A35 /* PopularCharitiesViewController.m */; };
 		5E6B042C1B443CB300AAA2FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B042B1B443CB300AAA2FE /* main.m */; };
 		5E6B042F1B443CB300AAA2FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B042E1B443CB300AAA2FE /* AppDelegate.m */; };
 		5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04391B443CB300AAA2FE /* Images.xcassets */; };
-		5E6B045A1B44559500AAA2FE /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04591B44559500AAA2FE /* CustomCell.m */; };
+		5E6B045A1B44559500AAA2FE /* DetailNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B04591B44559500AAA2FE /* DetailNewsCell.m */; };
 		5E6B04741B459BCC00AAA2FE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E6B04731B459BCC00AAA2FE /* MapKit.framework */; };
 		5E6F236F1B60065000BA0085 /* cover_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F236E1B60065000BA0085 /* cover_image.jpg */; };
 		5E6F23741B60486300BA0085 /* pusheen2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F23701B60486300BA0085 /* pusheen2.png */; };
@@ -27,6 +27,13 @@
 		5E6F23861B6057DF00BA0085 /* pusheen_sad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F23851B6057DF00BA0085 /* pusheen_sad.png */; };
 		5E6F23881B605A2300BA0085 /* pusheen_happy.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F23871B605A2300BA0085 /* pusheen_happy.png */; };
 		5E6F238A1B605A2700BA0085 /* pusheen_angry.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E6F23891B605A2700BA0085 /* pusheen_angry.png */; };
+		5E8953921B611195005142D2 /* PopularCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8953911B611195005142D2 /* PopularCell.m */; };
+		5E8953CE1B61473C005142D2 /* type_welfare.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953C91B61473C005142D2 /* type_welfare.png */; };
+		5E8953CF1B61473C005142D2 /* type_religion.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953CA1B61473C005142D2 /* type_religion.png */; };
+		5E8953D01B61473C005142D2 /* type_community.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953CB1B61473C005142D2 /* type_community.png */; };
+		5E8953D11B61473C005142D2 /* type_health.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953CC1B61473C005142D2 /* type_health.png */; };
+		5E8953D21B61473C005142D2 /* type_education.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953CD1B61473C005142D2 /* type_education.png */; };
+		5E8953D61B61551E005142D2 /* PopularDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8953D51B61551E005142D2 /* PopularDetailViewController.m */; };
 		5E8CB9211B596C8E008DCA9D /* ForgotPswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */; };
 		5E8CB9221B597236008DCA9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04361B443CB300AAA2FE /* Main.storyboard */; };
 		5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B043B1B443CB300AAA2FE /* LaunchScreen.xib */; };
@@ -80,8 +87,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5E11ACAA1B5D8E3000CB4A35 /* CharityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityViewController.h; sourceTree = "<group>"; };
-		5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityViewController.m; sourceTree = "<group>"; };
+		5E11ACAA1B5D8E3000CB4A35 /* PopularCharitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularCharitiesViewController.h; sourceTree = "<group>"; };
+		5E11ACAB1B5D8E3000CB4A35 /* PopularCharitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularCharitiesViewController.m; sourceTree = "<group>"; };
 		5E6B04261B443CB300AAA2FE /* Charity Search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Charity Search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E6B042A1B443CB300AAA2FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6B042B1B443CB300AAA2FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -92,10 +99,10 @@
 		5E6B043C1B443CB300AAA2FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5E6B04471B443CB300AAA2FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6B04481B443CB300AAA2FE /* Rotten_MangoesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Rotten_MangoesTests.m; sourceTree = "<group>"; };
-		5E6B04581B44559500AAA2FE /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
-		5E6B04591B44559500AAA2FE /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		5E6B04581B44559500AAA2FE /* DetailNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNewsCell.h; sourceTree = "<group>"; };
+		5E6B04591B44559500AAA2FE /* DetailNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNewsCell.m; sourceTree = "<group>"; };
 		5E6B04731B459BCC00AAA2FE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		5E6F236B1B5FFC6700BA0085 /* LogoutDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutDelegate.h; sourceTree = "<group>"; };
+		5E6F236B1B5FFC6700BA0085 /* LoginAnimateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAnimateDelegate.h; sourceTree = "<group>"; };
 		5E6F236E1B60065000BA0085 /* cover_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_image.jpg; sourceTree = "<group>"; };
 		5E6F23701B60486300BA0085 /* pusheen2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pusheen2.png; sourceTree = "<group>"; };
 		5E6F23711B60486300BA0085 /* pusheen4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pusheen4.png; sourceTree = "<group>"; };
@@ -110,6 +117,15 @@
 		5E6F23851B6057DF00BA0085 /* pusheen_sad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pusheen_sad.png; sourceTree = "<group>"; };
 		5E6F23871B605A2300BA0085 /* pusheen_happy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pusheen_happy.png; sourceTree = "<group>"; };
 		5E6F23891B605A2700BA0085 /* pusheen_angry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pusheen_angry.png; sourceTree = "<group>"; };
+		5E8953901B611195005142D2 /* PopularCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularCell.h; sourceTree = "<group>"; };
+		5E8953911B611195005142D2 /* PopularCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularCell.m; sourceTree = "<group>"; };
+		5E8953C91B61473C005142D2 /* type_welfare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = type_welfare.png; sourceTree = "<group>"; };
+		5E8953CA1B61473C005142D2 /* type_religion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = type_religion.png; sourceTree = "<group>"; };
+		5E8953CB1B61473C005142D2 /* type_community.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = type_community.png; sourceTree = "<group>"; };
+		5E8953CC1B61473C005142D2 /* type_health.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = type_health.png; sourceTree = "<group>"; };
+		5E8953CD1B61473C005142D2 /* type_education.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = type_education.png; sourceTree = "<group>"; };
+		5E8953D41B61551E005142D2 /* PopularDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularDetailViewController.h; sourceTree = "<group>"; };
+		5E8953D51B61551E005142D2 /* PopularDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularDetailViewController.m; sourceTree = "<group>"; };
 		5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPswdViewController.h; sourceTree = "<group>"; };
 		5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPswdViewController.m; sourceTree = "<group>"; };
 		5E8CB9241B59782F008DCA9D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -221,22 +237,7 @@
 		5E6B041D1B443CB300AAA2FE = {
 			isa = PBXGroup;
 			children = (
-				5EDC94C61B546805007C0EE8 /* AssetsLibrary.framework */,
-				5EDC94C41B5459EB007C0EE8 /* AudioToolbox.framework */,
-				5EDC94C21B5459AD007C0EE8 /* libsqlite3.dylib */,
-				5EDC94C01B545998007C0EE8 /* Security.framework */,
-				5EDC94BE1B54598F007C0EE8 /* SystemConfiguration.framework */,
-				5EDC94BC1B545908007C0EE8 /* Foundation.framework */,
-				5EDC94BA1B5458E7007C0EE8 /* QuartzCore.framework */,
-				5EDC94B81B5458DC007C0EE8 /* CoreImage.framework */,
-				5EDC94B61B545799007C0EE8 /* CoreData.framework */,
-				5EDC94A41B5422FE007C0EE8 /* Bolts.framework */,
-				5EDC94A51B5422FE007C0EE8 /* Parse.framework */,
-				5EDC94A61B5422FE007C0EE8 /* ParseCrashReporting.framework */,
-				5EDC94A71B5422FE007C0EE8 /* ParseFacebookUtils.framework */,
-				5EDC94A81B5422FE007C0EE8 /* ParseFacebookUtilsV4.framework */,
-				5EDC94A91B5422FE007C0EE8 /* ParseUI.framework */,
-				5E6B04731B459BCC00AAA2FE /* MapKit.framework */,
+				5E89538F1B610D20005142D2 /* Frameworks */,
 				5E6B04281B443CB300AAA2FE /* Charity Search */,
 				5E6B04451B443CB300AAA2FE /* Charity SearchTests */,
 				5E6B04271B443CB300AAA2FE /* Products */,
@@ -257,11 +258,13 @@
 				5E6B042D1B443CB300AAA2FE /* AppDelegate.h */,
 				5E6B042E1B443CB300AAA2FE /* AppDelegate.m */,
 				5E8CB9451B599F85008DCA9D /* Key.h */,
-				FAD7B9281B5D9C67002919E5 /* Charity */,
 				5E8CB93D1B597836008DCA9D /* RSSParser */,
+				FAD7B9281B5D9C67002919E5 /* Charity */,
 				5E8CB91E1B596A69008DCA9D /* Login Flow */,
-				5EA13AEA1B5B23A80098CD64 /* Charity Button */,
+				5EA13AEA1B5B23A80098CD64 /* ToCharity Button */,
+				5E89538E1B607A57005142D2 /* Storyboard */,
 				5E8CB93E1B597892008DCA9D /* News Viewer */,
+				5E8953D31B614752005142D2 /* Type images */,
 				5ED314101B5DA545007F999B /* colour_tree.jpg */,
 				5E6F236E1B60065000BA0085 /* cover_image.jpg */,
 				5ED314121B5DA945007F999B /* hand_earth.png */,
@@ -269,7 +272,6 @@
 				5ED314181B5DD3D9007F999B /* convo_box.png */,
 				5ED314141B5DB551007F999B /* many_hands.jpg */,
 				5EDC94D31B55AA46007C0EE8 /* heart.png */,
-				5E6B04361B443CB300AAA2FE /* Main.storyboard */,
 				5E6B04391B443CB300AAA2FE /* Images.xcassets */,
 				5EDC94C81B547433007C0EE8 /* default_user.png */,
 				5E6B043B1B443CB300AAA2FE /* LaunchScreen.xib */,
@@ -325,6 +327,49 @@
 			name = pusheen;
 			sourceTree = "<group>";
 		};
+		5E89538E1B607A57005142D2 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				5E6B04361B443CB300AAA2FE /* Main.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		5E89538F1B610D20005142D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5EDC94C61B546805007C0EE8 /* AssetsLibrary.framework */,
+				5EDC94C41B5459EB007C0EE8 /* AudioToolbox.framework */,
+				5EDC94C21B5459AD007C0EE8 /* libsqlite3.dylib */,
+				5EDC94C01B545998007C0EE8 /* Security.framework */,
+				5EDC94BE1B54598F007C0EE8 /* SystemConfiguration.framework */,
+				5EDC94BC1B545908007C0EE8 /* Foundation.framework */,
+				5EDC94BA1B5458E7007C0EE8 /* QuartzCore.framework */,
+				5EDC94B81B5458DC007C0EE8 /* CoreImage.framework */,
+				5EDC94B61B545799007C0EE8 /* CoreData.framework */,
+				5EDC94A41B5422FE007C0EE8 /* Bolts.framework */,
+				5EDC94A51B5422FE007C0EE8 /* Parse.framework */,
+				5EDC94A61B5422FE007C0EE8 /* ParseCrashReporting.framework */,
+				5EDC94A71B5422FE007C0EE8 /* ParseFacebookUtils.framework */,
+				5EDC94A81B5422FE007C0EE8 /* ParseFacebookUtilsV4.framework */,
+				5EDC94A91B5422FE007C0EE8 /* ParseUI.framework */,
+				5E6B04731B459BCC00AAA2FE /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5E8953D31B614752005142D2 /* Type images */ = {
+			isa = PBXGroup;
+			children = (
+				5E8953C91B61473C005142D2 /* type_welfare.png */,
+				5E8953CA1B61473C005142D2 /* type_religion.png */,
+				5E8953CB1B61473C005142D2 /* type_community.png */,
+				5E8953CC1B61473C005142D2 /* type_health.png */,
+				5E8953CD1B61473C005142D2 /* type_education.png */,
+			);
+			name = "Type images";
+			sourceTree = "<group>";
+		};
 		5E8CB91E1B596A69008DCA9D /* Login Flow */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,7 +380,7 @@
 				5EDC94A21B5420FF007C0EE8 /* SignUpViewController.m */,
 				5EDC94CA1B548C5A007C0EE8 /* LoginViewController.h */,
 				5EDC94CB1B548C5A007C0EE8 /* LoginViewController.m */,
-				5E6F236B1B5FFC6700BA0085 /* LogoutDelegate.h */,
+				5E6F236B1B5FFC6700BA0085 /* LoginAnimateDelegate.h */,
 				5EDC94B01B542532007C0EE8 /* ProfileViewController.h */,
 				5EDC94B11B542532007C0EE8 /* ProfileViewController.m */,
 				5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */,
@@ -387,13 +432,15 @@
 				5EA13AC91B59D5F00098CD64 /* NewsDetailViewController.m */,
 				5EA13ACE1B59DAE00098CD64 /* NewsListCell.h */,
 				5EA13ACF1B59DAE00098CD64 /* NewsListCell.m */,
-				5E6B04581B44559500AAA2FE /* CustomCell.h */,
-				5E6B04591B44559500AAA2FE /* CustomCell.m */,
+				5E8953901B611195005142D2 /* PopularCell.h */,
+				5E8953911B611195005142D2 /* PopularCell.m */,
+				5E6B04581B44559500AAA2FE /* DetailNewsCell.h */,
+				5E6B04591B44559500AAA2FE /* DetailNewsCell.m */,
 			);
 			name = "News Viewer";
 			sourceTree = "<group>";
 		};
-		5EA13AEA1B5B23A80098CD64 /* Charity Button */ = {
+		5EA13AEA1B5B23A80098CD64 /* ToCharity Button */ = {
 			isa = PBXGroup;
 			children = (
 				5EA13ADA1B5B239F0098CD64 /* UIColor+ButtonColor.h */,
@@ -405,10 +452,8 @@
 				5EA13AE01B5B239F0098CD64 /* MenuDelegate.h */,
 				5EA13AE31B5B239F0098CD64 /* TapReceiverViewController.h */,
 				5EA13AE41B5B239F0098CD64 /* TapReceiverViewController.m */,
-				5E11ACAA1B5D8E3000CB4A35 /* CharityViewController.h */,
-				5E11ACAB1B5D8E3000CB4A35 /* CharityViewController.m */,
 			);
-			name = "Charity Button";
+			name = "ToCharity Button";
 			sourceTree = "<group>";
 		};
 		FAD7B9281B5D9C67002919E5 /* Charity */ = {
@@ -421,6 +466,10 @@
 				FA52075F1B60306400D93AC6 /* CharityDetailViewController.h */,
 				FA5207601B60306400D93AC6 /* CharityDetailViewController.m */,
 				FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */,
+				5E11ACAA1B5D8E3000CB4A35 /* PopularCharitiesViewController.h */,
+				5E11ACAB1B5D8E3000CB4A35 /* PopularCharitiesViewController.m */,
+				5E8953D41B61551E005142D2 /* PopularDetailViewController.h */,
+				5E8953D51B61551E005142D2 /* PopularDetailViewController.m */,
 			);
 			name = Charity;
 			sourceTree = "<group>";
@@ -488,20 +537,26 @@
 				5E6F236F1B60065000BA0085 /* cover_image.jpg in Resources */,
 				5ED314111B5DA545007F999B /* colour_tree.jpg in Resources */,
 				5E8CB9221B597236008DCA9D /* Main.storyboard in Resources */,
+				5E8953CF1B61473C005142D2 /* type_religion.png in Resources */,
 				5E6F237F1B6054BF00BA0085 /* pusheen_hp4.png in Resources */,
 				5E6F23831B6054BF00BA0085 /* pusheen_hp2.png in Resources */,
+				FA52075E1B602F4F00D93AC6 /* CharityStoryboard.storyboard in Resources */,
 				5EDC94C91B547433007C0EE8 /* default_user.png in Resources */,
 				5E6F23861B6057DF00BA0085 /* pusheen_sad.png in Resources */,
 				5ED314171B5DCC14007F999B /* hands_tree.png in Resources */,
 				5E6F23761B60486300BA0085 /* pusheen1.png in Resources */,
 				5E6F23841B6054BF00BA0085 /* pusheen_hp1.png in Resources */,
 				5E6F23801B6054BF00BA0085 /* pusheen_hp5.png in Resources */,
+				5E8953D21B61473C005142D2 /* type_education.png in Resources */,
 				5E6F23821B6054BF00BA0085 /* pusheen_hp6.png in Resources */,
+				5E8953CE1B61473C005142D2 /* type_welfare.png in Resources */,
 				5EDC94D41B55AA46007C0EE8 /* heart.png in Resources */,
 				5ED314191B5DD3D9007F999B /* convo_box.png in Resources */,
 				5E6F23881B605A2300BA0085 /* pusheen_happy.png in Resources */,
 				5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */,
 				5E6F23751B60486300BA0085 /* pusheen4.png in Resources */,
+				5E8953D01B61473C005142D2 /* type_community.png in Resources */,
+				5E8953D11B61473C005142D2 /* type_health.png in Resources */,
 				5E6F238A1B605A2700BA0085 /* pusheen_angry.png in Resources */,
 				5E6F23741B60486300BA0085 /* pusheen2.png in Resources */,
 				5ED314131B5DA945007F999B /* hand_earth.png in Resources */,
@@ -527,7 +582,9 @@
 				5EA13ACA1B59D5F00098CD64 /* NewsDetailViewController.m in Sources */,
 				5E8CB9391B59782F008DCA9D /* MWFeedParserAppDelegate.m in Sources */,
 				5EDC94D21B554297007C0EE8 /* HomeViewController.m in Sources */,
-				5E6B045A1B44559500AAA2FE /* CustomCell.m in Sources */,
+				5E8953D61B61551E005142D2 /* PopularDetailViewController.m in Sources */,
+				5E8953921B611195005142D2 /* PopularCell.m in Sources */,
+				5E6B045A1B44559500AAA2FE /* DetailNewsCell.m in Sources */,
 				5E8CB9381B59782F008DCA9D /* MWFeedParser.m in Sources */,
 				5E8CB93A1B59782F008DCA9D /* NSDate+InternetDateTime.m in Sources */,
 				5EDC94A31B5420FF007C0EE8 /* SignUpViewController.m in Sources */,
@@ -537,7 +594,7 @@
 				5E8CB9361B59782F008DCA9D /* MWFeedInfo.m in Sources */,
 				FABC0F401B5D50390025C851 /* CharityData.m in Sources */,
 				5EA13AD91B5B03BC0098CD64 /* UIColor+ListCellColor.m in Sources */,
-				5E11ACAC1B5D8E3000CB4A35 /* CharityViewController.m in Sources */,
+				5E11ACAC1B5D8E3000CB4A35 /* PopularCharitiesViewController.m in Sources */,
 				5E8CB9371B59782F008DCA9D /* MWFeedItem.m in Sources */,
 				5EDC94B51B543DCF007C0EE8 /* User.m in Sources */,
 				5EA13ACD1B59D6EC0098CD64 /* NewsListViewController.m in Sources */,
@@ -657,6 +714,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -664,6 +722,8 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Charity Search/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Charity Search";
+				SWIFT_OBJC_BRIDGING_HEADER = "Charity Search/Charity Search-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -671,6 +731,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -678,6 +739,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Charity Search/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Charity Search";
+				SWIFT_OBJC_BRIDGING_HEADER = "Charity Search/Charity Search-Bridging-Header.h";
 			};
 			name = Release;
 		};

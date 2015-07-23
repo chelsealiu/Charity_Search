@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *forgotButton;
 @property (nonatomic) BOOL didPerformAnimation;
-@property (nonatomic, assign) id<LogoutDelegate>delegate;
+@property (nonatomic, assign) id<LoginAnimateDelegate>delegate;
 
 
 @end

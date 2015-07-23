@@ -12,7 +12,7 @@
 #import "HomeViewController.h"
 #import "ProfileViewController.h"
 #import "NewsMainViewController.h"
-#import "CharityViewController.h"
+#import "PopularCharitiesViewController.h"
 #import "LoginViewController.h"
 #import "CharityData.h"
 
@@ -45,7 +45,7 @@
     
     HomeViewController *homeController = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Home"];
     ProfileViewController *profileController = (ProfileViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Profile"];
-    CharityViewController *charityController = (CharityViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Charities"];
+    PopularCharitiesViewController *charityController = (PopularCharitiesViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Charities"];
     NewsMainViewController *categoriesController = (NewsMainViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"News"];
 
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeController];
@@ -69,7 +69,7 @@
     tabBarController.tabBar.tintColor = [UIColor whiteColor];
     
     //Add the tab bar controller to the window
-//    [CharityData getCharityObjects];
+    //[CharityData getCharityObjects];
     [self.window setRootViewController:tabBarController];
     
     

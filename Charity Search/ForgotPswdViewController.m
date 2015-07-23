@@ -56,7 +56,7 @@
             [self dismissViewControllerAnimated: YES completion:nil];
 
             UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Success!"
-                                                             message:@"An email has been sent with instructions on how to reset your password."
+                                                             message:@"The email is on its way"
                                                             delegate:self
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];

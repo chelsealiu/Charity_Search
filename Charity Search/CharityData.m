@@ -16,8 +16,9 @@
     for(NSDictionary *charityDict in charityArray) {
         NSString *website = [[charityDict objectForKey:@"ContactInfo"] objectForKey:@"URL"];
         NSString *regNum = [charityDict objectForKey:@"regNum"];
+        NSString *type = [charityDict objectForKey:@"Type"];
         // handle all the nulls :/
-        if((!website || [website isKindOfClass:[NSNull class]]) || (!regNum || ([regNum isKindOfClass:[NSNull class]]))) {
+        if((!website || [website isKindOfClass:[NSNull class]]) || (!regNum || ([regNum isKindOfClass:[NSNull class]])) || (!type || ([type isKindOfClass:[NSNull class]]))) {
             
         }
         else {
@@ -42,10 +43,11 @@
                     charity.name = [charityDict objectForKey:@"Name"];
                     charity.charityDescription = [charityDict objectForKey:@"Description"];
                     charity.charityID = regNum;
+                    charity.type = type;
                     
                     [charity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
-                            [self getCharityKeywordsForCharity:charity];
+                            //[self getCharityKeywordsForCharity:charity];
                         } else {
                             // There was a problem, check error.description
                             NSLog(@"error! %@", error.localizedDescription);
@@ -60,7 +62,7 @@
 }
 
 +(void)getCharityObjects {
-    for (int i = 2; i < 11; i++) {
+    for (int i = 0; i < 10; i++) {
         
     
     NSString *charityString = [NSString stringWithFormat:@"https://app.place2give.com/Service.svc/give-api?action=searchCharities&token=%@&format=json&PageNumber=%d&NumPerPage=100&CharitySize=VERY%%20LARGE", CHARITY_KEY, i];

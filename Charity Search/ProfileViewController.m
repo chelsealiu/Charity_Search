@@ -102,24 +102,15 @@
                 
                 for (UINavigationController *navController in tabController.viewControllers) {
                     [navController popToRootViewControllerAnimated:YES];
-                    
                 }
-
             });
-            
         }
     }];
-    
 } 
-
-
 
 #pragma mark ImagePickerView
 
-
 - (IBAction)selectPhoto:(id)sender {
-    
-    //connects to + button on UIImageView
     
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
@@ -139,7 +130,6 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
     
     self.profileImageView.image = [info valueForKey:UIImagePickerControllerEditedImage];
     [self saveImage];
@@ -195,11 +185,10 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return YES if you want the specified item to be editable.
+
     return YES;
 }
 
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     User *currentUser = [User currentUser];
     if (editingStyle == UITableViewCellEditingStyleDelete) {

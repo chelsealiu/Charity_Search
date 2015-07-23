@@ -8,7 +8,7 @@
 
 #import "NewsMainViewController.h"
 #import "NewsDetailViewController.h"
-#import "CustomCell.h"
+#import "DetailNewsCell.h"
 #import "ProfileViewController.h"
 #import "SignUpViewController.h"
 #import "MWFeedParser.h"
@@ -44,8 +44,9 @@
     self.newsTypeSegment.layer.masksToBounds = YES;
     self.newsTypeSegment.layer.cornerRadius = 4;
 //    self.tabBarItem.title = @"Home";
-    self.collectionView.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
-    self.view.backgroundColor = self.collectionView.backgroundColor;
+//    self.collectionView.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
+    self.view.contentMode = UIViewContentModeScaleAspectFit;
+    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"many_hands.jpg"]];
     
     //CBC RSS Feeds
     NSURL *CBCTechFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/technology.xml"];
@@ -112,7 +113,7 @@
 
 #pragma mark - Segues
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(CustomCell*)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(DetailNewsCell*)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSURL *url = [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] objectForKey:sender.textLabel.text];
         [[segue destinationViewController] setDetailItem:url];
@@ -149,9 +150,9 @@
     return [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] count];
 }
 
--(CustomCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+-(DetailNewsCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    CustomCell *customCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NewsListCell" forIndexPath:indexPath];
+    DetailNewsCell *customCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NewsListCell" forIndexPath:indexPath];
     customCell.contentMode = UIViewContentModeScaleAspectFit;
     NSArray *tempArray = [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] allKeys];
 

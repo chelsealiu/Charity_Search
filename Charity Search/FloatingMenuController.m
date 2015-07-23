@@ -210,13 +210,4 @@
     return [sortedArray mutableCopy];
 }
 
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if([segue.identifier isEqualToString:@"showCharityDetail"]) {
-//        CharityDetailViewController *charityDetailViewController = (CharityDetailViewController *)segue.destinationViewController;
-//        charityDetailViewController.charity = self.charity;
-//        
-//        
-//    }
-//}
-
 @end

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CharityViewController : UIViewController
+@interface PopularCharitiesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+
 
 @end
