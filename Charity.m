@@ -15,6 +15,7 @@
 @dynamic website;
 @dynamic keywords;
 @dynamic charityID;
+@dynamic concepts;
 
 +(void)load {
     [self registerSubclass];

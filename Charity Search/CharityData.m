@@ -31,7 +31,8 @@
                     if ([charity.keywords count] < 1) {
                 
                        // [self getCharityKeywordsForCharity:charity];
-                        [self getCharityKeywordsFromDescriptionForCharity:charity];
+                      //  [self getCharityKeywordsFromDescriptionForCharity:charity];
+                        [self getCharityConceptsForCharity:charity];
                     }
                     
                 }
@@ -60,7 +61,7 @@
 }
 
 +(void)getCharityObjects {
-    for (int i = 2; i < 11; i++) {
+    for (int i = 1; i < 5; i++) {
         
     
     NSString *charityString = [NSString stringWithFormat:@"https://app.place2give.com/Service.svc/give-api?action=searchCharities&token=%@&format=json&PageNumber=%d&NumPerPage=100&CharitySize=VERY%%20LARGE", CHARITY_KEY, i];
@@ -148,5 +149,40 @@
     
     [task resume];
 }
+
++(void)getCharityConceptsForCharity:(Charity *)charity {
+    
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfig.HTTPMaximumConnectionsPerHost= 1;
+    
+    
+    NSString *charityString = [NSString stringWithFormat:@"http://access.alchemyapi.com/calls/url/URLGetRankedConcepts?apikey=%@&outputMode=json&url=%@", ALCHEMY_KEY, charity.website];
+    NSURL *charityURL = [NSURL URLWithString:charityString];
+    NSLog(@"%@", charityURL);
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:charityURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSError *jsonError;
+        NSDictionary *resultsDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        NSArray *keywordsArray = [resultsDict objectForKey:@"concepts"];
+        
+        
+        if(!resultsDict || !keywordsArray) {
+            NSLog(@"there was an error getting keywords! %@", error);
+        } else {
+            NSMutableSet *charityTemp = [[NSMutableSet alloc] init];
+            for(NSDictionary *keywordDict in keywordsArray) {
+                [charityTemp addObject:[keywordDict objectForKey:@"text"]];
+            }
+            charity.concepts = [charityTemp allObjects];
+            NSLog(@"concepts: %@", charity.concepts);
+            NSLog(@"charity set count: %lu", (unsigned long)[charity.concepts count]);
+            [charity saveInBackground];
+        }
+        
+    }];
+    
+    [task resume];
+}
+
+
 
 @end

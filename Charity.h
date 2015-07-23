@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSString *website;
 @property (strong, nonatomic) NSString *charityDescription;
 @property (strong, nonatomic) NSString *charityID;
+@property (strong, nonatomic) NSArray  *concepts;
 
 @end

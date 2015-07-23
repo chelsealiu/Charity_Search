@@ -87,19 +87,23 @@
     
     [self.buttonItems enumerateObjectsUsingBlock:^(UIImage* image, NSUInteger idx, BOOL *stop) {
 
-        FloatingButton *charityButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:image andBackgroundColor:nil];
+        FloatingButton *charityButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:nil andBackgroundColor:nil];
         [self.view addSubview:charityButton];
         [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         charityButton.tag = idx;
         
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 200, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
         NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
+        button.tag = idx;
         
         Charity *charity = [charityDict objectForKey:@"Charity"];
-        button.titleLabel.text = charity.name;
-     //   button.numberOfLines = 0;
-      //  [button sizeToFit];
+        [button setTitle:charity.name forState:UIControlStateNormal];
         
+        NSLog(@"Charity Name: %@", charity.name);
+        button.titleLabel.numberOfLines = 0;
+        button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self.view addSubview:button];
         [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -193,10 +197,17 @@
 
 -(void)getCharityRankings:(NSMutableArray *)allObjects{
     NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
-
+int i = 0;
     for (Charity *charity in allObjects) {
+        i++;
         //make description into array, then add the objects
         NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
+//        NSMutableArray *charityKeywordsArray = [[NSMutableArray alloc] init];
+//        for (NSString *keyword in charityKeywords) {
+//            NSArray *myArray = [keyword componentsSeparatedByString:@" "];
+//            
+//        }
+        
         NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
         [newsKeywords intersectSet:charityKeywords];
         NSArray *matches = [newsKeywords allObjects];
@@ -226,6 +237,7 @@
     }];
     NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
     NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
+    NSLog(@"count: %d", i);
     [self configureButtons];
 }
 
