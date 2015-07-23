@@ -48,6 +48,7 @@
     blurView.frame = self.view.frame;
     
     [self.view addSubview:blurView];
+  //  NSLayoutConstraint *blurViewContstraint
     [self.view addSubview:self.closeButton];
     
     [self.closeButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside]; //dismiss viewcontroller when pressed
@@ -92,8 +93,9 @@
         [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         charityButton.tag = idx;
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 200, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
         NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
+     
         button.tag = idx;
         
         Charity *charity = [charityDict objectForKey:@"Charity"];
@@ -105,8 +107,11 @@
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self.view addSubview:button];
-        [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
+        [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        // self.view.translatesAutoresizingMaskIntoConstraints = NO;
+        //NSLayoutConstraint *buttonConstraints = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:-20.0];
+        //[self.view addConstraint:buttonConstraints];
     }];
 }
 
@@ -190,7 +195,6 @@
         else {
          [self getCharityRankings:blockObjects];
         }
-    
     }];
    
 }
