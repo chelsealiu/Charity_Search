@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PopularCharitiesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PopularCharitiesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
+
+extern const CGFloat kTableHeaderHeight;
 
 
 @end

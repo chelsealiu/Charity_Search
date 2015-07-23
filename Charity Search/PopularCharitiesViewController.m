@@ -18,20 +18,40 @@
 @property (strong, nonatomic) NSDictionary *imgTypeDict;
 @property (strong, nonatomic) NSMutableArray *charityObjectsArray;
 @property (strong, nonatomic) NSArray *sortedCharities;
+@property (strong, nonatomic) UIView *headerView;
+
+
 
 @end
+
+
 
 @implementation PopularCharitiesViewController
 
 
+const CGFloat kTableHeaderHeight = 300;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
     
-    __block int counter = 0;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 40;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.headerView = self.tableView.tableHeaderView;
+    self.tableView.tableHeaderView = nil;
+    
+    [self.tableView setContentInset:UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0)];
+    
+    [self updateHeaderView];
+    
+    [self.tableView addSubview:self.headerView];
+    
+    [self.view layoutIfNeeded];
 
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
+    [query setLimit:1000];
     [query findObjectsInBackgroundWithBlock:^(NSArray *charityArray,  NSError *error){
         
         
@@ -39,65 +59,27 @@
 
         for (Charity *charity in charityArray) {
             
-            NSString *urlString = [NSString stringWithFormat: @"https://app.place2give.com/Service.svc/give-api?action=getFinancialDetails&token=%@&format=json&PageNumber=1&NumPerPage=100&regNum=%@", CHARITY_KEY, charity.charityID];
-            
-            NSURL *url = [NSURL URLWithString:urlString];
-            
-            counter += 1;
-            
-            NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
-                
-                counter --;
-
-         
-                if (fetchingError) {
-                    NSLog(@"%@", fetchingError.localizedDescription);
-                    return;
-                }
-                NSError *jsonError;
-                NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-                NSDictionary *financialData = responseDict[@"give-api"][@"data"][@"financialDetails"]; //array of dicts, unless there is only one
-                id tempFinanceArray = financialData[@"financialData"];
-                
-                if ([tempFinanceArray isKindOfClass:[NSArray class]]) { //more than one data
-                    NSDictionary *dict = tempFinanceArray[0];
-                    charity.charitableSpending = [dict[@"ExpCharitablePrograms"] floatValue];
-                    
-//                    NSLog(@"array, %f", charity.charitableSpending);
-                    
-                } if ([tempFinanceArray isKindOfClass:[NSDictionary class]]) { //one data
-                    charity.charitableSpending = [tempFinanceArray[@"ExpCharitablePrograms"] floatValue];
-                    
-                }
-                
-                if (charity.charitableSpending != 0) {
-                    [array addObject:charity];
-                    NSLog(@"%f", charity.charitableSpending);
-                }
-                
-                if (counter == 0) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.charityObjectsArray = [array mutableCopy];
-                        [self sortCharities];
-                        [self.tableView reloadData];
-                        NSLog(@"array: %@", array);
-                    });
-                }
-                
-            }];
-            
-            [task resume];
-
+            if (charity.spendingRatio > 0) {
+                [array addObject:charity];
+            }
         }
-    }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.charityObjectsArray = [array mutableCopy];
+                NSLog(@"%@", array);
+                [self sortCharities];
+                [self.tableView reloadData];
+            });
         
-    NSLog(@"%@", self.charityObjectsArray);
+    }];
+
     self.imgTypeDict = @{@"Benefits to Community":[UIImage imageNamed:@"type_community"], @"Education":[UIImage imageNamed:@"type_education"], @"Health":[UIImage imageNamed:@"type_health"], @"Religion":[UIImage imageNamed:@"type_religion"], @"Welfare":[UIImage imageNamed:@"type_welfare"]};
 
 }
 
 -(void) sortCharities {
-    NSSortDescriptor *financeDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"charitableSpending" ascending:NO];
+    
+    NSSortDescriptor *financeDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"spendingRatio" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:financeDescriptor];
     NSArray *sortedEventArray = [self.charityObjectsArray
                                  sortedArrayUsingDescriptors:sortDescriptors];
@@ -132,6 +114,8 @@
     cell.titleLabel.text = charity.name;
     cell.descriptionLabel.text = charity.charityDescription;
     cell.typeImageView.image = self.imgTypeDict[charity.type];
+    
+    NSLog(@"%f", charity.spendingRatio);
     cell.typeImageView.contentMode = UIViewContentModeScaleAspectFit;
  
     return cell;
@@ -143,6 +127,25 @@
     
     
     
+}
+#pragma update header view
+-(void)updateHeaderView {
+    CGFloat myOffset = self.tableView.contentOffset.y;
+    NSLog(@"%f", myOffset);
+    if (myOffset < -kTableHeaderHeight) {
+        self.headerView.frame = CGRectMake(0, myOffset, CGRectGetWidth(self.tableView.frame), -myOffset);
+    }
+    else {
+        self.headerView.frame = CGRectMake(0, -kTableHeaderHeight, CGRectGetWidth(self.tableView.frame),kTableHeaderHeight);
+    }
+}
+
+
+#pragma scrollView delegate method
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [self updateHeaderView];
 }
 
 #pragma mark - Navigation
