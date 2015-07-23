@@ -17,5 +17,7 @@
 @property (strong, nonatomic) NSString *charityID; //regNum
 @property (strong, nonatomic) NSString *type; 
 @property (nonatomic) double charitableSpending;
+@property (strong, nonatomic) NSArray  *concepts;
+
 
 @end
