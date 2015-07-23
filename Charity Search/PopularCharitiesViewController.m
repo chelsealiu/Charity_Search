@@ -7,6 +7,7 @@
 //
 
 #import "PopularCharitiesViewController.h"
+#import "NewsDetailViewController.h"
 #import "PopularCell.h"
 #import <Parse/Parse.h>
 #import "Charity.h"
@@ -18,12 +19,12 @@
 @property (strong, nonatomic) NSMutableArray *charityObjectsArray;
 @property (strong, nonatomic) NSArray *sortedCharities;
 
-
 @end
 
 @implementation PopularCharitiesViewController
 
-/*
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -76,8 +77,9 @@
                 
                 if (counter == 0) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self sortCharities];
                         self.charityObjectsArray = [array mutableCopy];
+                        [self sortCharities];
+                        [self.tableView reloadData];
                         NSLog(@"array: %@", array);
                     });
                 }
@@ -100,8 +102,7 @@
     NSArray *sortedEventArray = [self.charityObjectsArray
                                  sortedArrayUsingDescriptors:sortDescriptors];
     self.sortedCharities = [NSArray arrayWithArray:sortedEventArray];
-    
-    NSLog(@"%@", self.sortedCharities);
+    [self.tableView reloadData];
 }
 
 
@@ -136,7 +137,13 @@
     return cell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Charity *charity = self.sortedCharities[indexPath.row];
+    NewsDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
+    
+    
+    
+}
 
 #pragma mark - Navigation
 
@@ -144,10 +151,7 @@
     
     
     
-    
 }
 
- 
- */
 
 @end

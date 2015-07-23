@@ -69,7 +69,7 @@
     tabBarController.tabBar.tintColor = [UIColor whiteColor];
     
     //Add the tab bar controller to the window
-    //[CharityData getCharityObjects];
+ 
     [self.window setRootViewController:tabBarController];
    //    [CharityData getCharityObjects];
     
