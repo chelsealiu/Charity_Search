@@ -259,6 +259,7 @@
     if ([[segue identifier] isEqualToString:@"showWebView"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         [[segue destinationViewController] setDetailFeedItem:self.newsObjects[indexPath.row]];
+        
     }
     
 }
