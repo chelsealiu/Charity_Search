@@ -686,7 +686,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Reset" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sjx-fv-gO8">
-                                <rect key="frame" x="48" y="133" width="224.5" height="36"/>
+                                <rect key="frame" x="48" y="133" width="225" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -943,8 +943,8 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MuV-3a-mW5">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="244"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIl-ef-t64">
-                                            <rect key="frame" x="8" y="331" width="304" height="53.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIl-ef-t64">
+                                            <rect key="frame" x="8" y="331" width="304" height="54"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="53.5" id="G10-gR-9Aj"/>
                                             </constraints>
@@ -986,14 +986,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LBy-2v-lsX">
-                                            <rect key="frame" x="0.0" y="-2" width="133" height="107.5"/>
+                                            <rect key="frame" x="0.0" y="-2" width="133" height="108"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="133" id="2cH-v4-QiU"/>
                                                 <constraint firstAttribute="height" constant="107.5" id="b7e-rd-zik"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TitleLabel" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvI-Yd-Iav">
-                                            <rect key="frame" x="141" y="6.5" width="171" height="90"/>
+                                            <rect key="frame" x="141" y="7" width="171" height="90"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="90" id="rwR-si-6Tt"/>
                                             </constraints>

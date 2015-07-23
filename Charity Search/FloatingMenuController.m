@@ -12,6 +12,7 @@
 #import "TapReceiverViewController.h"
 #import "Key.h"
 #import "Charity.h"
+#import "CharityDetailViewController.h"
 
 @implementation FloatingMenuController
 
@@ -65,9 +66,22 @@
     [_delegate cancelPressed];
 }
 
--(void) iconButtonPressed {
+-(void) iconButtonPressed:(FloatingButton *)sender {
     
-    [_delegate somethingElsePressed];
+    
+    NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:sender.tag];
+    Charity *charity = [charityDict objectForKey:@"Charity"];
+    
+    UIStoryboard *charityStoryboard = [UIStoryboard storyboardWithName:@"CharityStoryboard" bundle:nil];
+    
+    
+    CharityDetailViewController *charityDetailVC = (CharityDetailViewController *)[charityStoryboard instantiateViewControllerWithIdentifier:@"charityDetailViewController"];
+
+    charityDetailVC.charity = charity;
+    
+    [self.navigationController pushViewController:charityDetailVC animated:YES];
+    
+    [_delegate charityButtonPressed];
 }
 
 -(void)configureButtons {
@@ -76,18 +90,18 @@
 
         FloatingButton *charityButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:image andBackgroundColor:nil];
         [self.view addSubview:charityButton];
-        [charityButton addTarget:self action:@selector(iconButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        charityButton.tag = idx;
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x - 200, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
-        NSDictionary *charity = [self.newsItem.charityRankings objectAtIndex:idx];
+        NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
         
-        label.text = [charity objectForKey:@"CharityName"];
+        Charity *charity = [charityDict objectForKey:@"Charity"];
+        label.text = charity.name;
         label.numberOfLines = 0;
         [label sizeToFit];
         [self.view addSubview:label];
-    
     }];
-    
 }
 
 
@@ -176,7 +190,7 @@
         }
         NSNumber *rankAsNSNumber = [NSNumber numberWithFloat:rank];
         if(rank != 0) {
-            NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity.name, rankAsNSNumber, matches] forKeys:@[@"CharityName", @"Rank", @"Matches"]];
+            NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity, rankAsNSNumber, matches] forKeys:@[@"Charity", @"Rank", @"Matches"]];
             [tempRankings addObject:charityDictionary];
         }
     }
@@ -184,8 +198,8 @@
     self.newsItem.charityRankings = [self sortCharitiesByRank:unsortedCharites];
     NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
     NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
-    NSDictionary *firstCharity = [self.newsItem.charityRankings firstObject];
-    self.charity1.text = [firstCharity objectForKey:@"CharityName"];
+//    NSDictionary *firstCharity = [self.newsItem.charityRankings firstObject];
+//    self.charity1.text = [firstCharity objectForKey:@"CharityName"];
     [self configureButtons];
 }
 
@@ -195,5 +209,14 @@
     NSArray *sortedArray = [charities sortedArrayUsingDescriptors:sortDescriptors];
     return [sortedArray mutableCopy];
 }
+
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if([segue.identifier isEqualToString:@"showCharityDetail"]) {
+//        CharityDetailViewController *charityDetailViewController = (CharityDetailViewController *)segue.destinationViewController;
+//        charityDetailViewController.charity = self.charity;
+//        
+//        
+//    }
+//}
 
 @end

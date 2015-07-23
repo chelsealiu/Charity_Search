@@ -152,12 +152,16 @@
 
 - (IBAction)showFloatingMenu:(UIButton*)sender {
     
-    FloatingMenuController *menuController = [[FloatingMenuController alloc] initWithView:sender];
-    menuController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    menuController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+       FloatingMenuController *menuController = [[FloatingMenuController alloc] initWithView:sender];
+   
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuController];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    navigationController.navigationBar.backgroundColor =[UIColor blackColor];
     menuController.newsItem = [[NewsItem alloc] init];
     menuController.newsItem.newsURL = self.detailFeedItem.link;
-    [self presentViewController:menuController animated:YES completion:nil];
+    [self presentViewController:navigationController animated:YES completion:nil];
     
 }
 

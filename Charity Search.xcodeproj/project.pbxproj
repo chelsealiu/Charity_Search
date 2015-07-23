@@ -72,6 +72,8 @@
 		5EDC94CC1B548C5A007C0EE8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDC94CB1B548C5A007C0EE8 /* LoginViewController.m */; };
 		5EDC94D21B554297007C0EE8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDC94D11B554297007C0EE8 /* HomeViewController.m */; };
 		5EDC94D41B55AA46007C0EE8 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDC94D31B55AA46007C0EE8 /* heart.png */; };
+		FA52075E1B602F4F00D93AC6 /* CharityStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */; };
+		FA5207611B60306400D93AC6 /* CharityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5207601B60306400D93AC6 /* CharityDetailViewController.m */; };
 		FABC0F3D1B5D4DF70025C851 /* Charity.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3C1B5D4DF70025C851 /* Charity.m */; };
 		FABC0F401B5D50390025C851 /* CharityData.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3F1B5D50390025C851 /* CharityData.m */; };
 		FAD7B9271B5D9C50002919E5 /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD7B9261B5D9C50002919E5 /* NewsItem.m */; };
@@ -181,6 +183,9 @@
 		5EDC94D01B554297007C0EE8 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		5EDC94D11B554297007C0EE8 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		5EDC94D31B55AA46007C0EE8 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CharityStoryboard.storyboard; sourceTree = "<group>"; };
+		FA52075F1B60306400D93AC6 /* CharityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityDetailViewController.h; sourceTree = "<group>"; };
+		FA5207601B60306400D93AC6 /* CharityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityDetailViewController.m; sourceTree = "<group>"; };
 		FABC0F3B1B5D4DF60025C851 /* Charity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Charity.h; path = ../Charity.h; sourceTree = "<group>"; };
 		FABC0F3C1B5D4DF70025C851 /* Charity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Charity.m; path = ../Charity.m; sourceTree = "<group>"; };
 		FABC0F3E1B5D50390025C851 /* CharityData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityData.h; sourceTree = "<group>"; };
@@ -413,6 +418,9 @@
 				FABC0F3C1B5D4DF70025C851 /* Charity.m */,
 				FABC0F3E1B5D50390025C851 /* CharityData.h */,
 				FABC0F3F1B5D50390025C851 /* CharityData.m */,
+				FA52075F1B60306400D93AC6 /* CharityDetailViewController.h */,
+				FA5207601B60306400D93AC6 /* CharityDetailViewController.m */,
+				FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */,
 			);
 			name = Charity;
 			sourceTree = "<group>";
@@ -538,6 +546,7 @@
 				FABC0F3D1B5D4DF70025C851 /* Charity.m in Sources */,
 				5E8CB9351B59782F008DCA9D /* GTMNSString+HTML.m in Sources */,
 				5E6B042C1B443CB300AAA2FE /* main.m in Sources */,
+				FA5207611B60306400D93AC6 /* CharityDetailViewController.m in Sources */,
 				5EA13AE51B5B239F0098CD64 /* UIColor+ButtonColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
