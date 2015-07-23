@@ -76,9 +76,10 @@
     [self.webView loadRequest:requestObj];
     self.charitiesButton.layer.masksToBounds = YES;
     self.charitiesButton.layer.cornerRadius = 8;
-    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
+//    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     
-    
+    self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
+    self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
 }
 
 

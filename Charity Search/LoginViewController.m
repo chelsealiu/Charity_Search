@@ -16,7 +16,7 @@
 #import "AppDelegate.h"
 
 
-@interface LoginViewController () <LogoutDelegate>
+@interface LoginViewController ()
 
 @property (strong, nonatomic) User *currentUser;
 @property (weak, nonatomic) IBOutlet UITextField *usernameLoginTextfield;
@@ -35,15 +35,10 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    
-//    if (self.didPerformAnimation) {
-//        self.forgotButton.hidden = NO;
-//        self.loginButton.hidden = NO;
-//        NSLog(@"run");
-//    }
-    
-    self.forgotButton.hidden = YES;
-    self.loginButton.hidden = YES;
+    if (!self.didPerformAnimation) {
+        self.forgotButton.hidden = YES;
+        self.loginButton.hidden = YES;
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -62,7 +57,7 @@
 
 -(void) animateLogin {
 
-    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.2 options:0 animations:^{
+    [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.2 options:0 animations:^{
         
         CGRect loginFrame = self.loginButton.frame;
         loginFrame.origin.x += CGRectGetWidth(self.view.frame);
@@ -85,6 +80,8 @@
     
     [super viewDidLoad];
     
+    UINavigationController *delegateNav = self.tabBarController.viewControllers[0];
+    self.delegate = delegateNav.childViewControllers[0];
     self.view.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     self.navigationItem.hidesBackButton = YES;
     [self.navigationController setToolbarHidden:YES];
@@ -109,7 +106,14 @@
                                                             delegate:self
                                                    cancelButtonTitle:@"Go Back"
                                                    otherButtonTitles: nil];
+            
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pusheen_sad"]];
+            [imageView setContentMode:UIViewContentModeScaleAspectFit];
+            imageView.center = alert.center;
+            [alert setValue:imageView forKey:@"accessoryView"];
+            
             [alert show];
+            
             return;
         
         }
@@ -123,17 +127,12 @@
             NSMutableArray *tempVCsArray = [self.tabBarController.viewControllers mutableCopy];
             [tempVCsArray addObject:profileNav];
             self.tabBarController.viewControllers = tempVCsArray;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate showLoginAnimation];
+  
 
-            });
-
-            
         }
         
+        [self.delegate showLoginAnimation];
         [self.navigationController popToRootViewControllerAnimated:YES];
-
         
         }
      

@@ -42,17 +42,32 @@
                                                             delegate:self
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];
+            
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pusheen_angry"]];
+            [imageView setContentMode:UIViewContentModeScaleAspectFit];
+            imageView.center = alert.center;
+            [alert setValue:imageView forKey:@"accessoryView"];
+            [alert show];
+
             [alert show];
             
         } else {
             
             [self dismissViewControllerAnimated: YES completion:nil];
 
-            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Success"
-                                                             message:@"An email has been sent with instructions on how to reset your password"
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Success!"
+                                                             message:@"An email has been sent with instructions on how to reset your password."
                                                             delegate:self
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];
+            
+        
+            UIImage *sequence = [UIImage animatedImageNamed:@"pusheen_hp" duration:0.03 * 50];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:sequence];
+            [imageView setContentMode:UIViewContentModeScaleAspectFit];
+            [imageView setImage:sequence];
+            imageView.center = alert.center;
+            [alert setValue:imageView forKey:@"accessoryView"];
             [alert show];
         }
     }];

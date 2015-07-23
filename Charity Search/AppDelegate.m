@@ -46,7 +46,7 @@
     HomeViewController *homeController = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Home"];
     ProfileViewController *profileController = (ProfileViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Profile"];
     CharityViewController *charityController = (CharityViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Charities"];
-    NewsMainViewController *categoriesController = (NewsMainViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Categories"];
+    NewsMainViewController *categoriesController = (NewsMainViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"News"];
 
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeController];
     UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profileController];

@@ -14,7 +14,8 @@
 @dynamic imageFile;
 @dynamic savedArticlesArray;
 @dynamic savedCharitiesArray;
-
+@dynamic firstName;
+@dynamic lastName;
 
 +(void)load {
     

@@ -32,21 +32,18 @@
     [super awakeFromNib];
 }
 
--(void)viewWillAppear:(BOOL)animated {
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
-}
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
     self.newsTypeSegment.layer.masksToBounds = YES;
     self.newsTypeSegment.layer.cornerRadius = 4;
-    self.tabBarItem.title = @"Home";
+//    self.tabBarItem.title = @"Home";
     self.collectionView.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     self.view.backgroundColor = self.collectionView.backgroundColor;
     
@@ -177,8 +174,6 @@
     return customCell;
 }
     
-    
-
 - (IBAction)changedSegment:(id)sender {
     
     [self.collectionView reloadData];
@@ -188,9 +183,7 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     
     return UIEdgeInsetsMake(10, 10, 10, 10);
-    
 }
-
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -224,8 +217,6 @@
     headerLabel2=[[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 45)];
     headerLabel2.textColor = [UIColor colorWithRed:206.0/255 green:248.0/255 blue:249.0/255 alpha:1.0];
     headerLabel2.backgroundColor = [UIColor darkGrayColor];
-    
-    
     
     if (self.newsTypeSegment.selectedSegmentIndex == 1) {
         

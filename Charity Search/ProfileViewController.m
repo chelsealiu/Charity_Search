@@ -42,7 +42,8 @@
     [super viewDidLoad];
     
     User *currentUser = [User currentUser];
-    self.usernameLabel.text = currentUser.username;
+    NSString *firstName = currentUser.firstName;
+    self.usernameLabel.text = [firstName stringByAppendingString: [NSString stringWithFormat:@" %@", currentUser.lastName]];
 
     //share on facebook, over email, etc.
 //    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"Check out my photo!",[self usernameLabel]] applicationActivities:nil]; //change to article
@@ -66,13 +67,8 @@
     self.tableView.delegate = self;
     self.tableView.separatorColor = [UIColor whiteColor];
     self.saveDataTypeSegment.tintColor = [UIColor whiteColor];
-    self.view.backgroundColor = [UIColor colorWithRed:0.35 green:0.55 blue:0.72 alpha:1];
-//
-//    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
-//    self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
-//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:0.11 green:0.47 blue:0.68 alpha:1];
     
-//    [self updateProfile];
 }
 
 -(void) updateProfileImage {
@@ -107,7 +103,6 @@
                 for (UINavigationController *navController in tabController.viewControllers) {
                     [navController popToRootViewControllerAnimated:YES];
                     
-                    NSLog(@"pop");
                 }
 
             });

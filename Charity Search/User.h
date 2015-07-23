@@ -16,6 +16,7 @@
 @property (nonatomic, strong) PFFile *imageFile;
 @property (nonatomic, strong) NSMutableArray *savedArticlesArray;
 @property (nonatomic, strong) NSMutableArray *savedCharitiesArray;
-
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
 
 @end
