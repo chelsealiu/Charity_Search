@@ -178,7 +178,7 @@
 }
 
 +(void)getCharityObjects {
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
         
     
     NSString *charityString = [NSString stringWithFormat:@"https://app.place2give.com/Service.svc/give-api?action=searchCharities&token=%@&format=json&PageNumber=%d&NumPerPage=100&CharitySize=VERY%%20LARGE", CHARITY_KEY, i];
