@@ -94,7 +94,8 @@
         [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         charityButton.tag = idx;
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 320, 50)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 320, 75)];
+     
         NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
      
         button.tag = idx;
@@ -103,6 +104,7 @@
         [button setTitle:charity.name forState:UIControlStateNormal];
         
         NSLog(@"Charity Name: %@", charity.name);
+   
         button.titleLabel.numberOfLines = 0;
         button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         button.backgroundColor = [UIColor darkGrayColor];
