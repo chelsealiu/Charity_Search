@@ -94,7 +94,8 @@
         [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         charityButton.tag = idx;
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 320, 50)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 320, 75)];
+     
         NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
      
         button.tag = idx;
@@ -113,9 +114,7 @@
         [self.view addSubview:button];
         
         [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        // self.view.translatesAutoresizingMaskIntoConstraints = NO;
-        //NSLayoutConstraint *buttonConstraints = [NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:-20.0];
-        //[self.view addConstraint:buttonConstraints];
+
     }];
 }
 
@@ -210,17 +209,30 @@ int i = 0;
         i++;
         //make description into array, then add the objects
         NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
-//        NSMutableArray *charityKeywordsArray = [[NSMutableArray alloc] init];
-//        for (NSString *keyword in charityKeywords) {
-//            NSArray *myArray = [keyword componentsSeparatedByString:@" "];
-//            
-//        }
-        
-        NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
+        NSMutableArray *charityKeywordsArray = [[NSMutableArray alloc] init];
+        for (NSString *keyword in charityKeywords) {
+            NSString *lowerCaseKeyword =   [keyword lowercaseString];
+            NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
+
+            [charityKeywordsArray addObjectsFromArray:myArray];
+        }
+         NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
+        NSMutableArray *newsKeywordsArray = [[NSMutableArray alloc] init];
+        for (NSString *keyword in newsKeywords) {
+            NSString *lowerCaseKeyword =   [keyword lowercaseString];
+            NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
+            [newsKeywordsArray   addObjectsFromArray:myArray];
+        }
+        [newsKeywords addObjectsFromArray:newsKeywordsArray];
+      //  NSLog(@"newsKeywords: %@", newsKeywords);
+        [charityKeywords addObjectsFromArray:charityKeywordsArray];
+      //  NSLog(@"charityKeywords: %@", charityKeywords);
+       
         [newsKeywords intersectSet:charityKeywords];
         NSArray *matches = [newsKeywords allObjects];
+        NSLog(@"Matches: %@", matches);
         float rank = (float)[matches count];
-        ///((float)[charityKeywords count]*(float)[newsKeywords count]);
+   
         if(rank != rank) {
             rank = 0;
         }
@@ -243,8 +255,8 @@ int i = 0;
         }
         
     }];
-    NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
-    NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
+ //   NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
+ //   NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
     NSLog(@"count: %d", i);
     [self configureButtons];
 }
@@ -255,6 +267,20 @@ int i = 0;
     NSArray *sortedArray = [charities sortedArrayUsingDescriptors:sortDescriptors];
     return [sortedArray mutableCopy];
 }
+
+//-(NSSet *)cleanKeywordsForCharity:(NSMutableArray *)charities {
+//    NSMutableArray *moreKeywords = [[NSMutableArray alloc] init];
+//    for(NSString *keyword in charities) {
+//        NSString *lowerKeyword = [lowerKeyword lowercaseString];
+//        NSArray *newKeywords = [keyword componentsSeparatedByString:@" "];
+//        
+//        [moreKeywords addObjectsFromArray:newKeywords];
+//        
+//        
+//        
+//    }
+
+
 
 
 

@@ -20,6 +20,6 @@
 @property (nonatomic) double managementSpending;
 @property (nonatomic) double spendingRatio;
 
+- (instancetype)initWithCharityName:(NSString *)charityName andWebsite:(NSString *)website;
 @property (strong, nonatomic) NSArray  *concepts;
-
 @end
