@@ -71,7 +71,7 @@
     //Add the tab bar controller to the window
  
     [self.window setRootViewController:tabBarController];
-    //   [CharityData getCharityObjects];
+    //[CharityData getCharityObjects];
     
     return YES;
 }

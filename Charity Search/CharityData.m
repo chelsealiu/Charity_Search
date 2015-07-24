@@ -26,7 +26,7 @@
     
             PFQuery *query = [[PFQuery alloc]initWithClassName:[Charity parseClassName]];
             [query setLimit:1000];
-            [query whereKey:@"charityID" equalTo:@"regNum"];
+            [query whereKey:@"charityID" equalTo:regNum];
             
             [query getFirstObjectInBackgroundWithBlock:^(PFObject *object,  NSError *error){
                 if (object) {
@@ -36,6 +36,10 @@
                        [self getCharityKeywordsForCharity:charity];
                       /// [self getCharityKeywordsFromDescriptionForCharity:charity];
                       //  [self getCharityConceptsForCharity:charity];
+                    }
+                    
+                    if (!charity.managementSpending) {
+                        [self getFinancialData:charity onPageNumber:i];
                     }
                     
                 }
@@ -48,9 +52,11 @@
                     charity.charityDescription = [charityDict objectForKey:@"Description"];
                     charity.charityID = regNum;
                     charity.type = type;
+                    [self getFinancialData:charity onPageNumber:i];
 
                     [charity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
+                             [self getFinancialData:charity onPageNumber:i];
                             [self getCharityKeywordsForCharity:charity];
                         } else {
                             // There was a problem, check error.description
@@ -204,7 +210,7 @@
         } if ([tempFinanceArray isKindOfClass:[NSDictionary class]]) { //one data
             charity.charitableSpending = [tempFinanceArray[@"ExpCharitablePrograms"] floatValue];
             charity.managementSpending = [tempFinanceArray[@"ExpMgmtAdmin"] floatValue];
-
+            
             
         } if (charity.charitableSpending != 0 && charity.managementSpending != 0) {
             charity.spendingRatio = charity.charitableSpending/charity.managementSpending;
@@ -215,7 +221,7 @@
     }]; //finish task
     
     [task resume];
-            
+    
 }
 
 
@@ -239,6 +245,9 @@
             NSArray *charityArray = [[[[resultsDict objectForKey:@"give-api"] objectForKey:@"data"]objectForKey:@"charities"] objectForKey:@"charity"];
             [self loadCharitiesFromLocalArray:[charityArray mutableCopy]];
            // [self loadCharitiesFromArray:charityArray];
+            
+            [self loadCharitiesFromArray:charityArray onPageNumber:i];
+
         }
     }];
     [task resume];
