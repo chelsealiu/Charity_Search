@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *saveDataTypeSegment;
-
+@property (nonatomic) BOOL showsCharities;
 @end
 
 @implementation ProfileViewController
@@ -154,10 +154,10 @@
     User *currentUser = [User currentUser];
     NSString *feedItem = [[NSString alloc] init];
     
-    if (self.saveDataTypeSegment.selected == 0) {
-       feedItem = currentUser.savedArticlesArray[indexPath.row];
+    if (self.showsCharities) {
+       feedItem = currentUser.savedCharitiesArray[indexPath.row];
     } else {
-        feedItem = currentUser.savedCharitiesArray[indexPath.row];
+        feedItem = currentUser.savedArticlesArray[indexPath.row];
     }
     cell.textLabel.text = feedItem;
     return cell;
@@ -176,10 +176,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     User *currentUser = [User currentUser];
-    if (self.saveDataTypeSegment.selected == 0) {
-        return [currentUser.savedArticlesArray count];
-    } else {
+    if (self.showsCharities) {
         return [currentUser.savedCharitiesArray count];
+    } else {
+        return [currentUser.savedArticlesArray count];
     }
     
 }
@@ -194,15 +194,25 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (self.saveDataTypeSegment.selected == 0) {
             [currentUser.savedArticlesArray removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+
         } else {
             [currentUser.savedCharitiesArray removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+
         }
         [tableView reloadData];
     }
 }
 
 - (IBAction)changedSegment:(UISegmentedControl*)sender {
-    NSLog(@"reload data");
+
+    if (sender.selectedSegmentIndex == 0) {
+        self.showsCharities = NO;
+    } else {
+        self.showsCharities = YES;
+    }
+    
     [self.tableView reloadData];
 }
 

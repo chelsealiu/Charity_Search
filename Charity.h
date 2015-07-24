@@ -22,5 +22,4 @@
 
 @property (strong, nonatomic) NSArray  *concepts;
 
-
 @end

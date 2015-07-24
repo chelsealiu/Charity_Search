@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="G9G-iH-fhv">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -14,29 +14,80 @@
                         <viewControllerLayoutGuide type="bottom" id="hQ1-f4-4mD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TUy-zQ-PQW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleAspectFit" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bie-p8-r1X">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PzO-PS-nxG">
+                                <rect key="frame" x="106" y="261" width="108" height="46"/>
+                                <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="108" id="1bI-KU-v1v"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="4bs-hF-EcH"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="108" id="8BK-5d-0Fy"/>
+                                    <constraint firstAttribute="height" constant="46" id="yTC-fo-Tog"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="PzO-PS-nxG" secondAttribute="centerX" id="9vh-zT-8Wn"/>
                             <constraint firstItem="hQ1-f4-4mD" firstAttribute="top" secondItem="Bie-p8-r1X" secondAttribute="bottom" id="AC6-wI-dNC"/>
                             <constraint firstItem="Bie-p8-r1X" firstAttribute="leading" secondItem="TUy-zQ-PQW" secondAttribute="leading" id="BDf-tT-lrE"/>
                             <constraint firstAttribute="trailing" secondItem="Bie-p8-r1X" secondAttribute="trailing" id="bbB-gE-gcq"/>
+                            <constraint firstAttribute="centerY" secondItem="PzO-PS-nxG" secondAttribute="centerY" id="eLG-wH-ZL4"/>
                             <constraint firstItem="Bie-p8-r1X" firstAttribute="top" secondItem="TUy-zQ-PQW" secondAttribute="topMargin" id="kTR-j6-P9A"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="tKJ-vQ-xt7">
+                        <barButtonItem key="rightBarButtonItem" image="heart" id="ndc-0f-Tqj">
+                            <connections>
+                                <action selector="addCharityToFavourites:" destination="seg-CD-Z3x" id="01e-cp-hko"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="charityWebView" destination="Bie-p8-r1X" id="5tU-sB-iHn"/>
+                        <outlet property="heartButton" destination="ndc-0f-Tqj" id="UO7-8H-YC8"/>
+                        <outlet property="savedView" destination="PzO-PS-nxG" id="DhL-qB-0KX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="26j-r5-52G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="548" y="345"/>
+            <point key="canvasLocation" x="824" y="326"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Iw1-YT-bgB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="G9G-iH-fhv" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PVf-d5-iad">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="seg-CD-Z3x" kind="relationship" relationship="rootViewController" id="bWh-v5-LIh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JGz-qM-z6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="292" y="326"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="heart" width="42" height="42"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>

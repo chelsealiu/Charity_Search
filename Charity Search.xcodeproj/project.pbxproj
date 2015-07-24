@@ -34,6 +34,9 @@
 		5E8953D11B61473C005142D2 /* type_health.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953CC1B61473C005142D2 /* type_health.png */; };
 		5E8953D21B61473C005142D2 /* type_education.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953CD1B61473C005142D2 /* type_education.png */; };
 		5E8953D61B61551E005142D2 /* PopularDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8953D51B61551E005142D2 /* PopularDetailViewController.m */; };
+		5E8953DB1B61C3A8005142D2 /* OptionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8953DA1B61C3A8005142D2 /* OptionMenuController.m */; };
+		5E8953E01B628910005142D2 /* launch_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953DF1B628910005142D2 /* launch_icon.jpg */; };
+		5E8953E21B628FE6005142D2 /* icon-close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953E11B628FE6005142D2 /* icon-close.pdf */; };
 		5E8CB9211B596C8E008DCA9D /* ForgotPswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */; };
 		5E8CB9221B597236008DCA9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04361B443CB300AAA2FE /* Main.storyboard */; };
 		5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B043B1B443CB300AAA2FE /* LaunchScreen.xib */; };
@@ -126,6 +129,11 @@
 		5E8953CD1B61473C005142D2 /* type_education.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = type_education.png; sourceTree = "<group>"; };
 		5E8953D41B61551E005142D2 /* PopularDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularDetailViewController.h; sourceTree = "<group>"; };
 		5E8953D51B61551E005142D2 /* PopularDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularDetailViewController.m; sourceTree = "<group>"; };
+		5E8953D91B61C3A8005142D2 /* OptionMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionMenuController.h; sourceTree = "<group>"; };
+		5E8953DA1B61C3A8005142D2 /* OptionMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionMenuController.m; sourceTree = "<group>"; };
+		5E8953DC1B61C7D9005142D2 /* CharitySortDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharitySortDelegate.h; sourceTree = "<group>"; };
+		5E8953DF1B628910005142D2 /* launch_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch_icon.jpg; sourceTree = "<group>"; };
+		5E8953E11B628FE6005142D2 /* icon-close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "icon-close.pdf"; sourceTree = "<group>"; };
 		5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPswdViewController.h; sourceTree = "<group>"; };
 		5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPswdViewController.m; sourceTree = "<group>"; };
 		5E8CB9241B59782F008DCA9D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -262,14 +270,16 @@
 				FAD7B9281B5D9C67002919E5 /* Charity */,
 				5E8CB91E1B596A69008DCA9D /* Login Flow */,
 				5EA13AEA1B5B23A80098CD64 /* ToCharity Button */,
-				5E89538E1B607A57005142D2 /* Storyboard */,
+				5E89538E1B607A57005142D2 /* Storyboards */,
 				5E8CB93E1B597892008DCA9D /* News Viewer */,
 				5E8953D31B614752005142D2 /* Type images */,
 				5ED314101B5DA545007F999B /* colour_tree.jpg */,
+				5E8953E11B628FE6005142D2 /* icon-close.pdf */,
 				5E6F236E1B60065000BA0085 /* cover_image.jpg */,
 				5ED314121B5DA945007F999B /* hand_earth.png */,
 				5ED314161B5DCC14007F999B /* hands_tree.png */,
 				5ED314181B5DD3D9007F999B /* convo_box.png */,
+				5E8953DF1B628910005142D2 /* launch_icon.jpg */,
 				5ED314141B5DB551007F999B /* many_hands.jpg */,
 				5EDC94D31B55AA46007C0EE8 /* heart.png */,
 				5E6B04391B443CB300AAA2FE /* Images.xcassets */,
@@ -327,12 +337,13 @@
 			name = pusheen;
 			sourceTree = "<group>";
 		};
-		5E89538E1B607A57005142D2 /* Storyboard */ = {
+		5E89538E1B607A57005142D2 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */,
 				5E6B04361B443CB300AAA2FE /* Main.storyboard */,
 			);
-			name = Storyboard;
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 		5E89538F1B610D20005142D2 /* Frameworks */ = {
@@ -465,11 +476,13 @@
 				FABC0F3F1B5D50390025C851 /* CharityData.m */,
 				FA52075F1B60306400D93AC6 /* CharityDetailViewController.h */,
 				FA5207601B60306400D93AC6 /* CharityDetailViewController.m */,
-				FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */,
 				5E11ACAA1B5D8E3000CB4A35 /* PopularCharitiesViewController.h */,
 				5E11ACAB1B5D8E3000CB4A35 /* PopularCharitiesViewController.m */,
 				5E8953D41B61551E005142D2 /* PopularDetailViewController.h */,
 				5E8953D51B61551E005142D2 /* PopularDetailViewController.m */,
+				5E8953D91B61C3A8005142D2 /* OptionMenuController.h */,
+				5E8953DA1B61C3A8005142D2 /* OptionMenuController.m */,
+				5E8953DC1B61C7D9005142D2 /* CharitySortDelegate.h */,
 			);
 			name = Charity;
 			sourceTree = "<group>";
@@ -533,6 +546,7 @@
 			files = (
 				5E6F23771B60486300BA0085 /* pusheen3.png in Resources */,
 				5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */,
+				5E8953E21B628FE6005142D2 /* icon-close.pdf in Resources */,
 				5E6F23811B6054BF00BA0085 /* pusheen_hp3.png in Resources */,
 				5E6F236F1B60065000BA0085 /* cover_image.jpg in Resources */,
 				5ED314111B5DA545007F999B /* colour_tree.jpg in Resources */,
@@ -555,6 +569,7 @@
 				5E6F23881B605A2300BA0085 /* pusheen_happy.png in Resources */,
 				5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */,
 				5E6F23751B60486300BA0085 /* pusheen4.png in Resources */,
+				5E8953E01B628910005142D2 /* launch_icon.jpg in Resources */,
 				5E8953D01B61473C005142D2 /* type_community.png in Resources */,
 				5E8953D11B61473C005142D2 /* type_health.png in Resources */,
 				5E6F238A1B605A2700BA0085 /* pusheen_angry.png in Resources */,
@@ -589,6 +604,7 @@
 				5E8CB93A1B59782F008DCA9D /* NSDate+InternetDateTime.m in Sources */,
 				5EDC94A31B5420FF007C0EE8 /* SignUpViewController.m in Sources */,
 				5E8CB9211B596C8E008DCA9D /* ForgotPswdViewController.m in Sources */,
+				5E8953DB1B61C3A8005142D2 /* OptionMenuController.m in Sources */,
 				5E8CB93B1B59782F008DCA9D /* NSString+HTML.m in Sources */,
 				5EA13AE91B5B239F0098CD64 /* TapReceiverViewController.m in Sources */,
 				5E8CB9361B59782F008DCA9D /* MWFeedInfo.m in Sources */,

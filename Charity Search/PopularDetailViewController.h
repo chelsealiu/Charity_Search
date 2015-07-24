@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Charity.h"
 
-@interface PopularDetailViewController : UIViewController
+@interface PopularDetailViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong, nonatomic) Charity *detailItem;
 

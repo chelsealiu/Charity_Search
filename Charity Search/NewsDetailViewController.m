@@ -29,7 +29,7 @@
 - (void)setDetailFeedItem:(MWFeedItem*)newDetailItem {
     if (_detailFeedItem != newDetailItem) {
         _detailFeedItem = newDetailItem;
-        
+
     }
 }
 

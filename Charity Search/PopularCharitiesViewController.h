@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CharitySortDelegate.h"
 
-@interface PopularCharitiesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
-
+@interface PopularCharitiesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, CharitySortDelegate>
 
 extern const CGFloat kTableHeaderHeight;
 
