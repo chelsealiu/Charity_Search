@@ -194,7 +194,7 @@
 
 - (IBAction)showFloatingMenu:(UIButton*)sender {
     
-       FloatingMenuController *menuController = [[FloatingMenuController alloc] initWithView:sender];
+    FloatingMenuController *menuController = [[FloatingMenuController alloc] initWithView:sender];
    
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

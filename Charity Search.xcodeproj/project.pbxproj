@@ -37,6 +37,7 @@
 		5E8953DB1B61C3A8005142D2 /* OptionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8953DA1B61C3A8005142D2 /* OptionMenuController.m */; };
 		5E8953E01B628910005142D2 /* launch_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953DF1B628910005142D2 /* launch_icon.jpg */; };
 		5E8953E21B628FE6005142D2 /* icon-close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953E11B628FE6005142D2 /* icon-close.pdf */; };
+		5E8953E41B62BEBD005142D2 /* texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953E31B62BEBD005142D2 /* texture.jpg */; };
 		5E8CB9211B596C8E008DCA9D /* ForgotPswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */; };
 		5E8CB9221B597236008DCA9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04361B443CB300AAA2FE /* Main.storyboard */; };
 		5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B043B1B443CB300AAA2FE /* LaunchScreen.xib */; };
@@ -134,6 +135,7 @@
 		5E8953DC1B61C7D9005142D2 /* CharitySortDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharitySortDelegate.h; sourceTree = "<group>"; };
 		5E8953DF1B628910005142D2 /* launch_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch_icon.jpg; sourceTree = "<group>"; };
 		5E8953E11B628FE6005142D2 /* icon-close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "icon-close.pdf"; sourceTree = "<group>"; };
+		5E8953E31B62BEBD005142D2 /* texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = texture.jpg; sourceTree = "<group>"; };
 		5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPswdViewController.h; sourceTree = "<group>"; };
 		5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPswdViewController.m; sourceTree = "<group>"; };
 		5E8CB9241B59782F008DCA9D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				5E6F236B1B5FFC6700BA0085 /* LoginAnimateDelegate.h */,
 				5EDC94B01B542532007C0EE8 /* ProfileViewController.h */,
 				5EDC94B11B542532007C0EE8 /* ProfileViewController.m */,
+				5E8953E31B62BEBD005142D2 /* texture.jpg */,
 				5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */,
 				5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */,
 				5EDC94B31B543DCF007C0EE8 /* User.h */,
@@ -544,6 +547,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E8953E41B62BEBD005142D2 /* texture.jpg in Resources */,
 				5E6F23771B60486300BA0085 /* pusheen3.png in Resources */,
 				5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */,
 				5E8953E21B628FE6005142D2 /* icon-close.pdf in Resources */,

@@ -43,7 +43,7 @@
     self.title = @"Related Charities";
     
     self.closeButton = [[FloatingButton alloc] initWithFrame:CGRectMake(-0, 0, 50, 50) image:[UIImage imageNamed:@"icon-close.pdf"] andBackgroundColor:[UIColor flatRedColor]];
-    self.closeButton.center = CGPointMake(self.fromView.center.x - self.view.frame.size.width/2, self.fromView.center.y);
+    self.closeButton.center = CGPointMake(self.view.frame.size.width/2, self.fromView.center.y);
     
     UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
@@ -102,7 +102,6 @@
         Charity *charity = [charityDict objectForKey:@"Charity"];
         [button setTitle:charity.name forState:UIControlStateNormal];
         
-        NSLog(@"Charity Name: %@", charity.name);
         button.titleLabel.numberOfLines = 0;
         button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         button.backgroundColor = [UIColor darkGrayColor];

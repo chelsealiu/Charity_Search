@@ -67,6 +67,8 @@
     self.tableView.delegate = self;
     self.tableView.separatorColor = [UIColor whiteColor];
     self.saveDataTypeSegment.tintColor = [UIColor whiteColor];
+    self.saveDataTypeSegment.backgroundColor = [UIColor clearColor];
+    
     self.view.backgroundColor = [UIColor colorWithRed:0.11 green:0.47 blue:0.68 alpha:1];
     
 }
@@ -192,7 +194,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     User *currentUser = [User currentUser];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        if (self.saveDataTypeSegment.selected == 0) {
+        if (self.saveDataTypeSegment.selectedSegmentIndex == 0) {
             [currentUser.savedArticlesArray removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
 
@@ -202,6 +204,7 @@
 
         }
         [tableView reloadData];
+        [currentUser saveInBackground];
     }
 }
 

@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, SortDescriptor) {
 };
 
 @interface PopularCharitiesViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *optionsButton;
 
 @property (nonatomic) SortDescriptor sortDescriptor;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,14 +45,32 @@ typedef NS_ENUM(NSInteger, SortDescriptor) {
 const CGFloat kTableHeaderHeight = 50;
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     self.navigationController.navigationBarHidden = YES;
     [self sortCharities:self.sortDescriptor];
     [self.tableView reloadData];
-
+    
+    
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    //only runs once?
+    CABasicAnimation *theAnimation;
+    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+    theAnimation.duration=1.0;
+    theAnimation.repeatCount=HUGE_VALF;
+    theAnimation.autoreverses=YES;
+    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+    theAnimation.toValue=[NSNumber numberWithFloat:0.4];
+    [self.optionsButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
+
+    self.optionsButton.layer.masksToBounds = YES;
+    self.optionsButton.layer.cornerRadius = self.optionsButton.frame.size.width/2;
+    self.optionsButton.alpha = 0.5;
+    
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 40;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -63,12 +82,10 @@ const CGFloat kTableHeaderHeight = 50;
     [self updateHeaderView];
     [self.tableView addSubview:self.headerView];
     [self.view layoutIfNeeded];
-
     
     PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
     [query setLimit:1000];
     [query findObjectsInBackgroundWithBlock:^(NSArray *charityArray,  NSError *error){
-        
         
         NSMutableArray *array = [NSMutableArray array];
 
@@ -85,15 +102,12 @@ const CGFloat kTableHeaderHeight = 50;
                 [self sortCharities:0];
                 [self.tableView reloadData];
             });
-        
     }];
 
     self.imgTypeDict = @{@"Benefits to Community":[UIImage imageNamed:@"type_community"], @"Education":[UIImage imageNamed:@"type_education"], @"Health":[UIImage imageNamed:@"type_health"], @"Religion":[UIImage imageNamed:@"type_religion"], @"Welfare":[UIImage imageNamed:@"type_welfare"]};
     
     NSSortDescriptor *ratioSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"spendingRatio" ascending:NO];
-    
     NSSortDescriptor *charitableSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"charitableSpending" ascending:NO];
-    
     NSSortDescriptor *managementSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"managementSpending" ascending:NO];
     
     self.sortDescriptors = @[ratioSortDescriptor, charitableSortDescriptor, managementSortDescriptor];
@@ -114,7 +128,6 @@ const CGFloat kTableHeaderHeight = 50;
 
 }
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -129,24 +142,13 @@ const CGFloat kTableHeaderHeight = 50;
 - (PopularCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
  
     PopularCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PopularCell" forIndexPath:indexPath];
-//    [cell.heartButton addTarget:self action:@selector(charityFavourited) forControlEvents:UIControlEventTouchUpInside];
-
-    User *currentUser = [User currentUser];
     Charity *charity = self.sortedCharities[indexPath.row];
-    
-//    if ([currentUser.savedCharitiesArray containsObject:charity]) {
-//        cell.heartButton.tintColor = nil;
-//    } else if (![currentUser.savedCharitiesArray containsObject:charity]) {
-//        cell.heartButton.tintColor = [UIColor redColor];
-//    }
-    
     cell.titleLabel.text = charity.name;
     cell.descriptionLabel.text = charity.charityDescription;
     cell.typeImageView.image = self.imgTypeDict[charity.type];
     
     NSLog(@"%f", charity.spendingRatio);
     cell.typeImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self charityFavourited:indexPath];
     
     return cell;
 }
@@ -172,6 +174,8 @@ const CGFloat kTableHeaderHeight = 50;
     [self updateHeaderView];
 }
 
+
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PopularCell*)sender {
@@ -179,47 +183,28 @@ const CGFloat kTableHeaderHeight = 50;
     Charity *charity = self.sortedCharities[indexPath.row];
     if ([[segue identifier] isEqualToString:@"showWebViewFromCharity"]) {
         [[segue destinationViewController] setDetailItem:charity];
-    } else if ([[segue identifier] isEqualToString:@"showOptions"]) {
+    }
+    else if ([[segue identifier] isEqualToString:@"showOptions"]) {
+        [[segue destinationViewController] setModalPresentationStyle:UIModalPresentationOverCurrentContext];
         [[segue destinationViewController] setDelegate:self];
+
     }
     
 }
-
-- (IBAction)showMenu:(UIButton*)sender {
+//
+//- (IBAction)showSortOptions:(id)sender {
 //    
-//    OptionMenuController *menuController = [self.storyboard instantiateViewControllerWithIdentifier:@"Options"];
+////    OptionMenuController *menuController = [self.storyboard instantiateViewControllerWithIdentifier:@"Options"];
+//////    
+////    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuController];
+////    navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+////    navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+////    menuController.delegate = self;
+////    menuController.view.backgroundColor = [UIColor clearColor];
+////    [self presentViewController:navigationController animated:YES completion:nil];
 //
-//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuController];
-//    navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//    navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//}
 //
-//    [self.navigationController presentViewController:menuController animated:YES completion:nil];
-}
-
-- (void)charityFavourited:(NSIndexPath*)indexPath {
-    Charity *charity = self.sortedCharities[indexPath.row];
-    User *currentUser = [User currentUser];
-    PopularCell *cell = (PopularCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-    //fade in
-    
-    if (currentUser == nil) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"You must log in to save articles." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Login", nil];
-        
-        [alertView show];
-        
-        return;
-    }
-    else if (![currentUser.savedCharitiesArray containsObject:charity.name]) {
-//        [currentUser.savedCharitiesArray addObject:charity.name];
-        cell.typeImageView.image = [UIImage imageNamed:@"heart"];
-    } else {
-//        [currentUser.savedCharitiesArray removeObject:charity.name];
-        cell.typeImageView.image = nil;
-        
-    }
-    [currentUser saveInBackground]; //crash on this line?
-}
-
 
 #pragma mark sort delegate
 

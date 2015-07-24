@@ -44,7 +44,7 @@
     self.newsTypeSegment.layer.masksToBounds = YES;
     self.newsTypeSegment.layer.cornerRadius = 4;
     self.collectionView.contentMode = UIViewContentModeScaleAspectFit;
-    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"colour_tree.jpg"]];
+    self.collectionView.backgroundColor = [UIColor colorWithRed:0.53 green:0.87 blue:0.96 alpha:1];
 
     //CBC 'Any' Feeds
     NSURL *CBCTechFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/technology.xml"];

@@ -15,13 +15,17 @@
 
 @implementation OptionMenuController
 
+-(void)viewWillAppear:(BOOL)animated {
+    self.view.backgroundColor = [UIColor clearColor];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.view.alpha = 0.87;
-    
+//    
+//    UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+//    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+//    [self.view addSubview:blurView];
 //    PopularCharitiesViewController *profileVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Charities"];
 //    self.delegate = profileVC;
 }
