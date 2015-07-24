@@ -19,6 +19,17 @@
 @dynamic charitableSpending;
 @dynamic concepts;
 
+- (instancetype)initWithCharityName:(NSString *)charityName andWebsite:(NSString *)website
+{
+    self = [super init];
+    if (self) {
+        self.name = charityName;
+        self.website = website;
+    }
+    return self;
+}
+
+
 +(void)load {
     [self registerSubclass];
 }

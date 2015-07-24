@@ -19,4 +19,6 @@
 @property (nonatomic) double charitableSpending;
 @property (nonatomic, strong) NSArray *concepts;
 
+- (instancetype)initWithCharityName:(NSString *)charityName andWebsite:(NSString *)website;
+
 @end

@@ -13,13 +13,16 @@
 #import <Parse/Parse.h>
 #import "LoginViewController.h"
 
-@interface NewsDetailViewController ()
+@interface NewsDetailViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *savedView;
 @property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
 @property (weak, nonatomic) IBOutlet UIButton *hideButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 @property (strong, nonatomic) UIView *topWhiteView;
+//@property(nonatomic,weak) NSObject <UIScrollViewDelegate> *delegate;
+
+
 
 @end
 
@@ -68,44 +71,45 @@
 
 }
 
-- (void)setupTopWhiteView {
-    self.topWhiteView = [[UIView alloc] init];
-    self.topWhiteView.backgroundColor = [UIColor whiteColor];
-    [self.webView addSubview:self.topWhiteView];
-    
-    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-                                                             attribute:NSLayoutAttributeTop
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.webView
-                                                             attribute:NSLayoutAttributeTop
-                                                            multiplier:1.0
-                                                              constant:0.0]];
-    
-    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-                                                             attribute:NSLayoutAttributeRight
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.webView
-                                                             attribute:NSLayoutAttributeRight
-                                                            multiplier:1.0
-                                                              constant:0.0]];
-    
-    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-                                                             attribute:NSLayoutAttributeLeft
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.webView
-                                                             attribute:NSLayoutAttributeLeft
-                                                            multiplier:1.0
-                                                              constant:0.0]];
-    
-    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-                                                             attribute:NSLayoutAttributeHeight
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:nil
-                                                             attribute:NSLayoutAttributeNotAnAttribute
-                                                            multiplier:1.0
-                                                              constant:110]];
-}
-
+//- (void)setupTopWhiteView {
+//    self.topWhiteView = [[UIView alloc] init];
+//    self.topWhiteView.backgroundColor = [UIColor whiteColor];
+//    self.topWhiteView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.webView addSubview:self.topWhiteView];
+//    
+//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+//                                                             attribute:NSLayoutAttributeTop
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:self.webView
+//                                                             attribute:NSLayoutAttributeTop
+//                                                            multiplier:1.0
+//                                                              constant:0.0]];
+//    
+//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+//                                                             attribute:NSLayoutAttributeRight
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:self.webView
+//                                                             attribute:NSLayoutAttributeRight
+//                                                            multiplier:1.0
+//                                                              constant:0.0]];
+//    
+//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+//                                                             attribute:NSLayoutAttributeLeft
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:self.webView
+//                                                             attribute:NSLayoutAttributeLeft
+//                                                            multiplier:1.0
+//                                                              constant:0.0]];
+//    
+//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+//                                                             attribute:NSLayoutAttributeHeight
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:nil
+//                                                             attribute:NSLayoutAttributeNotAnAttribute
+//                                                            multiplier:1.0
+//                                                              constant:110]];
+//}
+//
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *fullURL = self.detailFeedItem.link;
@@ -120,8 +124,9 @@
     
     self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
     self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
-    [self setupTopWhiteView];
+   // [self setupTopWhiteView];
     
+    self.webView.scrollView.delegate = self;
 }
 
 
@@ -220,6 +225,18 @@
 }
 
 
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//   // CGPoint offset = scrollView.contentOffset;
+//    
+//    if(scrollView.contentOffset.y < 110) {
+//        CGPoint newOrigin = CGPointMake(0.0, 110.0);
+//        [scrollView setContentOffset:newOrigin];
+//    }
+//    NSLog(@"Y: %f", scrollView.contentOffset.y);
+//    
+//    
+////
+//}
 
 /*
 #pragma mark - Navigation
