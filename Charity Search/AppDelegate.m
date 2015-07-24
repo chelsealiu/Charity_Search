@@ -56,7 +56,7 @@
     homeController.tabBarItem.title = @"Home";
     profileController.tabBarItem.title = @"Profile";
     categoriesController.tabBarItem.title = @"Categories";
-    charityController.tabBarItem.title = @"Popular Charities";
+    charityController.tabBarItem.title = @"Suggested";
     
     NSMutableArray* allControllers = [NSMutableArray arrayWithObjects: homeNav, categoriesNav, charityNav, nil];
     

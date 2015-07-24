@@ -89,8 +89,10 @@
     newUser.firstName = self.firstNameTextfield.text;
     newUser.lastName = self.lastNameTextfield.text;
     
+    BOOL allTextFieldsCompleted = NO;
+    
     for (UITextField *textField in self.textfieldsArray) {
-        if (textField == nil) {
+        if ([textField.text isEqualToString: @"" ]) {
             UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Error"
                                                              message:@"You must complete all fields."
                                                             delegate:self
@@ -98,48 +100,60 @@
                                                    otherButtonTitles: nil];
             
             [alert show];
+            allTextFieldsCompleted = NO;
             return;
+            
+        } else {
+            
+            allTextFieldsCompleted = YES;
+
         }
     }
     
-    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-    
-        if (succeeded) {
+    if (allTextFieldsCompleted) {
+        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
             
-            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Congrats!"
-                                                             message:@"You have successfully made a new account."
-                                                            delegate:self
-                                                   cancelButtonTitle:@"Cool"
-                                                   otherButtonTitles: nil];
-            
+            if (succeeded) {
+                
+                UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Congrats!"
+                                                                 message:@"You have successfully made a new account."
+                                                                delegate:self
+                                                       cancelButtonTitle:@"Cool"
+                                                       otherButtonTitles: nil];
+                
+                
+                
+                [alert show];
+                
+                [self dismissViewControllerAnimated:YES completion:nil];
+                
+            } else if (error) {
+                
+                UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Error"
+                                                                 message:error.localizedDescription
+                                                                delegate:self
+                                                       cancelButtonTitle:@"OK"
+                                                       otherButtonTitles: nil];
+                
+                [alert show];
+                
+            } else if (![self.passwordTextfield.text isEqualToString:self.confirmPasswordTextfield.text]) {
+                
+                UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Error"
+                                                                 message:@"Your password entries do not match."
+                                                                delegate:self
+                                                       cancelButtonTitle:@"OK"
+                                                       otherButtonTitles: nil];
+                
+                [alert show];
+                
+            }
+        }];
 
-            
-            [alert show];
-            
-            [self dismissViewControllerAnimated:YES completion:nil];
-        
-        } else if (error) {
-            
-            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Error"
-                                                             message:error.localizedDescription
-                                                            delegate:self
-                                                   cancelButtonTitle:@"OK"
-                                                   otherButtonTitles: nil];
-            
-            [alert show];
-            
-        } else if (![self.passwordTextfield.text isEqualToString:self.confirmPasswordTextfield.text]) {
-            
-            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Error"
-                                                             message:@"Your password entries do not match."
-                                                            delegate:self
-                                                   cancelButtonTitle:@"OK"
-                                                   otherButtonTitles: nil];
-            
-            [alert show];
-            
-        }
-    }];
+    }
+    
+    
+    
 }
 
 - (IBAction)cancelSignUp:(id)sender {

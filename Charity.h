@@ -17,7 +17,10 @@
 @property (strong, nonatomic) NSString *charityID; //regNum
 @property (strong, nonatomic) NSString *type; 
 @property (nonatomic) double charitableSpending;
-@property (nonatomic, strong) NSArray *concepts;
+@property (nonatomic) double managementSpending;
+@property (nonatomic) double spendingRatio;
+
+@property (strong, nonatomic) NSArray  *concepts;
 
 - (instancetype)initWithCharityName:(NSString *)charityName andWebsite:(NSString *)website;
 

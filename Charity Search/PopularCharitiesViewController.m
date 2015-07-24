@@ -12,26 +12,61 @@
 #import <Parse/Parse.h>
 #import "Charity.h"
 #import "Key.h"
+#import "User.h"
+#import "FloatingMenuController.h"
+#import "PopularDetailViewController.h"
+#import "OptionMenuController.h"
+
+
+typedef NS_ENUM(NSInteger, SortDescriptor) {
+    
+    SortDescriptorCharitableSpending = 0,
+    SortDescriptorManagementSpending = 1,
+    SortDescriptorSpendingRatio = 2
+    
+};
 
 @interface PopularCharitiesViewController ()
+
+@property (nonatomic) SortDescriptor sortDescriptor;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSDictionary *imgTypeDict;
 @property (strong, nonatomic) NSMutableArray *charityObjectsArray;
 @property (strong, nonatomic) NSArray *sortedCharities;
+@property (strong, nonatomic) UIView *headerView;
+@property (strong, nonatomic) NSArray *sortDescriptors;
 
 @end
 
 @implementation PopularCharitiesViewController
 
 
+const CGFloat kTableHeaderHeight = 50;
+
+-(void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
+    [self sortCharities:self.sortDescriptor];
+    [self.tableView reloadData];
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 40;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.headerView = self.tableView.tableHeaderView;
+    self.tableView.tableHeaderView = nil;
     
-    __block int counter = 0;
+    [self.tableView setContentInset:UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0)];
+    
+    [self updateHeaderView];
+    [self.tableView addSubview:self.headerView];
+    [self.view layoutIfNeeded];
 
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
+    [query setLimit:1000];
     [query findObjectsInBackgroundWithBlock:^(NSArray *charityArray,  NSError *error){
         
         
@@ -39,68 +74,36 @@
 
         for (Charity *charity in charityArray) {
             
-            NSString *urlString = [NSString stringWithFormat: @"https://app.place2give.com/Service.svc/give-api?action=getFinancialDetails&token=%@&format=json&PageNumber=1&NumPerPage=100&regNum=%@", CHARITY_KEY, charity.charityID];
-            
-            NSURL *url = [NSURL URLWithString:urlString];
-            
-            counter += 1;
-            
-            NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
-                
-                counter --;
-
-         
-                if (fetchingError) {
-                    NSLog(@"%@", fetchingError.localizedDescription);
-                    return;
-                }
-                NSError *jsonError;
-                NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-                NSDictionary *financialData = responseDict[@"give-api"][@"data"][@"financialDetails"]; //array of dicts, unless there is only one
-                id tempFinanceArray = financialData[@"financialData"];
-                
-                if ([tempFinanceArray isKindOfClass:[NSArray class]]) { //more than one data
-                    NSDictionary *dict = tempFinanceArray[0];
-                    charity.charitableSpending = [dict[@"ExpCharitablePrograms"] floatValue];
-                    
-//                    NSLog(@"array, %f", charity.charitableSpending);
-                    
-                } if ([tempFinanceArray isKindOfClass:[NSDictionary class]]) { //one data
-                    charity.charitableSpending = [tempFinanceArray[@"ExpCharitablePrograms"] floatValue];
-                    
-                }
-                
-                if (charity.charitableSpending != 0) {
-                    [array addObject:charity];
-                    NSLog(@"%f", charity.charitableSpending);
-                }
-                
-                if (counter == 0) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.charityObjectsArray = [array mutableCopy];
-                        [self sortCharities];
-                        [self.tableView reloadData];
-                        NSLog(@"array: %@", array);
-                    });
-                }
-                
-            }];
-            
-            [task resume];
-
+            if (charity.spendingRatio > 0) {
+                [array addObject:charity];
+            }
         }
-    }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.charityObjectsArray = [array mutableCopy];
+                NSLog(@"%@", array);
+                [self sortCharities:0];
+                [self.tableView reloadData];
+            });
         
-    NSLog(@"%@", self.charityObjectsArray);
+    }];
+
     self.imgTypeDict = @{@"Benefits to Community":[UIImage imageNamed:@"type_community"], @"Education":[UIImage imageNamed:@"type_education"], @"Health":[UIImage imageNamed:@"type_health"], @"Religion":[UIImage imageNamed:@"type_religion"], @"Welfare":[UIImage imageNamed:@"type_welfare"]};
+    
+    NSSortDescriptor *ratioSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"spendingRatio" ascending:NO];
+    
+    NSSortDescriptor *charitableSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"charitableSpending" ascending:NO];
+    
+    NSSortDescriptor *managementSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"managementSpending" ascending:NO];
+    
+    self.sortDescriptors = @[ratioSortDescriptor, charitableSortDescriptor, managementSortDescriptor];
 
 }
 
--(void) sortCharities {
-    NSSortDescriptor *financeDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"charitableSpending" ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:financeDescriptor];
-    NSArray *sortedEventArray = [self.charityObjectsArray
-                                 sortedArrayUsingDescriptors:sortDescriptors];
+-(void) sortCharities:(NSInteger)index {
+    NSSortDescriptor *sortDescriptor = self.sortDescriptors[index];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+       NSArray *sortedEventArray = [self.charityObjectsArray sortedArrayUsingDescriptors:sortDescriptors];
     self.sortedCharities = [NSArray arrayWithArray:sortedEventArray];
     [self.tableView reloadData];
 }
@@ -126,31 +129,112 @@
 - (PopularCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
  
     PopularCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PopularCell" forIndexPath:indexPath];
-    
+//    [cell.heartButton addTarget:self action:@selector(charityFavourited) forControlEvents:UIControlEventTouchUpInside];
+
+    User *currentUser = [User currentUser];
     Charity *charity = self.sortedCharities[indexPath.row];
+    
+//    if ([currentUser.savedCharitiesArray containsObject:charity]) {
+//        cell.heartButton.tintColor = nil;
+//    } else if (![currentUser.savedCharitiesArray containsObject:charity]) {
+//        cell.heartButton.tintColor = [UIColor redColor];
+//    }
     
     cell.titleLabel.text = charity.name;
     cell.descriptionLabel.text = charity.charityDescription;
     cell.typeImageView.image = self.imgTypeDict[charity.type];
+    
+    NSLog(@"%f", charity.spendingRatio);
     cell.typeImageView.contentMode = UIViewContentModeScaleAspectFit;
- 
+    [self charityFavourited:indexPath];
+    
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Charity *charity = self.sortedCharities[indexPath.row];
-    NewsDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Detail"];
+
+#pragma update header view
+-(void)updateHeaderView {
+    CGFloat myOffset = self.tableView.contentOffset.y;
+    NSLog(@"%f", myOffset);
+    if (myOffset < -kTableHeaderHeight) {
+        self.headerView.frame = CGRectMake(0, myOffset, CGRectGetWidth(self.tableView.frame), -myOffset);
+    }
+    else {
+        self.headerView.frame = CGRectMake(0, -kTableHeaderHeight, CGRectGetWidth(self.tableView.frame),kTableHeaderHeight);
+    }
+}
+
+
+#pragma scrollView delegate method
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    
-    
+    [self updateHeaderView];
 }
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PopularCell*)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    Charity *charity = self.sortedCharities[indexPath.row];
+    if ([[segue identifier] isEqualToString:@"showWebViewFromCharity"]) {
+        [[segue destinationViewController] setDetailItem:charity];
+    } else if ([[segue identifier] isEqualToString:@"showOptions"]) {
+        [[segue destinationViewController] setDelegate:self];
+    }
     
+}
+
+- (IBAction)showMenu:(UIButton*)sender {
+//    
+//    OptionMenuController *menuController = [self.storyboard instantiateViewControllerWithIdentifier:@"Options"];
+//
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuController];
+//    navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//
+//    [self.navigationController presentViewController:menuController animated:YES completion:nil];
+}
+
+- (void)charityFavourited:(NSIndexPath*)indexPath {
+    Charity *charity = self.sortedCharities[indexPath.row];
+    User *currentUser = [User currentUser];
+    PopularCell *cell = (PopularCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+    //fade in
     
-    
+    if (currentUser == nil) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"You must log in to save articles." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Login", nil];
+        
+        [alertView show];
+        
+        return;
+    }
+    else if (![currentUser.savedCharitiesArray containsObject:charity.name]) {
+//        [currentUser.savedCharitiesArray addObject:charity.name];
+        cell.typeImageView.image = [UIImage imageNamed:@"heart"];
+    } else {
+//        [currentUser.savedCharitiesArray removeObject:charity.name];
+        cell.typeImageView.image = nil;
+        
+    }
+    [currentUser saveInBackground]; //crash on this line?
+}
+
+
+#pragma mark sort delegate
+
+- (void) sortBySpendingRatio {
+    self.sortDescriptor = SortDescriptorSpendingRatio;
+}
+
+- (void) sortByCharitablePrograms {
+    self.sortDescriptor = SortDescriptorCharitableSpending;
+
+}
+
+- (void) sortByManagementSpending {
+    self.sortDescriptor = SortDescriptorManagementSpending;
+
 }
 
 

@@ -12,11 +12,12 @@
 
 @implementation CharityData
 
-+(void)loadCharitiesFromArray:(NSArray *)charityArray {
++(void)loadCharitiesFromArray:(NSArray *)charityArray onPageNumber:(int)i {
     for(NSDictionary *charityDict in charityArray) {
         NSString *website = [[charityDict objectForKey:@"ContactInfo"] objectForKey:@"URL"];
         NSString *regNum = [charityDict objectForKey:@"regNum"];
         NSString *type = [charityDict objectForKey:@"Type"];
+        
         // handle all the nulls :/
         if((!website || [website isKindOfClass:[NSNull class]]) || (!regNum || ([regNum isKindOfClass:[NSNull class]])) || (!type || ([type isKindOfClass:[NSNull class]]))) {
             
@@ -39,6 +40,7 @@
                     
                 }
                 else {
+                    
                    // NSLog(@"website: %@", website);
                     Charity *charity = [Charity object];
                     charity.website = website;
@@ -177,6 +179,48 @@
         }
 }
 
++ (void) getFinancialData: (Charity *)charity onPageNumber:(int)i {
+    
+    NSString *urlString = [NSString stringWithFormat: @"https://app.place2give.com/Service.svc/give-api?action=getFinancialDetails&token=%@&format=json&PageNumber=%d&NumPerPage=100&regNum=%@", CHARITY_KEY, i, charity.charityID];
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
+        
+        if (fetchingError) {
+            NSLog(@"%@", fetchingError.localizedDescription);
+            return;
+        }
+        NSError *jsonError;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        NSDictionary *financialData = responseDict[@"give-api"][@"data"][@"financialDetails"]; //array of dicts, unless there is only one
+        id tempFinanceArray = financialData[@"financialData"];
+        
+        if ([tempFinanceArray isKindOfClass:[NSArray class]]) { //more than one data
+            NSDictionary *dict = tempFinanceArray[0];
+            charity.charitableSpending = [dict[@"ExpCharitablePrograms"] floatValue];
+            charity.managementSpending = [dict[@"ExpMgmtAdmin"] floatValue];
+            
+        } if ([tempFinanceArray isKindOfClass:[NSDictionary class]]) { //one data
+            charity.charitableSpending = [tempFinanceArray[@"ExpCharitablePrograms"] floatValue];
+            charity.managementSpending = [tempFinanceArray[@"ExpMgmtAdmin"] floatValue];
+
+            
+        } if (charity.charitableSpending != 0 && charity.managementSpending != 0) {
+            charity.spendingRatio = charity.charitableSpending/charity.managementSpending;
+        }
+        
+        [charity saveInBackground];
+        
+    }]; //finish task
+    
+    [task resume];
+            
+}
+
+
+
+
 +(void)getCharityObjects {
     for (int i = 0; i < 1; i++) {
         
@@ -199,6 +243,14 @@
     }];
     [task resume];
     }
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 +(void)getCharityKeywordsFromDescriptionForCharity:(Charity *)charity {

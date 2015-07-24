@@ -43,12 +43,10 @@
 
     self.newsTypeSegment.layer.masksToBounds = YES;
     self.newsTypeSegment.layer.cornerRadius = 4;
-//    self.tabBarItem.title = @"Home";
-//    self.collectionView.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
-    self.view.contentMode = UIViewContentModeScaleAspectFit;
-    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"many_hands.jpg"]];
-    
-    //CBC RSS Feeds
+    self.collectionView.contentMode = UIViewContentModeScaleAspectFit;
+    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"colour_tree.jpg"]];
+
+    //CBC 'Any' Feeds
     NSURL *CBCTechFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/technology.xml"];
     NSURL *CBCAboriginalFeed = [NSURL URLWithString:@"http://www.cbc.ca/cmlink/rss-cbcaboriginal"];
     NSURL *CBCHealthFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/health.xml"];

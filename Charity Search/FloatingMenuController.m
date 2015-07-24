@@ -40,15 +40,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.closeButton = [[FloatingButton alloc] initWithFrame:CGRectMake(0, 0, 70, 70) image:[UIImage imageNamed:@"icon-close"] andBackgroundColor:[UIColor flatRedColor]];
-    self.closeButton.center = self.fromView.center;
+    self.title = @"Related Charities";
+    
+    self.closeButton = [[FloatingButton alloc] initWithFrame:CGRectMake(-0, 0, 50, 50) image:[UIImage imageNamed:@"icon-close.pdf"] andBackgroundColor:[UIColor flatRedColor]];
+    self.closeButton.center = CGPointMake(self.fromView.center.x - self.view.frame.size.width/2, self.fromView.center.y);
     
     UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     blurView.frame = self.view.frame;
     
     [self.view addSubview:blurView];
-  //  NSLayoutConstraint *blurViewContstraint
     [self.view addSubview:self.closeButton];
     
     [self.closeButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside]; //dismiss viewcontroller when pressed
@@ -93,7 +94,7 @@
         [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         charityButton.tag = idx;
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 30)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 320, 50)];
         NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
      
         button.tag = idx;
@@ -104,7 +105,11 @@
         NSLog(@"Charity Name: %@", charity.name);
         button.titleLabel.numberOfLines = 0;
         button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor darkGrayColor];
+        button.alpha = 0.6;
+        button.layer.masksToBounds = YES;
+        button.layer.cornerRadius = 8;
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self.view addSubview:button];
         
