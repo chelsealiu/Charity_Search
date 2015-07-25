@@ -25,8 +25,6 @@
 
 //@property(nonatomic,weak) NSObject <UIScrollViewDelegate> *delegate;
 
-
-
 @end
 
 @implementation NewsDetailViewController
@@ -165,13 +163,13 @@
         NSMutableSet *charityKeywords = [[NSMutableSet alloc] init];
         NSMutableSet *newsKeywords = [[NSMutableSet alloc] init];
         newsKeywords = [self cleanKeywords:self.newsItem.keywords];
-          NSLog(@"newsKeywords: %@", newsKeywords);
+        //  NSLog(@"newsKeywords: %@", newsKeywords);
         charityKeywords = [self cleanKeywords:charity.keywords];
 
         [newsKeywords intersectSet:charityKeywords];
         NSArray *matches = [newsKeywords allObjects];
         float rank = (float)[matches count];
-        
+       // NSLog(@"matches %@", matches);
         if(rank != rank) {
             rank = 0;
         }
@@ -206,9 +204,6 @@
     [self setupCharitiesButton];
     return [sortedArray mutableCopy];
 }
-
-
-
 
 //- (void)setupTopWhiteView {
 //    self.topWhiteView = [[UIView alloc] init];
@@ -248,7 +243,7 @@
 //                                                            multiplier:1.0
 //                                                              constant:110]];
 //}
-//
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *fullURL = self.detailFeedItem.link;
@@ -258,8 +253,11 @@
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
      self.webView.scrollView.delegate = self;
-    [self getNewsKeyWordsForNewsItem:self.newsItem];
-}
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self getNewsKeyWordsForNewsItem:self.newsItem];
+    });
+   }
 
 -(void)setupCharitiesButton {
     self.charitiesButton.layer.masksToBounds = YES;

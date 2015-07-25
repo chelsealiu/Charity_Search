@@ -75,7 +75,6 @@
     
     UIStoryboard *charityStoryboard = [UIStoryboard storyboardWithName:@"CharityStoryboard" bundle:nil];
     
-    
     CharityDetailViewController *charityDetailVC = (CharityDetailViewController *)[charityStoryboard instantiateViewControllerWithIdentifier:@"charityDetailViewController"];
 
     charityDetailVC.charity = charity;
@@ -84,6 +83,24 @@
     
     [self.delegate charityButtonPressed];
     [self.delegate charityLabelPressed];
+}
+
+- (void)setupButton:(NSUInteger)idx forCharity:(Charity *)charity {
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 320, 75)];
+    button.tag = idx;
+    [button setTitle:charity.name forState:UIControlStateNormal];
+    
+    button.titleLabel.numberOfLines = 0;
+    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    button.backgroundColor = [UIColor darkGrayColor];
+    button.alpha = 0.6;
+    button.layer.masksToBounds = YES;
+    button.layer.cornerRadius = 8;
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.view addSubview:button];
+    
+    [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)configureButtons {
@@ -95,26 +112,31 @@
         [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         charityButton.tag = idx;
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 320, 75)];
-     
-        NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
-     
-        button.tag = idx;
         
-        Charity *charity = [charityDict objectForKey:@"Charity"];
-        [button setTitle:charity.name forState:UIControlStateNormal];
+        // make an array of default charities in case the website is not found or there are no matches
+        NSMutableArray *charities = [[NSMutableArray alloc] init];
+        Charity *charity1 = [[Charity alloc] initWithCharityName:@"Canadian Unicef Committee" andWebsite:@"http://WWW.UNICEF.CA"];
+        [charities addObject:charity1];
+        Charity *charity2 = [[Charity alloc] initWithCharityName:@"Salvation Army Canada" andWebsite:@"WWW.SALVATIONARMY.CA"];
+        [charities addObject:charity2];
+        Charity *charity3 = [[Charity alloc] initWithCharityName:@"Habitat For Humanity Canada Foundation" andWebsite:@"http://www.habitat.ca/"];
+        [charities addObject:charity3];
+        Charity *charity4 = [[Charity alloc] initWithCharityName:@"Shock Trauma Air Rescue Service Foundation" andWebsite:@"www.stars.ca"];
+        [charities addObject:charity4];
+        Charity *charity5 = [[Charity alloc] initWithCharityName:@"Terry Fox Foundation" andWebsite:@"WWW.TERRYFOX.ORG"];
+        [charities addObject:charity5];
         
-        button.titleLabel.numberOfLines = 0;
-        button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        button.backgroundColor = [UIColor darkGrayColor];
-        button.alpha = 0.6;
-        button.layer.masksToBounds = YES;
-        button.layer.cornerRadius = 8;
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.view addSubview:button];
-        
-        [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        if([self.newsItem.charityRankings count] < 5) {
+            for(int i = 0; i < (5 - [self.newsItem.charityRankings count]); i++ ) {
+                [self setupButton:i forCharity:[charities objectAtIndex:i]];
+            }
+        }
+        else {
+            NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
+            Charity *charity = [charityDict objectForKey:@"Charity"];
+
+        [self setupButton:idx forCharity:charity];
+        }
 
     }];
 }
