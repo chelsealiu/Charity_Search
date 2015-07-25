@@ -142,31 +142,32 @@
     
 }
 
+- (NSMutableSet *)cleanKeywords:(NSArray *)arrayToClean {
+    NSMutableSet *keywords = [NSMutableSet setWithArray:arrayToClean];
+    NSMutableArray *keywordsArray = [[NSMutableArray alloc] init];
+    for (NSString *keyword in keywords) {
+        NSString *lowerCaseKeyword =   [keyword lowercaseString];
+        NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
+        [keywordsArray   addObjectsFromArray:myArray];
+    }
+    [keywords addObjectsFromArray:keywordsArray];
+    return keywords;
+}
+
+
 -(void)getCharityRankings:(NSMutableArray *)allObjects{
     NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
     int i = 0;
     for (Charity *charity in allObjects) {
         i++;
         //make description into array, then add the objects
-        NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
-        NSMutableArray *charityKeywordsArray = [[NSMutableArray alloc] init];
-        for (NSString *keyword in charityKeywords) {
-            NSString *lowerCaseKeyword =   [keyword lowercaseString];
-            NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
-            
-            [charityKeywordsArray addObjectsFromArray:myArray];
-        }
-        NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
-        NSMutableArray *newsKeywordsArray = [[NSMutableArray alloc] init];
-        for (NSString *keyword in newsKeywords) {
-            NSString *lowerCaseKeyword =   [keyword lowercaseString];
-            NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
-            [newsKeywordsArray   addObjectsFromArray:myArray];
-        }
-        [newsKeywords addObjectsFromArray:newsKeywordsArray];
-          NSLog(@"newsKeywords: %@", newsKeywords);
-        [charityKeywords addObjectsFromArray:charityKeywordsArray];
         
+        NSMutableSet *charityKeywords = [[NSMutableSet alloc] init];
+        NSMutableSet *newsKeywords = [[NSMutableSet alloc] init];
+        newsKeywords = [self cleanKeywords:self.newsItem.keywords];
+          NSLog(@"newsKeywords: %@", newsKeywords);
+        charityKeywords = [self cleanKeywords:charity.keywords];
+
         [newsKeywords intersectSet:charityKeywords];
         NSArray *matches = [newsKeywords allObjects];
         float rank = (float)[matches count];
@@ -202,8 +203,12 @@
     NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Rank" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:rankDescriptor];
     NSArray *sortedArray = [charities sortedArrayUsingDescriptors:sortDescriptors];
+    [self setupCharitiesButton];
     return [sortedArray mutableCopy];
 }
+
+
+
 
 //- (void)setupTopWhiteView {
 //    self.topWhiteView = [[UIView alloc] init];
@@ -252,18 +257,18 @@
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
-    self.charitiesButton.layer.masksToBounds = YES;
-    self.charitiesButton.layer.cornerRadius = 8;
-//    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
-    
-    self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
-    self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
-   // [self setupTopWhiteView];
-    //self.newsItem.newsURL = self.detailFeedItem.link;
-    self.webView.scrollView.delegate = self;
+     self.webView.scrollView.delegate = self;
     [self getNewsKeyWordsForNewsItem:self.newsItem];
 }
 
+-(void)setupCharitiesButton {
+    self.charitiesButton.layer.masksToBounds = YES;
+    self.charitiesButton.layer.cornerRadius = 8;
+
+    self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
+    self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
+    self.charitiesButton.userInteractionEnabled = YES;
+}
 
 - (IBAction)articleFavourited:(UIBarButtonItem *)sender {
     
@@ -341,9 +346,7 @@
     navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     navigationController.navigationBar.barTintColor = [UIColor blackColor];
     navigationController.navigationBar.backgroundColor =[UIColor blackColor];
-    //menuController.newsItem = [[NewsItem alloc] init];
     menuController.newsItem = self.newsItem;
-  //  menuController.newsItem.newsURL = self.detailFeedItem.link;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -360,28 +363,5 @@
     
 }
 
-
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//   // CGPoint offset = scrollView.contentOffset;
-//    
-//    if(scrollView.contentOffset.y < 110) {
-//        CGPoint newOrigin = CGPointMake(0.0, 110.0);
-//        [scrollView setContentOffset:newOrigin];
-//    }
-//    NSLog(@"Y: %f", scrollView.contentOffset.y);
-//    
-//    
-////
-//}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
