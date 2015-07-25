@@ -19,7 +19,7 @@
 }
 */
 
-- (id)initWithFrame:(CGRect)frame image:(UIImage*)image andBackgroundColor:(UIColor*)backgroundColor {
+- (id)initWithFrame:(CGRect)frame image:(UIImage*)image andBackgroundColor:(UIColor*)backgroundColor{
 
     if (self = [super initWithFrame:frame]) {
 

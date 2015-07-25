@@ -53,7 +53,6 @@
     [self.view addSubview:self.closeButton];
     
     [self.closeButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside]; //dismiss viewcontroller when pressed
-   // [self getNewsKeyWordsForNewsItem:self.newsItem];
     TapReceiverViewController *actionVC = [[TapReceiverViewController alloc] init];
     self.delegate = actionVC;
     [self configureButtons];
@@ -61,14 +60,14 @@
 }
 
 
--(void) dismissViewController {
+-(void)dismissViewController {
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [_delegate cancelPressed];
 }
 
--(void) iconButtonPressed:(FloatingButton *)sender {
-    
+-(void)iconButtonPressed:(FloatingButton *)sender {
+    //why can't I add a charity property to the floating button??? whyyyyyy whyyyyy :'(
     
     NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:sender.tag];
     Charity *charity = [charityDict objectForKey:@"Charity"];
@@ -76,7 +75,8 @@
     UIStoryboard *charityStoryboard = [UIStoryboard storyboardWithName:@"CharityStoryboard" bundle:nil];
     
     CharityDetailViewController *charityDetailVC = (CharityDetailViewController *)[charityStoryboard instantiateViewControllerWithIdentifier:@"charityDetailViewController"];
-
+    
+    // this will crash if you click on a charity when the charities are fake - handle!!
     charityDetailVC.charity = charity;
     
     [self.navigationController pushViewController:charityDetailVC animated:YES];
@@ -86,7 +86,8 @@
 }
 
 - (void)setupButton:(NSUInteger)idx forCharity:(Charity *)charity {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 320, 75)];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 75)];
     button.tag = idx;
     [button setTitle:charity.name forState:UIControlStateNormal];
     
@@ -98,8 +99,8 @@
     button.layer.cornerRadius = 8;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.view addSubview:button];
     
+    [self.view addSubview:button];
     [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -129,15 +130,15 @@
         if([self.newsItem.charityRankings count] < 5) {
             for(int i = 0; i < (5 - [self.newsItem.charityRankings count]); i++ ) {
                 [self setupButton:i forCharity:[charities objectAtIndex:i]];
+                charityButton.charity = [charities objectAtIndex:i];
             }
         }
         else {
             NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
             Charity *charity = [charityDict objectForKey:@"Charity"];
-
-        [self setupButton:idx forCharity:charity];
+            [self setupButton:idx forCharity:charity];
+            charityButton.charity = charity;
         }
-
     }];
 }
 
