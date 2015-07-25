@@ -15,5 +15,5 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) MWFeedItem *detailFeedItem;
-
+@property (strong, nonatomic) NewsItem *newsItem;
 @end

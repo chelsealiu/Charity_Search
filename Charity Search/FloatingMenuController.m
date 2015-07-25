@@ -53,9 +53,10 @@
     [self.view addSubview:self.closeButton];
     
     [self.closeButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside]; //dismiss viewcontroller when pressed
-    [self getNewsKeyWordsForNewsItem:self.newsItem];
+   // [self getNewsKeyWordsForNewsItem:self.newsItem];
     TapReceiverViewController *actionVC = [[TapReceiverViewController alloc] init];
     self.delegate = actionVC;
+    [self configureButtons];
     
 }
 
@@ -118,170 +119,10 @@
     }];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-// get keyword sets for news
-
--(void)getNewsKeyWordsForNewsItem:(NewsItem *)newsItem {
-    NSString *newsString = [NSString stringWithFormat:@"http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey=%@&outputMode=json&url=%@", ALCHEMY_KEY, newsItem.newsURL];
-    NSURL *newsURL = [NSURL URLWithString:newsString];
-    NSLog(@"%@", newsURL);
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:newsURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        NSDictionary *resultsDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-        
-        NSArray *keywordsArray = [resultsDict objectForKey:@"keywords"];
-        if(!resultsDict) {
-            NSLog(@"there was an error! %@", error);
-        } else {
-            NSMutableArray *newsTemp = [NSMutableArray array];
-            for(NSDictionary *keywordDict in keywordsArray) {
-                [newsTemp addObject:[keywordDict objectForKey:@"text"]];
-            }
-            
-            newsItem.keywords = newsTemp;
-            [newsItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-                if(succeeded) {
-                     NSLog(@"newsSet: %@", newsItem.keywords);
-                }
-                else {
-                //     There was a problem, check error.description
-                            NSLog(@"error! %@", error.localizedDescription);
-                }
-                
-            }];
-           
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSMutableArray *allObjects = [[NSMutableArray alloc] init];
-            [self rankMatches:0 :allObjects];
-        });
-    }];
-    [task resume];
-}
-//[charity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//    if (succeeded) {
-//        [self getCharityKeywordsForCharity:charity];
-//    } else {
-//        // There was a problem, check error.description
-//        NSLog(@"error! %@", error.localizedDescription);
-//    }
-
-//compare the news and charity keywords and rank the matches
-
--(void)rankMatches:(NSUInteger)skip :(NSMutableArray *)allObjects {
-    
-    NSUInteger limit = 100;
-    __block NSUInteger skipValue = skip;
-    __block NSMutableArray *blockObjects = [allObjects mutableCopy];
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
- 
-    [query setLimit:limit];
-    [query setSkip:skip];
-    [query findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
-        [blockObjects addObjectsFromArray:objects];
-
-        if (objects.count == limit) {
-            // There might be more objects in the table. Update the skip value and execute the query again.
-            [self rankMatches:(skipValue += limit) :blockObjects];
-            NSLog(@"%lu", limit);
-        }
-        
-        else {
-         [self getCharityRankings:blockObjects];
-        }
-    }];
-   
-}
-
--(void)getCharityRankings:(NSMutableArray *)allObjects{
-    NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
-int i = 0;
-    for (Charity *charity in allObjects) {
-        i++;
-        //make description into array, then add the objects
-        NSMutableSet *charityKeywords = [NSMutableSet setWithArray:charity.keywords];
-        NSMutableArray *charityKeywordsArray = [[NSMutableArray alloc] init];
-        for (NSString *keyword in charityKeywords) {
-            NSString *lowerCaseKeyword =   [keyword lowercaseString];
-            NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
-
-            [charityKeywordsArray addObjectsFromArray:myArray];
-        }
-         NSMutableSet *newsKeywords = [NSMutableSet setWithArray:self.newsItem.keywords];
-        NSMutableArray *newsKeywordsArray = [[NSMutableArray alloc] init];
-        for (NSString *keyword in newsKeywords) {
-            NSString *lowerCaseKeyword =   [keyword lowercaseString];
-            NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
-            [newsKeywordsArray   addObjectsFromArray:myArray];
-        }
-        [newsKeywords addObjectsFromArray:newsKeywordsArray];
-      //  NSLog(@"newsKeywords: %@", newsKeywords);
-        [charityKeywords addObjectsFromArray:charityKeywordsArray];
-      //  NSLog(@"charityKeywords: %@", charityKeywords);
-       
-        [newsKeywords intersectSet:charityKeywords];
-        NSArray *matches = [newsKeywords allObjects];
-        NSLog(@"Matches: %@", matches);
-        float rank = (float)[matches count];
-   
-        if(rank != rank) {
-            rank = 0;
-        }
-        NSNumber *rankAsNSNumber = [NSNumber numberWithFloat:rank];
-        if(rank != 0) {
-            NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity, rankAsNSNumber, matches] forKeys:@[@"Charity", @"Rank", @"Matches"]];
-            [tempRankings addObject:charityDictionary];
-        }
-    }
-    
-    NSMutableArray *unsortedCharites = [tempRankings mutableCopy];
-
-    self.newsItem.charityRankings = [self sortCharitiesByRank:unsortedCharites];
-    [self.newsItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if(succeeded) {
-            NSLog(@"saved charity rankings!");
-        }
-        else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        
-    }];
- //   NSLog(@"newsStory.charityRankings %@", self.newsItem.charityRankings);
- //   NSLog(@"charity rankings: %lu", (unsigned long)[self.newsItem.charityRankings count]);
-    NSLog(@"count: %d", i);
-    [self configureButtons];
-}
-
--(NSMutableArray *)sortCharitiesByRank:(NSMutableArray *)charities {
-    NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Rank" ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:rankDescriptor];
-    NSArray *sortedArray = [charities sortedArrayUsingDescriptors:sortDescriptors];
-    return [sortedArray mutableCopy];
-}
-
-//-(NSSet *)cleanKeywordsForCharity:(NSMutableArray *)charities {
-//    NSMutableArray *moreKeywords = [[NSMutableArray alloc] init];
-//    for(NSString *keyword in charities) {
-//        NSString *lowerKeyword = [lowerKeyword lowercaseString];
-//        NSArray *newKeywords = [keyword componentsSeparatedByString:@" "];
-//        
-//        [moreKeywords addObjectsFromArray:newKeywords];
-//        
-//        
-//        
-//    }
-
-
-
 
 
 @end
