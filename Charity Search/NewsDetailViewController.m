@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *hideButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 @property (strong, nonatomic) UIView *topWhiteView;
+@property (strong, nonatomic) NSString *htmlString;
 
 //@property(nonatomic,weak) NSObject <UIScrollViewDelegate> *delegate;
 
@@ -251,13 +252,35 @@
     
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:requestObj];
+   // [self.webView loadRequest:requestObj];
+    [self getNewsThroughReadabilityAPI];
      self.webView.scrollView.delegate = self;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self getNewsKeyWordsForNewsItem:self.newsItem];
     });
    }
+
+-(void)getNewsThroughReadabilityAPI {
+    NSString *urlString = [NSString stringWithFormat:@"https://www.readability.com/api/content/v1/parser?url=http://panam.cbc.ca/news/article/marcel-aubut-coc-president-back-toronto-bid-for-2024-olympics.html/&token=c70afc46a6e6b38f84fb9fb3528da93a4030f610"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession]
+                                  dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
+        if (fetchingError) {
+            NSLog(@"%@", fetchingError.localizedDescription);
+            return;
+        }
+        NSError *jsonError;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                                      self.htmlString = [responseDict objectForKey:@"content"];
+ 
+    }];
+    [task resume];
+    
+    [self.webView loadHTMLString:self.htmlString baseURL:nil];
+
+}
 
 -(void)setupCharitiesButton {
     self.charitiesButton.layer.masksToBounds = YES;

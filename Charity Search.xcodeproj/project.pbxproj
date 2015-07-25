@@ -212,6 +212,7 @@
 		FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CharityStoryboard.storyboard; sourceTree = "<group>"; };
 		FA52075F1B60306400D93AC6 /* CharityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityDetailViewController.h; sourceTree = "<group>"; };
 		FA5207601B60306400D93AC6 /* CharityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityDetailViewController.m; sourceTree = "<group>"; };
+		FA5625C21B64419200D14E5A /* APIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = APIKeys.h; path = "Charity Search/APIKeys.h"; sourceTree = "<group>"; };
 		FABC0F3B1B5D4DF60025C851 /* Charity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Charity.h; path = ../Charity.h; sourceTree = "<group>"; };
 		FABC0F3C1B5D4DF70025C851 /* Charity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Charity.m; path = ../Charity.m; sourceTree = "<group>"; };
 		FABC0F3E1B5D50390025C851 /* CharityData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityData.h; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 		5E6B041D1B443CB300AAA2FE = {
 			isa = PBXGroup;
 			children = (
+				FA5625C21B64419200D14E5A /* APIKeys.h */,
 				5E89538F1B610D20005142D2 /* Frameworks */,
 				5E6B04281B443CB300AAA2FE /* Charity Search */,
 				5E6B04451B443CB300AAA2FE /* Charity SearchTests */,
