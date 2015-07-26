@@ -253,9 +253,11 @@
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
    // [self.webView loadRequest:requestObj];
-    [self getNewsThroughReadabilityAPI];
+  //  [self getNewsThroughReadabilityAPI];
      self.webView.scrollView.delegate = self;
-    
+  
+        [self getNewsThroughReadabilityAPI];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self getNewsKeyWordsForNewsItem:self.newsItem];
     });
@@ -267,19 +269,21 @@
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession]
                                   dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
-        if (fetchingError) {
-            NSLog(@"%@", fetchingError.localizedDescription);
-            return;
-        }
-        NSError *jsonError;
-        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                                      NSError *jsonError;
+                                      NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
                                       self.htmlString = [responseDict objectForKey:@"content"];
- 
-    }];
+                                      NSString *imageURL = [responseDict objectForKey:@"lead_image_url"];
+                                      NSLog(@"image URL %@", imageURL);
+                                      if (fetchingError) {
+                                          NSLog(@"%@", fetchingError.localizedDescription);
+                                          return;
+                                      }
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          [self.webView loadHTMLString:self.htmlString baseURL:nil];
+                                          
+                                      });
+                                  }];
     [task resume];
-    
-    [self.webView loadHTMLString:self.htmlString baseURL:nil];
-
 }
 
 -(void)setupCharitiesButton {
