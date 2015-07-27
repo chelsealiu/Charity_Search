@@ -271,8 +271,12 @@
                                   dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
                                       NSError *jsonError;
                                       NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-                                      self.htmlString = [responseDict objectForKey:@"content"];
+                                      
+                                      NSString *content = [responseDict objectForKey:@"content"];
+                                      NSString *title = [responseDict objectForKey:@"title"];
                                       NSString *imageURL = [responseDict objectForKey:@"lead_image_url"];
+                                      //NSString *fullHTML = [title stringByAppendingString:self.htmlString];
+                                      self.htmlString = [NSString stringWithFormat:@"<img src=\"%@\" style=\"width: 100%%; height: auto;\"> <h1> %@ </h1> %@", imageURL, title, content];
                                       NSLog(@"image URL %@", imageURL);
                                       if (fetchingError) {
                                           NSLog(@"%@", fetchingError.localizedDescription);
