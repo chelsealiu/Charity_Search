@@ -13,7 +13,7 @@
 #import <Parse/Parse.h>
 #import "LoginViewController.h"
 
-@interface NewsDetailViewController () <UIScrollViewDelegate>
+@interface NewsDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *savedView;
 @property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
@@ -40,6 +40,7 @@
     [self.savedView setAlpha:0.0f];
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
+    [self.charitiesButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
     
     //sets colour of heart button before view loads
     User *currentUser = [User currentUser];
@@ -54,8 +55,6 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    
-
     
     if (![User currentUser]) {
         [self.navigationItem.rightBarButtonItem setTintColor:[UIColor lightGrayColor]];
@@ -76,7 +75,8 @@
     //self.charitiesButton.layer.cornerRadius = 8;
 //    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     
-    self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
+    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.08 green:0.08 blue:0.08 alpha:1];
+    self.charitiesButton.alpha = 0.95;
     self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
    // [self setupTopWhiteView];
     
@@ -158,7 +158,7 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     navigationController.navigationBar.backgroundColor =[UIColor blackColor];
     menuController.newsItem = [[NewsItem alloc] init];
     menuController.newsItem.newsURL = self.detailFeedItem.link;

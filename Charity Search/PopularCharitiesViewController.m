@@ -46,7 +46,16 @@ const CGFloat kTableHeaderHeight = 50;
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIColor whiteColor],NSForegroundColorAttributeName,
+                                    [UIColor blackColor],NSBackgroundColorAttributeName,nil];
+    
+    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+    
+    self.title = @"Suggested";
+    self.navigationItem.title = @"Suggested Charities";
     [self sortCharities:self.sortDescriptor];
     [self.tableView reloadData];
     
@@ -58,31 +67,28 @@ const CGFloat kTableHeaderHeight = 50;
     [super viewDidLoad];
     
     //only runs once?
-    CABasicAnimation *theAnimation;
-    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-    theAnimation.duration=1.0;
-    theAnimation.repeatCount=HUGE_VALF;
-    theAnimation.autoreverses=YES;
-    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-    theAnimation.toValue=[NSNumber numberWithFloat:0.4];
-    [self.optionsButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
-
-    self.optionsButton.layer.masksToBounds = YES;
-    self.optionsButton.layer.cornerRadius = self.optionsButton.frame.size.width/2;
+//    CABasicAnimation *theAnimation;
+//    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+//    theAnimation.duration=1.0;
+//    theAnimation.repeatCount=HUGE_VALF;
+//    theAnimation.autoreverses=YES;
+//    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+//    theAnimation.toValue=[NSNumber numberWithFloat:0.4];
+//    [self.optionsButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
+//
+//    self.optionsButton.layer.masksToBounds = YES;
+//    self.optionsButton.layer.cornerRadius = self.optionsButton.frame.size.width/2;
     self.optionsButton.alpha = 0.5;
     
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 40;
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    self.headerView = self.tableView.tableHeaderView;
-    self.tableView.tableHeaderView = nil;
-    
-    [self.tableView setContentInset:UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0)];
-    
-    [self updateHeaderView];
-    [self.tableView addSubview:self.headerView];
-    [self.view layoutIfNeeded];
-    
+//    self.tableView.rowHeight = UITableViewAutomaticDimension;
+//    self.tableView.estimatedRowHeight = 10;
+//    self.headerView = self.tableView.tableHeaderView;
+//    self.tableView.tableHeaderView = nil;
+//    [self.tableView setContentInset:UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0)];
+//    [self updateHeaderView];
+//    [self.tableView addSubview:self.headerView];
+//    [self.view layoutIfNeeded];
+//    
     PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
     [query setLimit:1000];
     [query findObjectsInBackgroundWithBlock:^(NSArray *charityArray,  NSError *error){

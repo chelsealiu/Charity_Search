@@ -14,6 +14,7 @@
 #import "HomeViewController.h"
 #import "Key.h"
 #import "AppDelegate.h"
+#import "UIImage+ResizedIcon.h"
 
 
 @interface LoginViewController ()
@@ -27,11 +28,9 @@
 @property (nonatomic) BOOL didPerformAnimation;
 @property (nonatomic, assign) id<LoginAnimateDelegate>delegate;
 
-
 @end
 
 @implementation LoginViewController
-
 
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -124,6 +123,7 @@
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             ProfileViewController *profileController = (ProfileViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Profile"];
             UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profileController];
+            profileController.tabBarItem.image = [UIImage resizeTabIcon:[UIImage imageNamed:@"profile.png"] withX:30 andY:30];
             NSMutableArray *tempVCsArray = [self.tabBarController.viewControllers mutableCopy];
             [tempVCsArray addObject:profileNav];
             self.tabBarController.viewControllers = tempVCsArray;

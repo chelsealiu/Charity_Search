@@ -93,8 +93,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
-    NSLog(@"VDL");
-
+    
 }
 
 - (IBAction)loginOrLogout:(UIButton*)sender {

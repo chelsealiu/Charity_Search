@@ -14,6 +14,7 @@
 #import "MWFeedParser.h"
 #import "Key.h"
 #import "NewsListViewController.h"
+#import "UIImage+ResizedIcon.h"
 
 @interface NewsMainViewController ()
 
