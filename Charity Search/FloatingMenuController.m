@@ -14,6 +14,10 @@
 #import "Charity.h"
 #import "CharityDetailViewController.h"
 
+@interface FloatingMenuController()
+@property (nonatomic, strong) NSMutableArray *charities;
+@end
+
 @implementation FloatingMenuController
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -67,11 +71,12 @@
 }
 
 -(void)iconButtonPressed:(FloatingButton *)sender {
-    //why can't I add a charity property to the floating button??? whyyyyyy whyyyyy :'(
     
     NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:sender.tag];
     Charity *charity = [charityDict objectForKey:@"Charity"];
-    
+    if(!charityDict) {
+        NSLog(@"no charity dict!");
+    }
     UIStoryboard *charityStoryboard = [UIStoryboard storyboardWithName:@"CharityStoryboard" bundle:nil];
     
     CharityDetailViewController *charityDetailVC = (CharityDetailViewController *)[charityStoryboard instantiateViewControllerWithIdentifier:@"charityDetailViewController"];
@@ -115,22 +120,22 @@
         
         
         // make an array of default charities in case the website is not found or there are no matches
-        NSMutableArray *charities = [[NSMutableArray alloc] init];
+       // NSMutableArray *charities = [[NSMutableArray alloc] init];
         Charity *charity1 = [[Charity alloc] initWithCharityName:@"Canadian Unicef Committee" andWebsite:@"http://WWW.UNICEF.CA"];
-        [charities addObject:charity1];
+        [self.charities addObject:charity1];
         Charity *charity2 = [[Charity alloc] initWithCharityName:@"Salvation Army Canada" andWebsite:@"WWW.SALVATIONARMY.CA"];
-        [charities addObject:charity2];
+        [self.charities addObject:charity2];
         Charity *charity3 = [[Charity alloc] initWithCharityName:@"Habitat For Humanity Canada Foundation" andWebsite:@"http://www.habitat.ca/"];
-        [charities addObject:charity3];
+        [self.charities addObject:charity3];
         Charity *charity4 = [[Charity alloc] initWithCharityName:@"Shock Trauma Air Rescue Service Foundation" andWebsite:@"www.stars.ca"];
-        [charities addObject:charity4];
+        [self.charities addObject:charity4];
         Charity *charity5 = [[Charity alloc] initWithCharityName:@"Terry Fox Foundation" andWebsite:@"WWW.TERRYFOX.ORG"];
-        [charities addObject:charity5];
+        [self.charities addObject:charity5];
         
         if([self.newsItem.charityRankings count] < 5) {
             for(int i = 0; i < (5 - [self.newsItem.charityRankings count]); i++ ) {
-                [self setupButton:i forCharity:[charities objectAtIndex:i]];
-                charityButton.charity = [charities objectAtIndex:i];
+                [self setupButton:i forCharity:[self.charities objectAtIndex:i]];
+                charityButton.charity = [self.charities objectAtIndex:i];
             }
         }
         else {
