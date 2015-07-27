@@ -50,9 +50,7 @@
     TapReceiverViewController *actionVC = [[TapReceiverViewController alloc] init];
     self.delegate = actionVC;
     [self configureButtons];
-    
 }
-
 
 -(void)dismissViewController {
     [self dismissViewControllerAnimated:YES completion:nil];

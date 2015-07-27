@@ -21,10 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
 @property (weak, nonatomic) IBOutlet UIButton *hideButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
-@property (strong, nonatomic) UIView *topWhiteView;
 @property (strong, nonatomic) NSString *htmlString;
-
-//@property(nonatomic,weak) NSObject <UIScrollViewDelegate> *delegate;
+@property (strong, nonatomic) UIBarButtonItem *readerViewButton;
 
 @end
 
@@ -70,7 +68,8 @@
     if (![User currentUser]) {
         [self.navigationItem.rightBarButtonItem setTintColor:[UIColor lightGrayColor]];
     }
-
+    
+    [self setupReaderViewButton];
 }
 
 // get keyword sets for news
@@ -102,9 +101,7 @@
                     //     There was a problem, check error.description
                     NSLog(@"error! %@", error.localizedDescription);
                 }
-                
             }];
-            
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -206,44 +203,6 @@
     return [sortedArray mutableCopy];
 }
 
-//- (void)setupTopWhiteView {
-//    self.topWhiteView = [[UIView alloc] init];
-//    self.topWhiteView.backgroundColor = [UIColor whiteColor];
-//    self.topWhiteView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self.webView addSubview:self.topWhiteView];
-//    
-//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-//                                                             attribute:NSLayoutAttributeTop
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:self.webView
-//                                                             attribute:NSLayoutAttributeTop
-//                                                            multiplier:1.0
-//                                                              constant:0.0]];
-//    
-//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-//                                                             attribute:NSLayoutAttributeRight
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:self.webView
-//                                                             attribute:NSLayoutAttributeRight
-//                                                            multiplier:1.0
-//                                                              constant:0.0]];
-//    
-//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-//                                                             attribute:NSLayoutAttributeLeft
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:self.webView
-//                                                             attribute:NSLayoutAttributeLeft
-//                                                            multiplier:1.0
-//                                                              constant:0.0]];
-//    
-//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-//                                                             attribute:NSLayoutAttributeHeight
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:nil
-//                                                             attribute:NSLayoutAttributeNotAnAttribute
-//                                                            multiplier:1.0
-//                                                              constant:110]];
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -297,6 +256,16 @@
     self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
     self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
     self.charitiesButton.userInteractionEnabled = YES;
+}
+
+-(void)setupReaderViewButton {
+    self.readerViewButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glasses.png"] style:UIBarButtonItemStylePlain target:self action:@selector(readerViewButtonPressed)];
+    [self.readerViewButton setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = self.readerViewButton;
+}
+
+-(BOOL)readerViewButtonPressed {
+    return YES;
 }
 
 - (IBAction)articleFavourited:(UIBarButtonItem *)sender {
