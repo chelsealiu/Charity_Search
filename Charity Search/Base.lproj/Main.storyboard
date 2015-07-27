@@ -483,8 +483,9 @@
                                     <action selector="sortDelegateSortByRatio:" destination="gbU-xv-ffE" eventType="touchUpInside" id="c4Y-k7-2kx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Urk-vG-qo3">
-                                <rect key="frame" x="136" y="429" width="48" height="30"/>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Urk-vG-qo3">
+                                <rect key="frame" x="0.0" y="439" width="320" height="30"/>
+                                <color key="backgroundColor" red="0.99719854799999996" green="0.99719854799999996" blue="0.99719854799999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -499,7 +500,7 @@
                                     <constraint firstAttribute="width" constant="146" id="ccW-as-l7c"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.99719854799999996" green="0.99719854799999996" blue="0.99719854799999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -507,14 +508,16 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="Urk-vG-qo3" secondAttribute="centerX" id="1I2-wh-4Q8"/>
                             <constraint firstAttribute="centerX" secondItem="MHM-5a-Ibf" secondAttribute="centerX" id="1jc-2B-Xh9"/>
+                            <constraint firstAttribute="trailing" secondItem="Urk-vG-qo3" secondAttribute="trailing" id="40o-Rp-DJr"/>
                             <constraint firstAttribute="centerX" secondItem="WqZ-33-9kU" secondAttribute="centerX" id="Cxc-cJ-eTV"/>
                             <constraint firstAttribute="centerX" secondItem="7nW-PR-DnD" secondAttribute="centerX" id="JiD-zK-U13"/>
                             <constraint firstItem="NIA-O7-EAU" firstAttribute="top" secondItem="pjM-ku-Laj" secondAttribute="bottom" constant="21" id="LJy-D1-m7Y"/>
                             <constraint firstAttribute="centerX" secondItem="NIA-O7-EAU" secondAttribute="centerX" id="QNH-fN-p5t"/>
                             <constraint firstItem="WqZ-33-9kU" firstAttribute="top" secondItem="NIA-O7-EAU" secondAttribute="bottom" constant="20" id="QfX-5E-EUm"/>
+                            <constraint firstItem="Urk-vG-qo3" firstAttribute="leading" secondItem="Ed9-gs-doe" secondAttribute="leading" id="S7E-dl-iMF"/>
                             <constraint firstAttribute="centerX" secondItem="pjM-ku-Laj" secondAttribute="centerX" id="TKR-ci-6wK"/>
                             <constraint firstItem="pjM-ku-Laj" firstAttribute="top" secondItem="MHM-5a-Ibf" secondAttribute="bottom" constant="50" id="Xdw-jd-9vr"/>
-                            <constraint firstItem="Urk-vG-qo3" firstAttribute="top" secondItem="WqZ-33-9kU" secondAttribute="bottom" constant="20" id="aZR-D6-BHV"/>
+                            <constraint firstItem="Urk-vG-qo3" firstAttribute="top" secondItem="WqZ-33-9kU" secondAttribute="bottom" constant="30" id="aZR-D6-BHV"/>
                             <constraint firstItem="MHM-5a-Ibf" firstAttribute="top" secondItem="png-Bb-Qa3" secondAttribute="bottom" constant="125" id="rQ4-Sa-Nje"/>
                         </constraints>
                     </view>
