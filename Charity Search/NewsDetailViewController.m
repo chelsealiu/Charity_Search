@@ -264,7 +264,7 @@
    }
 
 -(void)getNewsThroughReadabilityAPI {
-    NSString *urlString = [NSString stringWithFormat:@"https://www.readability.com/api/content/v1/parser?url=http://panam.cbc.ca/news/article/marcel-aubut-coc-president-back-toronto-bid-for-2024-olympics.html/&token=c70afc46a6e6b38f84fb9fb3528da93a4030f610"];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.readability.com/api/content/v1/parser?url=%@&token=c70afc46a6e6b38f84fb9fb3528da93a4030f610", self.newsItem.newsURL];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession]
@@ -276,7 +276,7 @@
                                       NSString *title = [responseDict objectForKey:@"title"];
                                       NSString *imageURL = [responseDict objectForKey:@"lead_image_url"];
                                       //NSString *fullHTML = [title stringByAppendingString:self.htmlString];
-                                      self.htmlString = [NSString stringWithFormat:@"<img src=\"%@\" style=\"width: 100%%; height: auto;\"> <h1> %@ </h1> %@", imageURL, title, content];
+                                      self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica' > <img src=\"%@\" style=\"width: 100%%; height: auto;\"> <h1> %@ </h1> %@", imageURL, title, content];
                                       NSLog(@"image URL %@", imageURL);
                                       if (fetchingError) {
                                           NSLog(@"%@", fetchingError.localizedDescription);
