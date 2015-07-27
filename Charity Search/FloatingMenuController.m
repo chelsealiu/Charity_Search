@@ -17,9 +17,7 @@
 @implementation FloatingMenuController
 
 -(void)viewWillAppear:(BOOL)animated {
-    
-   // [self configureButtons];
-    
+ 
 }
 
 - (instancetype)initWithView:(UIView *)view
@@ -99,6 +97,7 @@
 }
 
 -(void)configureButtons {
+ 
     if (self.newsItem.charityRankings) {
         NSArray *charitiesArray = [[NSArray alloc] init];
         if([self.newsItem.charityRankings count] > 5){
