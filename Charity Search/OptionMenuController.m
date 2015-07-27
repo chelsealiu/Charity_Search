@@ -58,6 +58,13 @@
 
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
+
+}
 
 
 
