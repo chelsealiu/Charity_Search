@@ -244,7 +244,9 @@
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
-     self.webView.scrollView.delegate = self;
+    //self.charitiesButton.layer.masksToBounds = YES;
+    //self.charitiesButton.layer.cornerRadius = 8;
+//    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self getNewsKeyWordsForNewsItem:self.newsItem];
