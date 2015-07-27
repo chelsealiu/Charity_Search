@@ -19,7 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *savedView;
 @property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
-@property (weak, nonatomic) IBOutlet UIButton *hideButton;
+//@property (weak, nonatomic) IBOutlet UIButton *hideButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 @property (strong, nonatomic) UIView *topWhiteView;
 
@@ -40,7 +40,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     [self.savedView setAlpha:0.0f];
     self.navigationController.navigationBarHidden = NO;
-
+    self.tabBarController.tabBar.hidden = YES;
+    
     //sets colour of heart button before view loads
     User *currentUser = [User currentUser];
     
@@ -55,16 +56,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    CABasicAnimation *theAnimation;
-    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-    theAnimation.duration=1.2;
-    theAnimation.repeatCount=HUGE_VALF;
-    theAnimation.autoreverses=YES;
-    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-    theAnimation.toValue=[NSNumber numberWithFloat:0];
-    [self.charitiesButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
-    [self.hideButton setTitle:@"Hide" forState:UIControlStateNormal];
- 
+
     
     if (![User currentUser]) {
         [self.navigationItem.rightBarButtonItem setTintColor:[UIColor lightGrayColor]];
@@ -247,7 +239,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *fullURL = self.detailFeedItem.link;
-    self.hideButton.titleLabel.text = @"Hide";
+    //self.hideButton.titleLabel.text = @"Hide";
     
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
@@ -323,16 +315,16 @@
     }
 }
 
-- (IBAction)showOrHideCharitiesButton:(UIButton*)sender {
-    self.charitiesButton.hidden = !self.charitiesButton.hidden;
+//- (IBAction)showOrHideCharitiesButton:(UIButton*)sender {
+//    self.charitiesButton.hidden = !self.charitiesButton.hidden;
     
-    if (self.charitiesButton.hidden == NO) {
-        [self.hideButton setTitle:@"Hide" forState:UIControlStateNormal];
-        return;
-    } else if (self.charitiesButton.hidden == YES) {
-        [self.hideButton setTitle:@"Show" forState:UIControlStateNormal];
-    }
-}
+//    if (self.charitiesButton.hidden == NO) {
+//        [self.hideButton setTitle:@"Hide" forState:UIControlStateNormal];
+//        return;
+//    } else if (self.charitiesButton.hidden == YES) {
+//       [self.hideButton setTitle:@"Show" forState:UIControlStateNormal];
+//   }
+//}
 
 
 - (IBAction)showFloatingMenu:(UIButton*)sender {

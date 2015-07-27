@@ -17,7 +17,7 @@
 #import "CharityData.h"
 
 
-@interface AppDelegate ()
+@interface AppDelegate () <UITabBarControllerDelegate>
 
 @end
 
@@ -40,8 +40,7 @@
 
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
-                                                             bundle: nil];
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     
     HomeViewController *homeController = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Home"];
     ProfileViewController *profileController = (ProfileViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"Profile"];
@@ -73,7 +72,21 @@
     [self.window setRootViewController:tabBarController];
     //[CharityData getCharityObjects];
     
+    [tabBarController setDelegate:self];
+    
     return YES;
+}
+
+
+-(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    
+    for (UINavigationController *navController in tabBarController.viewControllers) {
+        
+        if ([tabBarController selectedViewController] == navController) {
+            [navController popToRootViewControllerAnimated:NO];
+        }
+    }
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

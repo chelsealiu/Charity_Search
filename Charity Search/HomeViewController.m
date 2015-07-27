@@ -14,8 +14,8 @@
 #import "NewsListViewController.h"
 #import "LoginAnimateDelegate.h"
 
-
 @interface HomeViewController () <LoginAnimateDelegate>
+
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *goToNewsButton;
@@ -29,7 +29,6 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     self.navigationController.navigationBarHidden = YES;
-
     User *currentUser = [User currentUser];
     
     self.goToNewsButton.layer.masksToBounds = YES;
@@ -55,7 +54,9 @@
     }
     
     //refresh/reconfigure everything
+
 }
+
 
 - (void)animationDidStart:(CAAnimation *)animation {
     
@@ -94,24 +95,6 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
     NSLog(@"VDL");
 
-}
-
--(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    
-    if (tabBarController.selectedIndex != 0) {
-        return;
-    }
-    
-    NSArray *viewContrlls=[[self navigationController] viewControllers];
-    for( int i=0;i<[ viewContrlls count];i++)
-    {
-        id obj=[viewContrlls objectAtIndex:i];
-        if([obj isKindOfClass:[HomeViewController class]])
-        {
-            [[self navigationController] popToViewController:obj animated:YES];
-            return;
-        }
-    }
 }
 
 - (IBAction)loginOrLogout:(UIButton*)sender {
