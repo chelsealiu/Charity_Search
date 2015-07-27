@@ -232,11 +232,11 @@
                                       NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
                                       
                                       NSString *content = [responseDict objectForKey:@"content"];
+                                      NSString *newContent = [self checkForVideos:content];
+                                      NSLog(@"new content: %@", newContent);
                                       NSString *title = [responseDict objectForKey:@"title"];
                                       NSString *imageURL = [responseDict objectForKey:@"lead_image_url"];
-                                      //NSString *fullHTML = [title stringByAppendingString:self.htmlString];
-                                      self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica' > <img src=\"%@\" style=\"width: 100%%; height: auto;\"> <h1> %@ </h1> %@", imageURL, title, content];
-                                      NSLog(@"image URL %@", imageURL);
+                                      self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica' > <img src=\"%@\" style=\"width: 100%%; height: auto;\"> <h1> %@ </h1> %@", imageURL, title, newContent];
                                       if (fetchingError) {
                                           NSLog(@"%@", fetchingError.localizedDescription);
                                           return;
@@ -258,10 +258,20 @@
     self.charitiesButton.userInteractionEnabled = YES;
 }
 
+-(NSString *)checkForVideos:(NSString *)htmlString {
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(<iframe.*>)+?"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+      NSString *modifiedString = [regex stringByReplacingMatchesInString:htmlString options:0 range:NSMakeRange(0, [htmlString length]) withTemplate:@""];
+    
+    return modifiedString;
+}
+
 -(void)setupReaderViewButton {
     self.readerViewButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glasses.png"] style:UIBarButtonItemStylePlain target:self action:@selector(readerViewButtonPressed)];
-    [self.readerViewButton setTintColor:[UIColor whiteColor]];
-    self.navigationItem.rightBarButtonItem = self.readerViewButton;
+    [self.readerViewButton setTintColor:[UIColor grayColor]];
+    self.navigationItem.rightBarButtonItems = @[self.navigationItem.rightBarButtonItem, self.readerViewButton];
 }
 
 -(BOOL)readerViewButtonPressed {

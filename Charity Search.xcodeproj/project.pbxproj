@@ -88,7 +88,7 @@
 		FABC0F3D1B5D4DF70025C851 /* Charity.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3C1B5D4DF70025C851 /* Charity.m */; };
 		FABC0F401B5D50390025C851 /* CharityData.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3F1B5D50390025C851 /* CharityData.m */; };
 		FAD7B9271B5D9C50002919E5 /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD7B9261B5D9C50002919E5 /* NewsItem.m */; };
-		FAE3C4BA1B66BC8400F822D4 /* glasses.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE3C4B91B66BC8400F822D4 /* glasses.png */; };
+		FAE3C4BC1B66E29A00F822D4 /* glasses.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE3C4BB1B66E29A00F822D4 /* glasses.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,7 +220,7 @@
 		FABC0F3F1B5D50390025C851 /* CharityData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityData.m; sourceTree = "<group>"; };
 		FAD7B9251B5D9C50002919E5 /* NewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsItem.h; path = ../NewsItem.h; sourceTree = "<group>"; };
 		FAD7B9261B5D9C50002919E5 /* NewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsItem.m; path = ../NewsItem.m; sourceTree = "<group>"; };
-		FAE3C4B91B66BC8400F822D4 /* glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = glasses.png; path = ../../../glasses.png; sourceTree = "<group>"; };
+		FAE3C4BB1B66E29A00F822D4 /* glasses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = glasses.png; path = ../../../glasses.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,7 +288,7 @@
 				5E8953DF1B628910005142D2 /* launch_icon.jpg */,
 				5ED314141B5DB551007F999B /* many_hands.jpg */,
 				5EDC94D31B55AA46007C0EE8 /* heart.png */,
-				FAE3C4B91B66BC8400F822D4 /* glasses.png */,
+				FAE3C4BB1B66E29A00F822D4 /* glasses.png */,
 				5E6B04391B443CB300AAA2FE /* Images.xcassets */,
 				5EDC94C81B547433007C0EE8 /* default_user.png */,
 				5E6B043B1B443CB300AAA2FE /* LaunchScreen.xib */,
@@ -576,7 +576,7 @@
 				5EDC94D41B55AA46007C0EE8 /* heart.png in Resources */,
 				5ED314191B5DD3D9007F999B /* convo_box.png in Resources */,
 				5E6F23881B605A2300BA0085 /* pusheen_happy.png in Resources */,
-				FAE3C4BA1B66BC8400F822D4 /* glasses.png in Resources */,
+				FAE3C4BC1B66E29A00F822D4 /* glasses.png in Resources */,
 				5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */,
 				5E6F23751B60486300BA0085 /* pusheen4.png in Resources */,
 				5E8953E01B628910005142D2 /* launch_icon.jpg in Resources */,
