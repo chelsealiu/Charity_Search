@@ -12,6 +12,8 @@
 #import "FloatingMenuController.h"
 #import <Parse/Parse.h>
 #import "LoginViewController.h"
+#import "Key.h"
+#import "Charity.h"
 
 @interface NewsDetailViewController ()
 
@@ -20,9 +22,8 @@
 //@property (weak, nonatomic) IBOutlet UIButton *hideButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 @property (strong, nonatomic) UIView *topWhiteView;
+
 //@property(nonatomic,weak) NSObject <UIScrollViewDelegate> *delegate;
-
-
 
 @end
 
@@ -62,6 +63,177 @@
 
 }
 
+// get keyword sets for news
+
+-(void)getNewsKeyWordsForNewsItem:(NewsItem *)newsItem {
+    NSString *newsString = [NSString stringWithFormat:@"http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey=%@&outputMode=json&url=%@", ALCHEMY_KEY, newsItem.newsURL];
+    NSURL *newsURL = [NSURL URLWithString:newsString];
+    NSLog(@"%@", newsURL);
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:newsURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        NSDictionary *resultsDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        
+        NSArray *keywordsArray = [resultsDict objectForKey:@"keywords"];
+        if(!resultsDict) {
+            NSLog(@"there was an error! %@", error);
+        } else {
+            NSMutableArray *newsTemp = [NSMutableArray array];
+            for(NSDictionary *keywordDict in keywordsArray) {
+                [newsTemp addObject:[keywordDict objectForKey:@"text"]];
+            }
+            
+            newsItem.keywords = newsTemp;
+            [newsItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                if(succeeded) {
+                    NSLog(@"newsSet: %@", newsItem.keywords);
+                }
+                else {
+                    //     There was a problem, check error.description
+                    NSLog(@"error! %@", error.localizedDescription);
+                }
+                
+            }];
+            
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSMutableArray *allObjects = [[NSMutableArray alloc] init];
+            [self rankMatches:0 :allObjects];
+        });
+    }];
+    [task resume];
+}
+
+-(void)rankMatches:(NSUInteger)skip :(NSMutableArray *)allObjects {
+    
+    NSUInteger limit = 100;
+    __block NSUInteger skipValue = skip;
+    __block NSMutableArray *blockObjects = [allObjects mutableCopy];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
+    
+    [query setLimit:limit];
+    [query setSkip:skip];
+    [query findObjectsInBackgroundWithBlock: ^(NSArray *objects, NSError *error) {
+        [blockObjects addObjectsFromArray:objects];
+        
+        if (objects.count == limit) {
+            // There might be more objects in the table. Update the skip value and execute the query again.
+            [self rankMatches:(skipValue += limit) :blockObjects];
+            NSLog(@"%lu", limit);
+        }
+        
+        else {
+            [self getCharityRankings:blockObjects];
+        }
+    }];
+    
+}
+
+- (NSMutableSet *)cleanKeywords:(NSArray *)arrayToClean {
+    NSMutableSet *keywords = [NSMutableSet setWithArray:arrayToClean];
+    NSMutableArray *keywordsArray = [[NSMutableArray alloc] init];
+    for (NSString *keyword in keywords) {
+        NSString *lowerCaseKeyword =   [keyword lowercaseString];
+        NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
+        [keywordsArray   addObjectsFromArray:myArray];
+    }
+    [keywords addObjectsFromArray:keywordsArray];
+    return keywords;
+}
+
+
+-(void)getCharityRankings:(NSMutableArray *)allObjects{
+    NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
+    int i = 0;
+    for (Charity *charity in allObjects) {
+        i++;
+        //make description into array, then add the objects
+        
+        NSMutableSet *charityKeywords = [[NSMutableSet alloc] init];
+        NSMutableSet *newsKeywords = [[NSMutableSet alloc] init];
+        newsKeywords = [self cleanKeywords:self.newsItem.keywords];
+        //  NSLog(@"newsKeywords: %@", newsKeywords);
+        charityKeywords = [self cleanKeywords:charity.keywords];
+
+        [newsKeywords intersectSet:charityKeywords];
+        NSArray *matches = [newsKeywords allObjects];
+        float rank = (float)[matches count];
+       // NSLog(@"matches %@", matches);
+        if(rank != rank) {
+            rank = 0;
+        }
+        NSNumber *rankAsNSNumber = [NSNumber numberWithFloat:rank];
+        if(rank != 0) {
+            NSDictionary *charityDictionary = [[NSDictionary alloc] initWithObjects:@[charity, rankAsNSNumber, matches] forKeys:@[@"Charity", @"Rank", @"Matches"]];
+            [tempRankings addObject:charityDictionary];
+        }
+    }
+    
+    NSMutableArray *unsortedCharites = [tempRankings mutableCopy];
+    
+    self.newsItem.charityRankings = [self sortCharitiesByRank:unsortedCharites];
+    [self.newsItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(succeeded) {
+            NSLog(@"saved charity rankings!");
+        }
+        else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        
+    }];
+     NSLog(@"count: %d", i);
+
+}
+
+
+-(NSMutableArray *)sortCharitiesByRank:(NSMutableArray *)charities {
+    NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Rank" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:rankDescriptor];
+    NSArray *sortedArray = [charities sortedArrayUsingDescriptors:sortDescriptors];
+    [self setupCharitiesButton];
+    return [sortedArray mutableCopy];
+}
+
+//- (void)setupTopWhiteView {
+//    self.topWhiteView = [[UIView alloc] init];
+//    self.topWhiteView.backgroundColor = [UIColor whiteColor];
+//    self.topWhiteView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.webView addSubview:self.topWhiteView];
+//    
+//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+//                                                             attribute:NSLayoutAttributeTop
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:self.webView
+//                                                             attribute:NSLayoutAttributeTop
+//                                                            multiplier:1.0
+//                                                              constant:0.0]];
+//    
+//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+//                                                             attribute:NSLayoutAttributeRight
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:self.webView
+//                                                             attribute:NSLayoutAttributeRight
+//                                                            multiplier:1.0
+//                                                              constant:0.0]];
+//    
+//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+//                                                             attribute:NSLayoutAttributeLeft
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:self.webView
+//                                                             attribute:NSLayoutAttributeLeft
+//                                                            multiplier:1.0
+//                                                              constant:0.0]];
+//    
+//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
+//                                                             attribute:NSLayoutAttributeHeight
+//                                                             relatedBy:NSLayoutRelationEqual
+//                                                                toItem:nil
+//                                                             attribute:NSLayoutAttributeNotAnAttribute
+//                                                            multiplier:1.0
+//                                                              constant:110]];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,18 +243,13 @@
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
-    //self.charitiesButton.layer.masksToBounds = YES;
-    //self.charitiesButton.layer.cornerRadius = 8;
-//    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
+     self.webView.scrollView.delegate = self;
     
     self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.08 green:0.08 blue:0.08 alpha:1];
     self.charitiesButton.alpha = 0.95;
     self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
-   // [self setupTopWhiteView];
-    
-    self.webView.scrollView.delegate = self;
+    self.charitiesButton.userInteractionEnabled = YES;
 }
-
 
 - (IBAction)articleFavourited:(UIBarButtonItem *)sender {
     
@@ -160,8 +327,7 @@
     navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     navigationController.navigationBar.backgroundColor =[UIColor blackColor];
-    menuController.newsItem = [[NewsItem alloc] init];
-    menuController.newsItem.newsURL = self.detailFeedItem.link;
+    menuController.newsItem = self.newsItem;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -178,28 +344,5 @@
     
 }
 
-
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//   // CGPoint offset = scrollView.contentOffset;
-//    
-//    if(scrollView.contentOffset.y < 110) {
-//        CGPoint newOrigin = CGPointMake(0.0, 110.0);
-//        [scrollView setContentOffset:newOrigin];
-//    }
-//    NSLog(@"Y: %f", scrollView.contentOffset.y);
-//    
-//    
-////
-//}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

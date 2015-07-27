@@ -260,10 +260,17 @@
     if ([[segue identifier] isEqualToString:@"showWebView"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         [[segue destinationViewController] setDetailFeedItem:self.newsObjects[indexPath.row]];
+       
+        NewsDetailViewController * newsDetailVC = (NewsDetailViewController *) segue.destinationViewController;
         
+        MWFeedItem *feedItem = self.newsObjects[indexPath.row];
+        
+        NewsItem *newsItem = [[NewsItem alloc] init];
+        
+        newsItem.newsURL = feedItem.link;
+        
+        newsDetailVC.newsItem = newsItem;
     }
-    
 }
-
 
 @end

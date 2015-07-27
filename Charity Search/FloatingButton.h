@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "UIColor+ButtonColor.h"
+#import "Charity.h"
 
 @interface FloatingButton : UIButton
 
 @property (nonatomic) NSInteger *index;
+@property (strong, nonatomic) Charity *charity;
 
 - (id)initWithFrame:(CGRect)frame image:(UIImage*)image andBackgroundColor:(UIColor*)backgroundColor;
 
