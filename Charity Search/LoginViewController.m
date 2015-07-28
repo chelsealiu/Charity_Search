@@ -54,6 +54,14 @@
     [self animateLogin];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UIView * txt in self.view.subviews){
+        if ([txt isKindOfClass:[UITextField class]] && [txt isFirstResponder]) {
+            [txt resignFirstResponder];
+        }
+    }
+}
+
 -(void) animateLogin {
 
     [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.2 options:0 animations:^{
