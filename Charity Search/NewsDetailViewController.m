@@ -346,11 +346,13 @@
         
     }];
     
-    [currentUser saveInBackground]; //crash on this line?
+    [currentUser saveInBackground];
 }
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    self.tabBarController.tabBar.hidden = NO;
     if(buttonIndex == 1){
         LoginViewController *loginVC = (LoginViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"Login"];
         [self.navigationController pushViewController:loginVC animated:YES];

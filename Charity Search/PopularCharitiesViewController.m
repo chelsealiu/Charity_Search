@@ -108,7 +108,6 @@ const CGFloat kTableHeaderHeight = 50;
 //    [self.view layoutIfNeeded];
 //
     
-    
     PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
     [query setLimit:1000];
     [query findObjectsInBackgroundWithBlock:^(NSArray *charityArray,  NSError *error){
