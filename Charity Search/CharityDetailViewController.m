@@ -31,6 +31,7 @@
     NSURL *url = [[NSURL alloc] init];
     
     if(![self.charity.website hasPrefix:@"http"]) {
+        
         url = [NSURL URLWithString:[@"http://" stringByAppendingString:self.charity.website]];
     }
     else {
