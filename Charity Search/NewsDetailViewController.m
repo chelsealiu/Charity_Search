@@ -21,9 +21,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
 //@property (weak, nonatomic) IBOutlet UIButton *hideButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
-@property (strong, nonatomic) UIView *topWhiteView;
-
-//@property(nonatomic,weak) NSObject <UIScrollViewDelegate> *delegate;
+@property (strong, nonatomic) NSString *htmlString;
+@property (strong, nonatomic) UIBarButtonItem *readerViewButton;
+@property (nonatomic) BOOL isReaderMode;
+@property (strong, nonatomic) UIWebView *readerWebView;
 
 @end
 
@@ -61,7 +62,8 @@
     if (![User currentUser]) {
         [self.navigationItem.rightBarButtonItem setTintColor:[UIColor lightGrayColor]];
     }
-
+    
+    [self setupReaderViewButton];
 }
 
 // get keyword sets for news
@@ -93,9 +95,7 @@
                     //     There was a problem, check error.description
                     NSLog(@"error! %@", error.localizedDescription);
                 }
-                
             }];
-            
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -227,6 +227,14 @@
     self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
     self.charitiesButton.userInteractionEnabled = YES;
 }
+
+
+-(void)setupReaderViewButton {
+    self.readerViewButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glasses.png"] style:UIBarButtonItemStylePlain target:self action:@selector(readerViewButtonPressed)];
+    [self.readerViewButton setTintColor:[UIColor grayColor]];
+    self.navigationItem.rightBarButtonItems = @[self.navigationItem.rightBarButtonItem, self.readerViewButton];
+}
+
 
 - (IBAction)articleFavourited:(UIBarButtonItem *)sender {
     

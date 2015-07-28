@@ -21,9 +21,7 @@
 @implementation FloatingMenuController
 
 -(void)viewWillAppear:(BOOL)animated {
-    
-   // [self configureButtons];
-    
+ 
 }
 
 - (instancetype)initWithView:(UIView *)view
@@ -35,11 +33,8 @@
         _buttonItems = @[[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"]];
         _buttonPadding = 90;
     }
-    
     return self;
 }
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,9 +55,7 @@
     TapReceiverViewController *actionVC = [[TapReceiverViewController alloc] init];
     self.delegate = actionVC;
     [self configureButtons];
-    
 }
-
 
 -(void)dismissViewController {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -81,7 +74,6 @@
     
     CharityDetailViewController *charityDetailVC = (CharityDetailViewController *)[charityStoryboard instantiateViewControllerWithIdentifier:@"charityDetailViewController"];
     
-    // this will crash if you click on a charity when the charities are fake - handle!!
     charityDetailVC.charity = charity;
     
     [self.navigationController pushViewController:charityDetailVC animated:YES];
@@ -96,15 +88,15 @@
     button.tag = idx;
     [button setTitle:charity.name forState:UIControlStateNormal];
     
-    button.titleLabel.numberOfLines = 0;
-    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    button.titleLabel.numberOfLines = 2;
     button.backgroundColor = [UIColor darkGrayColor];
     button.alpha = 0.6;
     button.layer.masksToBounds = YES;
     button.layer.cornerRadius = 8;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    
+    [button.titleLabel setLineBreakMode:NSLineBreakByTruncatingMiddle];
+    button.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [self.view addSubview:button];
     [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -139,12 +131,21 @@
             }
         }
         else {
-            NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
-            Charity *charity = [charityDict objectForKey:@"Charity"];
-            [self setupButton:idx forCharity:charity];
-            charityButton.charity = charity;
+            charitiesArray = [self.newsItem.charityRankings subarrayWithRange:NSMakeRange(0, [self.newsItem.charityRankings count])];
         }
-    }];
+        __block int x = 4;
+            [charitiesArray enumerateObjectsUsingBlock:^(UIImage* image, NSUInteger idx, BOOL *stop) {
+                NSLog(@"idx: %lu", idx);
+                
+                NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:x];
+                Charity *charity = [charityDict objectForKey:@"Charity"];
+                x--;
+                [self setupButton:idx forCharity:charity];
+             }];
+    }
+    else {
+        // no charity rankings, so don't make any buttons
+    }
 }
 
 - (void)didReceiveMemoryWarning {
