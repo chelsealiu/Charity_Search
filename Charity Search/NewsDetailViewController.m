@@ -221,9 +221,6 @@
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0 constant:x]];
-    [UIView animateWithDuration:0.7 animations:^{
-        [self.webView layoutIfNeeded];
-    }];
 }
 
 - (void)viewDidLoad {
@@ -236,16 +233,6 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self getNewsKeyWordsForNewsItem:self.newsItem];
     });
-}
-
--(void)findAndRemoveTopConstraint {
-    for(NSLayoutConstraint *constraint in self.view.constraints) {
-        if((constraint.firstItem == self.webView) || (constraint.secondItem == self.webView)) {
-            if(constraint.firstAttribute == NSLayoutAttributeTop) {
-                [self.view removeConstraints:@[constraint]];
-            }
-        }
-    }
 }
 
 -(void)readerViewButtonPressed {
@@ -273,13 +260,11 @@
                                   dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
                                       NSError *jsonError;
                                       NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-                                      
                                       NSString *content = [responseDict objectForKey:@"content"];
+                                      NSLog(@"%@", content);
                                       NSString *newContent = [self checkForVideos:content];
                                       NSString *title = [responseDict objectForKey:@"title"];
-                                     // NSString *imageURL = [responseDict objectForKey:@"lead_image_url"];
                                       self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica' > <h1> %@ </h1> %@",title, newContent];
-//                                       <img src=\"%@\" style=\"width: 100%%; height: auto;\">
                                       if (fetchingError) {
                                           NSLog(@"%@", fetchingError.localizedDescription);
                                           return;
