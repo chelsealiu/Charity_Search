@@ -266,7 +266,7 @@
                                       NSLog(@"%@", content);
                                       NSString *newContent = [self checkForVideos:content];
                                       NSString *title = [responseDict objectForKey:@"title"];
-                                      self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica' > <h1> %@ </h1> %@",title, newContent];
+                                      self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica Light' > <h1> %@ </h1> %@",title, newContent];
                                       if (fetchingError) {
                                           NSLog(@"%@", fetchingError.localizedDescription);
                                           return;
