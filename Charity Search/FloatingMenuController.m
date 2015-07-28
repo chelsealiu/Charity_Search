@@ -30,8 +30,7 @@
     if (self) {
         _fromView = view;
         _buttonDirection = up; //default direction
-        _buttonItems = @[[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"]];
-        _buttonPadding = 90;
+        _buttonPadding = 80;
     }
     return self;
 }
@@ -77,6 +76,7 @@
     charityDetailVC.charity = charity;
     
     [self.navigationController pushViewController:charityDetailVC animated:YES];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     [self.delegate charityButtonPressed];
     [self.delegate charityLabelPressed];
@@ -85,7 +85,7 @@
 - (void)setupButton:(NSUInteger)idx forCharity:(Charity *)charity {
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 75)];
-    button.tag = idx;
+    button.tag = 4 - idx;
     [button setTitle:charity.name forState:UIControlStateNormal];
     
     button.titleLabel.numberOfLines = 2;
@@ -102,33 +102,11 @@
 }
 
 -(void)configureButtons {
-    
-    [self.buttonItems enumerateObjectsUsingBlock:^(UIImage* image, NSUInteger idx, BOOL *stop) {
-
-        FloatingButton *charityButton = [[FloatingButton alloc] initWithFrame:CGRectMake(self.closeButton.frame.origin.x, self.closeButton.frame.origin.y - self.buttonPadding * (idx + 1), 30, 30) image:nil andBackgroundColor:nil];
-        [self.view addSubview:charityButton];
-        [charityButton addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        charityButton.tag = idx;
-        
-        
-        // make an array of default charities in case the website is not found or there are no matches
-       // NSMutableArray *charities = [[NSMutableArray alloc] init];
-        Charity *charity1 = [[Charity alloc] initWithCharityName:@"Canadian Unicef Committee" andWebsite:@"http://WWW.UNICEF.CA"];
-        [self.charities addObject:charity1];
-        Charity *charity2 = [[Charity alloc] initWithCharityName:@"Salvation Army Canada" andWebsite:@"WWW.SALVATIONARMY.CA"];
-        [self.charities addObject:charity2];
-        Charity *charity3 = [[Charity alloc] initWithCharityName:@"Habitat For Humanity Canada Foundation" andWebsite:@"http://www.habitat.ca/"];
-        [self.charities addObject:charity3];
-        Charity *charity4 = [[Charity alloc] initWithCharityName:@"Shock Trauma Air Rescue Service Foundation" andWebsite:@"www.stars.ca"];
-        [self.charities addObject:charity4];
-        Charity *charity5 = [[Charity alloc] initWithCharityName:@"Terry Fox Foundation" andWebsite:@"WWW.TERRYFOX.ORG"];
-        [self.charities addObject:charity5];
-        
-        if([self.newsItem.charityRankings count] < 5) {
-            for(int i = 0; i < (5 - [self.newsItem.charityRankings count]); i++ ) {
-                [self setupButton:i forCharity:[self.charities objectAtIndex:i]];
-                charityButton.charity = [self.charities objectAtIndex:i];
-            }
+ 
+    if (self.newsItem.charityRankings) {
+        NSArray *charitiesArray = [[NSArray alloc] init];
+        if([self.newsItem.charityRankings count] > 5){
+            charitiesArray = [self.newsItem.charityRankings subarrayWithRange:NSMakeRange(0, 5)];
         }
         else {
             charitiesArray = [self.newsItem.charityRankings subarrayWithRange:NSMakeRange(0, [self.newsItem.charityRankings count])];

@@ -43,7 +43,7 @@
     [self.savedView setAlpha:0.0f];
     self.navigationController.navigationBarHidden = NO;
     self.tabBarController.tabBar.hidden = YES;
-    [self.charitiesButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+   
     
     //sets colour of heart button before view loads
     User *currentUser = [User currentUser];
@@ -197,36 +197,103 @@
     return [sortedArray mutableCopy];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+
+- (void)loadWebView {
     NSString *fullURL = self.detailFeedItem.link;
     //self.hideButton.titleLabel.text = @"Hide";
     
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
-    //self.charitiesButton.layer.masksToBounds = YES;
-    //self.charitiesButton.layer.cornerRadius = 8;
-//    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
-    
+    [self setupWebViewWithConstraint:-110.0];
+}
+
+-(void)setupWebViewWithConstraint:(float)x {
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0 constant:x]];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.readerWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height +10, self.view.frame.size.width, self.view.frame.size.height - 64)];
+    [self.view addSubview:self.readerWebView];
+    self.isReaderMode = NO;
+    [self loadWebView];
+    [self getNewsThroughReadabilityAPI];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self getNewsKeyWordsForNewsItem:self.newsItem];
     });
-    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.08 green:0.08 blue:0.08 alpha:1];
-    self.charitiesButton.alpha = 0.95;
+}
 
+-(void)readerViewButtonPressed {
+    if(self.isReaderMode) {
+        [self animateReaderView:self.view.frame.size.height +10];
+        [self.readerViewButton setTintColor:[UIColor grayColor]];
+        self.isReaderMode = NO;
+    }
+    else {
+        [self animateReaderView:64];
+        [self.readerViewButton setTintColor:[UIColor whiteColor]];
+        self.isReaderMode = YES;
+    }
+}
+
+-(void)animateReaderView:(float)y {
+    [UIView animateWithDuration:1.0 animations:^{
+        self.readerWebView.frame = CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height - 103);
+    }];
+}
+
+-(void)getNewsThroughReadabilityAPI {
+    NSString *urlString = [NSString stringWithFormat:@"https://www.readability.com/api/content/v1/parser?url=%@&token=c70afc46a6e6b38f84fb9fb3528da93a4030f610", self.newsItem.newsURL];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession]
+                                  dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *fetchingError) {
+                                      NSError *jsonError;
+                                      NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                                      NSString *content = [responseDict objectForKey:@"content"];
+                                      NSLog(@"%@", content);
+                                      NSString *newContent = [self checkForVideos:content];
+                                      NSString *title = [responseDict objectForKey:@"title"];
+                                      self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica Light' > <h1> %@ </h1> %@",title, newContent];
+                                      if (fetchingError) {
+                                          NSLog(@"%@", fetchingError.localizedDescription);
+                                          return;
+                                      }
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          [self.readerWebView loadHTMLString:self.htmlString baseURL:nil];
+                                          
+                                      });
+                                  }];
+    [task resume];
 }
 
 
+-(NSString *)checkForVideos:(NSString *)htmlString {
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(<iframe.*>)+?"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+      NSString *modifiedString = [regex stringByReplacingMatchesInString:htmlString options:0 range:NSMakeRange(0, [htmlString length]) withTemplate:@""];
+    
+    return modifiedString;
+}
 
-- (void)setupCharitiesButton {
+-(void)setupCharitiesButton {
 //    self.charitiesButton.layer.masksToBounds = YES;
 //    self.charitiesButton.layer.cornerRadius = 8;
-    self.charitiesButton.alpha = 0.95;
-    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.08 green:0.08 blue:0.08 alpha:1];
-    self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
-    self.charitiesButton.userInteractionEnabled = YES;
-}
+    [UIButton animateWithDuration:1.0 animations:^{
+        self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
+        self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
+        self.charitiesButton.userInteractionEnabled = YES;
+
+    }];
+    }
 
 
 -(void)setupReaderViewButton {
@@ -310,7 +377,7 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    navigationController.navigationBar.barTintColor = [UIColor blackColor];
     navigationController.navigationBar.backgroundColor =[UIColor blackColor];
     menuController.newsItem = self.newsItem;
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -318,16 +385,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)loadRequest:(NSURLRequest *)request {
-    
-}
-- (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL {
-}
-
-- (void)loadData:(NSData *)data MIMEType:(NSString *)MIMEType textEncodingName:(NSString *)textEncodingName baseURL:(NSURL *)baseURL {
-    
 }
 
 @end
