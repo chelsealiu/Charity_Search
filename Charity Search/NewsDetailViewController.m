@@ -201,21 +201,21 @@
 - (void)loadWebView {
     NSString *fullURL = self.detailFeedItem.link;
     //self.hideButton.titleLabel.text = @"Hide";
-    
+    // [self setupWebViewWithConstraint:-110.0];
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
-    [self setupWebViewWithConstraint:-110.0];
+   
 }
 
--(void)setupWebViewWithConstraint:(float)x {
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView
-                                                          attribute:NSLayoutAttributeTop
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeTop
-                                                         multiplier:1.0 constant:x]];
-}
+//-(void)setupWebViewWithConstraint:(float)y {
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView
+//                                                          attribute:NSLayoutAttributeTop
+//                                                          relatedBy:NSLayoutRelationEqual
+//                                                             toItem:self.view
+//                                                          attribute:NSLayoutAttributeTop
+//                                                         multiplier:1.0 constant:y]];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -244,7 +244,7 @@
 
 -(void)animateReaderView:(float)y {
     [UIView animateWithDuration:1.0 animations:^{
-        self.readerWebView.frame = CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height - 103);
+        self.readerWebView.frame = CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height - 115);
     }];
 }
 
