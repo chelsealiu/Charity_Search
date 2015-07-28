@@ -23,6 +23,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     self.savedView.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidLoad {

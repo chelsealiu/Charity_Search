@@ -27,6 +27,10 @@
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+
+}
 
 -(void)viewDidLoad {
     

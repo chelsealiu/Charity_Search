@@ -118,7 +118,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"skipToNews"]) {
         [[segue destinationViewController] setDetailItem: [NSURL URLWithString: @"http://rss.cbc.ca/lineup/topstories.xml"]];
-        [[segue destinationViewController] setTitle:@"Top Stories"];
+//        [[segue destinationViewController] setTitle:@"Top Stories"];
+        
 
     }
     

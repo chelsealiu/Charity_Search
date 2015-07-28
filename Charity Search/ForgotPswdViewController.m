@@ -31,6 +31,14 @@
 
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UIView * txt in self.view.subviews){
+        if ([txt isKindOfClass:[UITextField class]] && [txt isFirstResponder]) {
+            [txt resignFirstResponder];
+        }
+    }
+}
+
 - (IBAction)submitResetRequest:(id)sender {
     
     [User requestPasswordResetForEmailInBackground:self.forgotPasswordEmailTextfield.text block:^(BOOL succeeded, NSError *error){
