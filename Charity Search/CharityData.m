@@ -34,7 +34,7 @@
                     if ([charity.keywords count] < 1) {
                 
                        [self getCharityKeywordsForCharity:charity];
-                      /// [self getCharityKeywordsFromDescriptionForCharity:charity];
+                      // [self getCharityKeywordsFromDescriptionForCharity:charity];
                       //  [self getCharityConceptsForCharity:charity];
                     }
                     
@@ -228,38 +228,29 @@
 
 
 +(void)getCharityObjects {
-    for (int i = 0; i < 1; i++) {
-        
     
-    NSString *charityString = [NSString stringWithFormat:@"https://app.place2give.com/Service.svc/give-api?action=searchCharities&token=%@&format=json&PageNumber=%d&NumPerPage=100&CharitySize=VERY%%20LARGE", CHARITY_KEY, i];
-    NSURL *charityURL = [NSURL URLWithString:charityString];
-    NSLog(@"%@", charityURL);
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:charityURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSError *jsonError;
-        
-        NSDictionary *resultsDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-        
-        if(!resultsDict) {
-            NSLog(@"there was an error getting the Charity objects! %@", error);
-        } else {
-            NSArray *charityArray = [[[[resultsDict objectForKey:@"give-api"] objectForKey:@"data"]objectForKey:@"charities"] objectForKey:@"charity"];
-            [self loadCharitiesFromLocalArray:[charityArray mutableCopy]];
-           // [self loadCharitiesFromArray:charityArray];
+    for (int i = 0; i < 10; i++) {
+        NSString *charityString = [NSString stringWithFormat:@"https://app.place2give.com/Service.svc/give-api?action=searchCharities&token=%@&format=json&PageNumber=%d&NumPerPage=100&CharitySize=LARGE", CHARITY_KEY, i];
+        NSURL *charityURL = [NSURL URLWithString:charityString];
+        NSLog(@"%@", charityURL);
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:charityURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            NSError *jsonError;
             
-            [self loadCharitiesFromArray:charityArray onPageNumber:i];
-
-        }
-    }];
-    [task resume];
+            NSDictionary *resultsDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            
+            if(!resultsDict) {
+                NSLog(@"there was an error getting the Charity objects! %@", error);
+            } else {
+                NSArray *charityArray = [[[[resultsDict objectForKey:@"give-api"] objectForKey:@"data"]objectForKey:@"charities"] objectForKey:@"charity"];
+                //[self loadCharitiesFromLocalArray:[charityArray mutableCopy]];
+                // [self loadCharitiesFromArray:charityArray];
+                
+                [self loadCharitiesFromArray:charityArray onPageNumber:i];
+                
+            }
+        }];
+        [task resume];
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 +(void)getCharityKeywordsFromDescriptionForCharity:(Charity *)charity {
@@ -282,7 +273,7 @@
             for(NSDictionary *keywordDict in keywordsArray) {
                 [charityTemp addObject:[keywordDict objectForKey:@"text"]];
             }
-    
+            
             charity.keywords = [charityTemp allObjects];
             NSLog(@"%@", charity.keywords);
             NSLog(@"charity set count: %lu", (unsigned long)[charity.keywords count]);
@@ -299,7 +290,7 @@
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfig.HTTPMaximumConnectionsPerHost= 1;
     
-   
+    
     NSString *charityString = [NSString stringWithFormat:@"http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey=%@&outputMode=json&url=%@", ALCHEMY_KEY, charity.website];
     NSURL *charityURL = [NSURL URLWithString:charityString];
     NSLog(@"%@", charityURL);

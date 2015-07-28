@@ -238,10 +238,12 @@
 -(void)readerViewButtonPressed {
     if(self.isReaderMode) {
         [self animateReaderView:self.view.frame.size.height +10];
+        [self.readerViewButton setTintColor:[UIColor grayColor]];
         self.isReaderMode = NO;
     }
     else {
         [self animateReaderView:64];
+        [self.readerViewButton setTintColor:[UIColor whiteColor]];
         self.isReaderMode = YES;
     }
 }

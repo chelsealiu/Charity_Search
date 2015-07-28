@@ -81,15 +81,15 @@
     button.tag = idx;
     [button setTitle:charity.name forState:UIControlStateNormal];
     
-    button.titleLabel.numberOfLines = 0;
-    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    button.titleLabel.numberOfLines = 2;
     button.backgroundColor = [UIColor darkGrayColor];
     button.alpha = 0.6;
     button.layer.masksToBounds = YES;
     button.layer.cornerRadius = 8;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    
+    [button.titleLabel setLineBreakMode:NSLineBreakByTruncatingMiddle];
+    button.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [self.view addSubview:button];
     [button addTarget:self action:@selector(iconButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -104,9 +104,13 @@
         else {
             charitiesArray = [self.newsItem.charityRankings subarrayWithRange:NSMakeRange(0, [self.newsItem.charityRankings count])];
         }
+        __block int x = 4;
             [charitiesArray enumerateObjectsUsingBlock:^(UIImage* image, NSUInteger idx, BOOL *stop) {
-                NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:idx];
+                NSLog(@"idx: %lu", idx);
+                
+                NSDictionary *charityDict = [self.newsItem.charityRankings objectAtIndex:x];
                 Charity *charity = [charityDict objectForKey:@"Charity"];
+                x--;
                 [self setupButton:idx forCharity:charity];
              }];
     }
