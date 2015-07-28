@@ -40,7 +40,7 @@
 -(void)viewDidLoad {
     
     [super viewDidLoad];
-    
+
     User *currentUser = [User currentUser];
     NSString *firstName = currentUser.firstName;
     self.usernameLabel.text = [firstName stringByAppendingString: [NSString stringWithFormat:@" %@", currentUser.lastName]];

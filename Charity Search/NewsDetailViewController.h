@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import "NewsItem.h"
 
-@interface NewsDetailViewController : UIViewController <UIWebViewDelegate>
+@interface NewsDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) MWFeedItem *detailFeedItem;

@@ -27,8 +27,8 @@ typedef NS_ENUM(NSInteger, SortDescriptor) {
 };
 
 @interface PopularCharitiesViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *optionsButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *optionsButton;
 @property (nonatomic) SortDescriptor sortDescriptor;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSDictionary *imgTypeDict;
@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger, SortDescriptor) {
 @property (strong, nonatomic) NSArray *sortedCharities;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) NSArray *sortDescriptors;
+@property (weak, nonatomic) IBOutlet UIImageView *topView;
+@property (nonatomic)BOOL hasLoaded;
 
 @end
 
@@ -46,42 +48,66 @@ const CGFloat kTableHeaderHeight = 50;
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIColor whiteColor],NSForegroundColorAttributeName,
+                                    [UIColor blackColor],NSBackgroundColorAttributeName,nil];
+    
+    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    self.title = @"Suggested";
+    self.navigationItem.title = @"Suggested Charities";
     [self sortCharities:self.sortDescriptor];
     [self.tableView reloadData];
+
     
+    if (self.hasLoaded) {
+        return;
+    }
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.topView.frame.size.height);
+    gradientLayer.colors = [NSArray arrayWithObjects:
+                            (id)[UIColor clearColor].CGColor,
+                            (id)[UIColor colorWithWhite:0.0f alpha:1.0f].CGColor,
+                            nil];
+    gradientLayer.locations = [NSArray arrayWithObjects:
+                               [NSNumber numberWithFloat:0.6f],
+                               [NSNumber numberWithFloat:1.0f],
+                               nil];
+    [self.topView.layer addSublayer:gradientLayer];
+    self.hasLoaded = YES;
     
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+       //only runs once?
+//    CABasicAnimation *theAnimation;
+//    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+//    theAnimation.duration=1.0;
+//    theAnimation.repeatCount=HUGE_VALF;
+//    theAnimation.autoreverses=YES;
+//    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+//    theAnimation.toValue=[NSNumber numberWithFloat:0.4];
+//    [self.optionsButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
+//
+//    self.optionsButton.layer.masksToBounds = YES;
+//    self.optionsButton.layer.cornerRadius = self.optionsButton.frame.size.width/2;
+//    self.optionsButton.alpha = 0.5;
     
-    //only runs once?
-    CABasicAnimation *theAnimation;
-    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-    theAnimation.duration=1.0;
-    theAnimation.repeatCount=HUGE_VALF;
-    theAnimation.autoreverses=YES;
-    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-    theAnimation.toValue=[NSNumber numberWithFloat:0.4];
-    [self.optionsButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];
-
-    self.optionsButton.layer.masksToBounds = YES;
-    self.optionsButton.layer.cornerRadius = self.optionsButton.frame.size.width/2;
-    self.optionsButton.alpha = 0.5;
+//    self.tableView.rowHeight = UITableViewAutomaticDimension;
+//    self.tableView.estimatedRowHeight = 10;
+//    self.headerView = self.tableView.tableHeaderView;
+//    self.tableView.tableHeaderView = nil;
+//    [self.tableView setContentInset:UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0)];
+//    [self updateHeaderView];
+//    [self.tableView addSubview:self.headerView];
+//    [self.view layoutIfNeeded];
+//
     
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 40;
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    self.headerView = self.tableView.tableHeaderView;
-    self.tableView.tableHeaderView = nil;
-    
-    [self.tableView setContentInset:UIEdgeInsetsMake(kTableHeaderHeight, 0, 0, 0)];
-    
-    [self updateHeaderView];
-    [self.tableView addSubview:self.headerView];
-    [self.view layoutIfNeeded];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Charity"];
     [query setLimit:1000];
@@ -143,9 +169,15 @@ const CGFloat kTableHeaderHeight = 50;
  
     PopularCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PopularCell" forIndexPath:indexPath];
     Charity *charity = self.sortedCharities[indexPath.row];
+    
     cell.titleLabel.text = charity.name;
     cell.descriptionLabel.text = charity.charityDescription;
     cell.typeImageView.image = self.imgTypeDict[charity.type];
+    
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.titleLabel.textColor = [UIColor blackColor];
+    cell.descriptionLabel.textColor = [UIColor darkGrayColor];
+    cell.descriptionLabel.alpha = 0.7;
     
     NSLog(@"%f", charity.spendingRatio);
     cell.typeImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -174,8 +206,6 @@ const CGFloat kTableHeaderHeight = 50;
     [self updateHeaderView];
 }
 
-
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PopularCell*)sender {
@@ -191,20 +221,8 @@ const CGFloat kTableHeaderHeight = 50;
     }
     
 }
-//
-//- (IBAction)showSortOptions:(id)sender {
-//    
-////    OptionMenuController *menuController = [self.storyboard instantiateViewControllerWithIdentifier:@"Options"];
-//////    
-////    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:menuController];
-////    navigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-////    navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-////    menuController.delegate = self;
-////    menuController.view.backgroundColor = [UIColor clearColor];
-////    [self presentViewController:navigationController animated:YES completion:nil];
-//
-//}
-//
+
+
 
 #pragma mark sort delegate
 

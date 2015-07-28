@@ -24,11 +24,11 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015 Chelsea Liu &amp; Alex Stroulger. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
-                    <rect key="frame" x="42" y="408" width="397" height="52"/>
+                    <rect key="frame" x="92" y="408" width="313" height="52"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="52" id="8Ut-ll-lch"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="397" id="qXX-Wk-squ"/>
-                        <constraint firstAttribute="width" constant="397" id="wuJ-qL-6eT"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="313" id="qXX-Wk-squ"/>
+                        <constraint firstAttribute="width" constant="313" id="wuJ-qL-6eT"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -41,7 +41,7 @@
                 <constraint firstAttribute="centerY" secondItem="thn-Tc-rzb" secondAttribute="centerY" id="5Pb-pJ-4T5"/>
                 <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
-                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
+                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" constant="-8.5" id="ZEH-qu-HZ9"/>
                 <constraint firstAttribute="centerX" secondItem="thn-Tc-rzb" secondAttribute="centerX" id="ebq-JP-Gp9"/>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
             </constraints>

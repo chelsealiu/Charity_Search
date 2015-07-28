@@ -15,6 +15,7 @@
 #import "PopularCharitiesViewController.h"
 #import "LoginViewController.h"
 #import "CharityData.h"
+#import "UIImage+ResizedIcon.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -53,12 +54,22 @@
     UINavigationController *categoriesNav = [[UINavigationController alloc] initWithRootViewController:categoriesController];
     
     homeController.tabBarItem.title = @"Home";
+    homeController.tabBarItem.image = [UIImage resizeTabIcon:[UIImage imageNamed:@"home.png"] withX:30 andY:30];
+    
     profileController.tabBarItem.title = @"Profile";
-    categoriesController.tabBarItem.title = @"Categories";
+    profileController.tabBarItem.image = [UIImage resizeTabIcon:[UIImage imageNamed:@"profile.png"] withX:30 andY:30];
+
+    categoriesController.tabBarItem.title = @"News";
+    categoriesController.tabBarItem.image = [UIImage resizeTabIcon:[UIImage imageNamed:@"news.png"] withX:30 andY:30];
+    
     charityController.tabBarItem.title = @"Suggested";
+    charityController.tabBarItem.image = [UIImage resizeTabIcon:[UIImage imageNamed:@"suggested.png"] withX:30 andY:30];
     
     NSMutableArray* allControllers = [NSMutableArray arrayWithObjects: homeNav, categoriesNav, charityNav, nil];
-    
+//    tabBarController.tabBar.contentMode = UIViewContentModeScaleAspectFit;
+    tabBarController.tabBar.autoresizesSubviews = NO;
+    tabBarController.tabBar.clipsToBounds = YES;
+
     if ([User currentUser] != nil) {
         [allControllers addObject:profileNav];
     }
@@ -66,6 +77,7 @@
     tabBarController.viewControllers = allControllers;
     tabBarController.tabBar.barTintColor = [UIColor blackColor];
     tabBarController.tabBar.tintColor = [UIColor whiteColor];
+    
     
     //Add the tab bar controller to the window
  

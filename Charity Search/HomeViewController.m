@@ -33,7 +33,7 @@
     
     self.goToNewsButton.layer.masksToBounds = YES;
     self.goToNewsButton.layer.cornerRadius = 8;
-    
+    self.view.backgroundColor = [UIColor darkGrayColor];
     if (currentUser == nil) {
         [self.loginButton setHidden:NO];
         [self.loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
@@ -93,8 +93,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.51 green:0.87 blue:0.96 alpha:1];
-    NSLog(@"VDL");
-
+    
 }
 
 - (IBAction)loginOrLogout:(UIButton*)sender {

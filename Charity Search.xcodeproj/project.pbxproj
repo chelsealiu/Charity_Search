@@ -37,7 +37,14 @@
 		5E8953DB1B61C3A8005142D2 /* OptionMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8953DA1B61C3A8005142D2 /* OptionMenuController.m */; };
 		5E8953E01B628910005142D2 /* launch_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953DF1B628910005142D2 /* launch_icon.jpg */; };
 		5E8953E21B628FE6005142D2 /* icon-close.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953E11B628FE6005142D2 /* icon-close.pdf */; };
-		5E8953E41B62BEBD005142D2 /* texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953E31B62BEBD005142D2 /* texture.jpg */; };
+		5E8953F31B66D30C005142D2 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953EF1B66D30C005142D2 /* profile.png */; };
+		5E8953F41B66D30C005142D2 /* suggested.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953F01B66D30C005142D2 /* suggested.png */; };
+		5E8953F51B66D30C005142D2 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953F11B66D30C005142D2 /* home.png */; };
+		5E8953F81B66D55F005142D2 /* UIImage+ResizedIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8953F71B66D55F005142D2 /* UIImage+ResizedIcon.m */; };
+		5E8953FA1B66D935005142D2 /* news.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E8953F91B66D935005142D2 /* news.png */; };
+		5E8953FD1B66F0AC005142D2 /* FeedCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8953FC1B66F0AC005142D2 /* FeedCategory.m */; };
+		5E8954971B6803AB005142D2 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8954961B6803AB005142D2 /* HeaderView.m */; };
+		5E8954991B680DCF005142D2 /* hands_two.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E8954981B680DCF005142D2 /* hands_two.jpg */; };
 		5E8CB9211B596C8E008DCA9D /* ForgotPswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */; };
 		5E8CB9221B597236008DCA9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B04361B443CB300AAA2FE /* Main.storyboard */; };
 		5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6B043B1B443CB300AAA2FE /* LaunchScreen.xib */; };
@@ -135,7 +142,17 @@
 		5E8953DC1B61C7D9005142D2 /* CharitySortDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharitySortDelegate.h; sourceTree = "<group>"; };
 		5E8953DF1B628910005142D2 /* launch_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch_icon.jpg; sourceTree = "<group>"; };
 		5E8953E11B628FE6005142D2 /* icon-close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "icon-close.pdf"; sourceTree = "<group>"; };
-		5E8953E31B62BEBD005142D2 /* texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = texture.jpg; sourceTree = "<group>"; };
+		5E8953EF1B66D30C005142D2 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
+		5E8953F01B66D30C005142D2 /* suggested.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = suggested.png; sourceTree = "<group>"; };
+		5E8953F11B66D30C005142D2 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		5E8953F61B66D55F005142D2 /* UIImage+ResizedIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizedIcon.h"; sourceTree = "<group>"; };
+		5E8953F71B66D55F005142D2 /* UIImage+ResizedIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizedIcon.m"; sourceTree = "<group>"; };
+		5E8953F91B66D935005142D2 /* news.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news.png; sourceTree = "<group>"; };
+		5E8953FB1B66F0AC005142D2 /* FeedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCategory.h; sourceTree = "<group>"; };
+		5E8953FC1B66F0AC005142D2 /* FeedCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCategory.m; sourceTree = "<group>"; };
+		5E8954951B6803AB005142D2 /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
+		5E8954961B6803AB005142D2 /* HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
+		5E8954981B680DCF005142D2 /* hands_two.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hands_two.jpg; sourceTree = "<group>"; };
 		5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPswdViewController.h; sourceTree = "<group>"; };
 		5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPswdViewController.m; sourceTree = "<group>"; };
 		5E8CB9241B59782F008DCA9D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -267,6 +284,8 @@
 			children = (
 				5E6B042D1B443CB300AAA2FE /* AppDelegate.h */,
 				5E6B042E1B443CB300AAA2FE /* AppDelegate.m */,
+				5E8953F61B66D55F005142D2 /* UIImage+ResizedIcon.h */,
+				5E8953F71B66D55F005142D2 /* UIImage+ResizedIcon.m */,
 				5E8CB9451B599F85008DCA9D /* Key.h */,
 				5E8CB93D1B597836008DCA9D /* RSSParser */,
 				FAD7B9281B5D9C67002919E5 /* Charity */,
@@ -374,6 +393,10 @@
 		5E8953D31B614752005142D2 /* Type images */ = {
 			isa = PBXGroup;
 			children = (
+				5E8953EF1B66D30C005142D2 /* profile.png */,
+				5E8953F01B66D30C005142D2 /* suggested.png */,
+				5E8953F11B66D30C005142D2 /* home.png */,
+				5E8953F91B66D935005142D2 /* news.png */,
 				5E8953C91B61473C005142D2 /* type_welfare.png */,
 				5E8953CA1B61473C005142D2 /* type_religion.png */,
 				5E8953CB1B61473C005142D2 /* type_community.png */,
@@ -396,7 +419,6 @@
 				5E6F236B1B5FFC6700BA0085 /* LoginAnimateDelegate.h */,
 				5EDC94B01B542532007C0EE8 /* ProfileViewController.h */,
 				5EDC94B11B542532007C0EE8 /* ProfileViewController.m */,
-				5E8953E31B62BEBD005142D2 /* texture.jpg */,
 				5E8CB91F1B596C8E008DCA9D /* ForgotPswdViewController.h */,
 				5E8CB9201B596C8E008DCA9D /* ForgotPswdViewController.m */,
 				5EDC94B31B543DCF007C0EE8 /* User.h */,
@@ -432,6 +454,8 @@
 		5E8CB93E1B597892008DCA9D /* News Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				5E8954951B6803AB005142D2 /* HeaderView.h */,
+				5E8954961B6803AB005142D2 /* HeaderView.m */,
 				5EBAAED21B5EF45A002F34B2 /* SavedArticle.h */,
 				5EBAAED31B5EF45A002F34B2 /* SavedArticle.m */,
 				FAD7B9251B5D9C50002919E5 /* NewsItem.h */,
@@ -440,6 +464,8 @@
 				5EA13AD81B5B03BC0098CD64 /* UIColor+ListCellColor.m */,
 				5EA13AD11B59E5830098CD64 /* NewsMainViewController.h */,
 				5EA13AD21B59E5830098CD64 /* NewsMainViewController.m */,
+				5E8953FB1B66F0AC005142D2 /* FeedCategory.h */,
+				5E8953FC1B66F0AC005142D2 /* FeedCategory.m */,
 				5EA13ACB1B59D6EC0098CD64 /* NewsListViewController.h */,
 				5EA13ACC1B59D6EC0098CD64 /* NewsListViewController.m */,
 				5EA13AC81B59D5F00098CD64 /* NewsDetailViewController.h */,
@@ -479,6 +505,7 @@
 				FABC0F3F1B5D50390025C851 /* CharityData.m */,
 				FA52075F1B60306400D93AC6 /* CharityDetailViewController.h */,
 				FA5207601B60306400D93AC6 /* CharityDetailViewController.m */,
+				5E8954981B680DCF005142D2 /* hands_two.jpg */,
 				5E11ACAA1B5D8E3000CB4A35 /* PopularCharitiesViewController.h */,
 				5E11ACAB1B5D8E3000CB4A35 /* PopularCharitiesViewController.m */,
 				5E8953D41B61551E005142D2 /* PopularDetailViewController.h */,
@@ -547,13 +574,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E8953E41B62BEBD005142D2 /* texture.jpg in Resources */,
 				5E6F23771B60486300BA0085 /* pusheen3.png in Resources */,
 				5E8CB9231B597289008DCA9D /* LaunchScreen.xib in Resources */,
 				5E8953E21B628FE6005142D2 /* icon-close.pdf in Resources */,
+				5E8954991B680DCF005142D2 /* hands_two.jpg in Resources */,
 				5E6F23811B6054BF00BA0085 /* pusheen_hp3.png in Resources */,
 				5E6F236F1B60065000BA0085 /* cover_image.jpg in Resources */,
 				5ED314111B5DA545007F999B /* colour_tree.jpg in Resources */,
+				5E8953F41B66D30C005142D2 /* suggested.png in Resources */,
 				5E8CB9221B597236008DCA9D /* Main.storyboard in Resources */,
 				5E8953CF1B61473C005142D2 /* type_religion.png in Resources */,
 				5E6F237F1B6054BF00BA0085 /* pusheen_hp4.png in Resources */,
@@ -567,6 +595,8 @@
 				5E6F23801B6054BF00BA0085 /* pusheen_hp5.png in Resources */,
 				5E8953D21B61473C005142D2 /* type_education.png in Resources */,
 				5E6F23821B6054BF00BA0085 /* pusheen_hp6.png in Resources */,
+				5E8953FA1B66D935005142D2 /* news.png in Resources */,
+				5E8953F51B66D30C005142D2 /* home.png in Resources */,
 				5E8953CE1B61473C005142D2 /* type_welfare.png in Resources */,
 				5EDC94D41B55AA46007C0EE8 /* heart.png in Resources */,
 				5ED314191B5DD3D9007F999B /* convo_box.png in Resources */,
@@ -574,6 +604,7 @@
 				5E6B043A1B443CB300AAA2FE /* Images.xcassets in Resources */,
 				5E6F23751B60486300BA0085 /* pusheen4.png in Resources */,
 				5E8953E01B628910005142D2 /* launch_icon.jpg in Resources */,
+				5E8953F31B66D30C005142D2 /* profile.png in Resources */,
 				5E8953D01B61473C005142D2 /* type_community.png in Resources */,
 				5E8953D11B61473C005142D2 /* type_health.png in Resources */,
 				5E6F238A1B605A2700BA0085 /* pusheen_angry.png in Resources */,
@@ -597,11 +628,13 @@
 				FAD7B9271B5D9C50002919E5 /* NewsItem.m in Sources */,
 				5EDC94CC1B548C5A007C0EE8 /* LoginViewController.m in Sources */,
 				5E6B042F1B443CB300AAA2FE /* AppDelegate.m in Sources */,
+				5E8953F81B66D55F005142D2 /* UIImage+ResizedIcon.m in Sources */,
 				5EA13AE71B5B239F0098CD64 /* FloatingMenuController.m in Sources */,
 				5EA13ACA1B59D5F00098CD64 /* NewsDetailViewController.m in Sources */,
 				5E8CB9391B59782F008DCA9D /* MWFeedParserAppDelegate.m in Sources */,
 				5EDC94D21B554297007C0EE8 /* HomeViewController.m in Sources */,
 				5E8953D61B61551E005142D2 /* PopularDetailViewController.m in Sources */,
+				5E8954971B6803AB005142D2 /* HeaderView.m in Sources */,
 				5E8953921B611195005142D2 /* PopularCell.m in Sources */,
 				5E6B045A1B44559500AAA2FE /* DetailNewsCell.m in Sources */,
 				5E8CB9381B59782F008DCA9D /* MWFeedParser.m in Sources */,
@@ -620,6 +653,7 @@
 				5EA13ACD1B59D6EC0098CD64 /* NewsListViewController.m in Sources */,
 				5EA13AD31B59E5830098CD64 /* NewsMainViewController.m in Sources */,
 				5EDC94B21B542532007C0EE8 /* ProfileViewController.m in Sources */,
+				5E8953FD1B66F0AC005142D2 /* FeedCategory.m in Sources */,
 				FABC0F3D1B5D4DF70025C851 /* Charity.m in Sources */,
 				5E8CB9351B59782F008DCA9D /* GTMNSString+HTML.m in Sources */,
 				5E6B042C1B443CB300AAA2FE /* main.m in Sources */,

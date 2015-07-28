@@ -33,7 +33,7 @@
         _fromView = view;
         _buttonDirection = up; //default direction
         _buttonItems = @[[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"],[UIImage imageNamed:@"heart"]];
-        _buttonPadding = 80;
+        _buttonPadding = 90;
     }
     
     return self;
@@ -46,8 +46,8 @@
     
     self.title = @"Related Charities";
     
-    self.closeButton = [[FloatingButton alloc] initWithFrame:CGRectMake(-0, 0, 50, 50) image:[UIImage imageNamed:@"icon-close.pdf"] andBackgroundColor:[UIColor flatRedColor]];
-    self.closeButton.center = CGPointMake(self.view.frame.size.width/2, self.fromView.center.y);
+    self.closeButton = [[FloatingButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50) image:[UIImage imageNamed:@"icon-close.pdf"] andBackgroundColor:[UIColor flatRedColor]];
+    self.closeButton.center = CGPointMake(self.view.frame.size.width/2, self.fromView.center.y - 40);
     
     UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];

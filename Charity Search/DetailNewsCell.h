@@ -11,8 +11,8 @@
 @interface DetailNewsCell : UICollectionViewCell
 
 @property (strong, nonatomic) NSURLSessionTask *task; 
-@property (weak, nonatomic) IBOutlet UILabel *textLabel;
-//@property (weak, nonatomic) IBOutlet UIImageView *newsImageView;
+@property (retain, nonatomic) IBOutlet UILabel *textLabel;
+@property (retain, nonatomic) IBOutlet UIImageView *newsImageView;
 
 @end
 

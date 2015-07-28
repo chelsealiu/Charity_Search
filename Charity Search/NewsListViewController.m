@@ -35,6 +35,7 @@
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.tabBarController.tabBar.hidden = NO;
 
 }
 
@@ -261,13 +262,10 @@
         [[segue destinationViewController] setDetailFeedItem:self.newsObjects[indexPath.row]];
        
         NewsDetailViewController * newsDetailVC = (NewsDetailViewController *) segue.destinationViewController;
-        
         MWFeedItem *feedItem = self.newsObjects[indexPath.row];
-        
         NewsItem *newsItem = [[NewsItem alloc] init];
         
         newsItem.newsURL = feedItem.link;
-        
         newsDetailVC.newsItem = newsItem;
     }
 }
