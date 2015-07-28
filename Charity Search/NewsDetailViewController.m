@@ -27,6 +27,7 @@
 
 @end
 
+
 @implementation NewsDetailViewController
 
 
@@ -135,7 +136,7 @@
     NSMutableSet *keywords = [NSMutableSet setWithArray:arrayToClean];
     NSMutableArray *keywordsArray = [[NSMutableArray alloc] init];
     for (NSString *keyword in keywords) {
-        NSString *lowerCaseKeyword =   [keyword lowercaseString];
+        NSString *lowerCaseKeyword =[keyword lowercaseString];
         NSArray *myArray = [lowerCaseKeyword componentsSeparatedByString:@" "];
         [keywordsArray   addObjectsFromArray:myArray];
     }
@@ -196,45 +197,6 @@
     return [sortedArray mutableCopy];
 }
 
-//- (void)setupTopWhiteView {
-//    self.topWhiteView = [[UIView alloc] init];
-//    self.topWhiteView.backgroundColor = [UIColor whiteColor];
-//    self.topWhiteView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self.webView addSubview:self.topWhiteView];
-//    
-//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-//                                                             attribute:NSLayoutAttributeTop
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:self.webView
-//                                                             attribute:NSLayoutAttributeTop
-//                                                            multiplier:1.0
-//                                                              constant:0.0]];
-//    
-//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-//                                                             attribute:NSLayoutAttributeRight
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:self.webView
-//                                                             attribute:NSLayoutAttributeRight
-//                                                            multiplier:1.0
-//                                                              constant:0.0]];
-//    
-//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-//                                                             attribute:NSLayoutAttributeLeft
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:self.webView
-//                                                             attribute:NSLayoutAttributeLeft
-//                                                            multiplier:1.0
-//                                                              constant:0.0]];
-//    
-//    [self.webView addConstraint:[NSLayoutConstraint constraintWithItem:self.topWhiteView
-//                                                             attribute:NSLayoutAttributeHeight
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:nil
-//                                                             attribute:NSLayoutAttributeNotAnAttribute
-//                                                            multiplier:1.0
-//                                                              constant:110]];
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *fullURL = self.detailFeedItem.link;
@@ -245,8 +207,21 @@
     [self.webView loadRequest:requestObj];
      self.webView.scrollView.delegate = self;
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self getNewsKeyWordsForNewsItem:self.newsItem];
+    });
     self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.08 green:0.08 blue:0.08 alpha:1];
     self.charitiesButton.alpha = 0.95;
+
+}
+
+
+
+- (void)setupCharitiesButton {
+//    self.charitiesButton.layer.masksToBounds = YES;
+//    self.charitiesButton.layer.cornerRadius = 8;
+    self.charitiesButton.alpha = 0.95;
+    self.charitiesButton.backgroundColor = [UIColor colorWithRed:0.08 green:0.08 blue:0.08 alpha:1];
     self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
     self.charitiesButton.userInteractionEnabled = YES;
 }
@@ -339,10 +314,10 @@
     
 }
 - (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL {
-    }
+}
+
 - (void)loadData:(NSData *)data MIMEType:(NSString *)MIMEType textEncodingName:(NSString *)textEncodingName baseURL:(NSURL *)baseURL {
     
 }
-
 
 @end

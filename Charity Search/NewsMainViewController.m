@@ -15,6 +15,8 @@
 #import "Key.h"
 #import "NewsListViewController.h"
 #import "UIImage+ResizedIcon.h"
+#import "FeedCategory.h"
+#import "HeaderView.h"
 
 @interface NewsMainViewController ()
 
@@ -22,114 +24,207 @@
 //@property NSArray *itemsToDisplay;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *newsTypeSegment;
-@property(strong, nonatomic) NSMutableArray *tempCitiesArray;
-@property (strong, nonatomic) NSMutableArray *tempProvinceArray;
+
+@property (strong, nonatomic) NSArray *allFeedTypesArray;
+@property(strong, nonatomic) NSMutableArray *citiesArray;
+@property (strong, nonatomic) NSMutableArray *provinceArray;
+@property (strong, nonatomic) NSMutableArray *allObjectsArray;
 
 @end
 
 @implementation NewsMainViewController
 
 - (void)awakeFromNib {
+    
     [super awakeFromNib];
 }
 
-
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = NO;
-    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
-    self.navigationController.navigationBar.backgroundColor = [UIColor blackColor];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
+    NSDictionary *textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIColor whiteColor],NSForegroundColorAttributeName,
+                                    [UIColor blackColor],NSBackgroundColorAttributeName,nil];
+    self.title = @"News";
+    self.navigationItem.title = @"Browse by Categories";
+
+    self.navigationController.navigationBar.titleTextAttributes = textAttributes;
 
     self.newsTypeSegment.layer.masksToBounds = YES;
     self.newsTypeSegment.layer.cornerRadius = 4;
     self.collectionView.contentMode = UIViewContentModeScaleAspectFit;
-    self.collectionView.backgroundColor = [UIColor colorWithRed:0.53 green:0.87 blue:0.96 alpha:1];
+    self.collectionView.backgroundColor = [UIColor blackColor];
 
-    //CBC 'Any' Feeds
-    NSURL *CBCTechFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/technology.xml"];
-    NSURL *CBCAboriginalFeed = [NSURL URLWithString:@"http://www.cbc.ca/cmlink/rss-cbcaboriginal"];
-    NSURL *CBCHealthFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/health.xml"];
-    NSURL *CBCBusinessFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/business.xml"];
-    NSURL *CBCPoliticsFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/politics.xml"];
-    NSURL *CBCCanadaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada.xml"];
-    NSURL *CBCWorldFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/world.xml"];
-    NSURL *CBCTopStoriesFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/topstories.xml"];
-    NSURL *CBCOffbeatFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/offbeat.xml"];
-    NSURL *CBCArtsFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/arts.xml"];
+    //all
+    FeedCategory *tech = [[FeedCategory alloc] initWithName:@"Tech" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/technology.xml"] andImage:[UIImage imageNamed:@"tech.jpg"]];
+    tech.categoryType = NewsCategoryTypeAll;
+    tech.locationType = LocationTypeNone;
     
-    //CBC Regional Feeds
-    NSURL *CBCBritishColumbiaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-britishcolumbia.xml"];
-    NSURL *CBCOttawaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-ottawa.xml"];
-    NSURL *CBCTorontoFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-toronto.xml"];
-    NSURL *CBCMontrealFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-montreal.xml"];
-    NSURL *CBCNovaScotiaFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-novascotia.xml"];
-    NSURL *CBCNewBrunswickFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-newbrunswick.xml"];
-    NSURL *CBCNewfoundlandFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-newfoundland.xml"];
-    NSURL *CBCEdmontonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-edmonton.xml"];
-    NSURL *CBCCalgaryFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-calgary.xml"];
-    NSURL *CBCSaskatchewanFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-saskatchewan.xml"];
-    NSURL *CBCThunderBayFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-thunderbay.xml"];
-    NSURL *CBCKamloopsFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-kamloops.xml"];
-    NSURL *CBCSaskatoonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-saskatoon.xml"];
-    NSURL *CBCWindsorFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-windsor.xml"];
-    NSURL *CBCSudburyFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-sudbury.xml"];
-    NSURL *CBCKitchenerWaterlooFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-kitchenerwaterloo.xml"];
-    NSURL *CBCHamiltonFeed = [NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-hamiltonnews.xml"];
+    FeedCategory *aboriginal = [[FeedCategory alloc] initWithName:@"Aboriginal" feedURL:[NSURL URLWithString:@"http://www.cbc.ca/cmlink/rss-cbcaboriginal"] andImage:[UIImage imageNamed:@"aboriginal.jpg"]];
+    aboriginal.categoryType = NewsCategoryTypeAll;
+    aboriginal.locationType = LocationTypeNone;
     
-    NSDictionary *allNewsDict = @{@"Top Stories":CBCTopStoriesFeed, @"World":CBCWorldFeed, @"Health":CBCHealthFeed, @"Politics": @"http://rss.cbc.ca/lineup/politics.xml", @"Technology":CBCTechFeed, @"Offbeat":CBCOffbeatFeed, @"Business":CBCBusinessFeed, @"Entertainment":CBCArtsFeed, @"Politics":CBCPoliticsFeed, @"Aboriginal":CBCAboriginalFeed};
+    FeedCategory *health = [[FeedCategory alloc] initWithName:@"Health" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/health.xml"] andImage:[UIImage imageNamed:@"health.jpg"]];
+    health.categoryType = NewsCategoryTypeAll;
+    health.locationType = LocationTypeNone;
+
+    FeedCategory *business = [[FeedCategory alloc] initWithName:@"Business" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/business.xml"] andImage:[UIImage imageNamed:@"business.jpg"]];
+    business.categoryType = NewsCategoryTypeAll;
+    business.locationType = LocationTypeNone;
+
+    FeedCategory *politics = [[FeedCategory alloc] initWithName:@"Politics" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/politics.xml"] andImage:[UIImage imageNamed:@"politics.jpg"]];
+    politics.categoryType = NewsCategoryTypeAll;
+    politics.locationType = LocationTypeNone;
     
-    NSDictionary *localNewsDict = @{@"Canada":CBCCanadaFeed, @"Toronto":CBCTorontoFeed, @"Ottawa":CBCOttawaFeed, @"Montreal":CBCMontrealFeed, @"British Columbia":CBCBritishColumbiaFeed, @"Nova Scotia":CBCNovaScotiaFeed, @"New Brunswick":CBCNewBrunswickFeed, @"NewfoundLand":CBCNewfoundlandFeed, @"Saskatchewan":CBCSaskatchewanFeed, @"Calgary, AB":CBCCalgaryFeed, @"Edmonton":CBCEdmontonFeed, @"Thunder Bay, ON": CBCThunderBayFeed, @"Kamloops, BC": CBCKamloopsFeed, @"Saskatoon, SK": CBCSaskatoonFeed, @"Windsor, ON":CBCWindsorFeed, @"Kitchener, ON": CBCKitchenerWaterlooFeed, @"Hamilton, ON":CBCHamiltonFeed, @"Sudbury, ON":CBCSudburyFeed};
+    FeedCategory *canada = [[FeedCategory alloc] initWithName:@"Canada" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada.xml"] andImage:[UIImage imageNamed:@"canada.jpg"]];
+    canada.categoryType = NewsCategoryTypeAll;
+    canada.locationType = LocationTypeNone;
+
+    FeedCategory *world = [[FeedCategory alloc] initWithName:@"World" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/world.xml"] andImage:[UIImage imageNamed:@"world.jpg"]];
+    world.categoryType = NewsCategoryTypeAll;
+    world.locationType = LocationTypeNone;
+
+    FeedCategory *topStories = [[FeedCategory alloc] initWithName:@"Top Stories" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/topstories.xml"] andImage:[UIImage imageNamed:@"topstories.jpg"]];
+    topStories.categoryType = NewsCategoryTypeAll;
+    topStories.locationType = LocationTypeNone;
+
+    FeedCategory *offBeat = [[FeedCategory alloc] initWithName:@"Offbeat" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/offbeat.xml"] andImage:[UIImage imageNamed:@"offbeat.jpg"]];
+    offBeat.categoryType = NewsCategoryTypeAll;
+    offBeat.locationType = LocationTypeNone;
+
+    FeedCategory *arts = [[FeedCategory alloc] initWithName:@"Arts" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/arts.xml"] andImage:[UIImage imageNamed:@"arts.jpg"]];
+    arts.categoryType = NewsCategoryTypeAll;
+    arts.locationType = LocationTypeNone;
+
+    //local
+    FeedCategory *britishColumbia = [[FeedCategory alloc] initWithName:@"British Columbia" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-britishcolumbia.xml"] andImage:[UIImage imageNamed:@"bc.png"]];
+    britishColumbia.categoryType = NewsCategoryTypeCanada;
+    britishColumbia.locationType = LocationTypeProvince;
+
+    FeedCategory *ottawa = [[FeedCategory alloc] initWithName:@"Ottawa" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-ottawa.xml"] andImage:[UIImage imageNamed:@"ottawa.jpg"]];
+    ottawa.categoryType = NewsCategoryTypeCanada;
+    ottawa.locationType = LocationTypeCity;
+
+    FeedCategory *toronto = [[FeedCategory alloc] initWithName:@"Toronto" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-toronto.xml"] andImage:[UIImage imageNamed:@"toronto.png"]];
+    toronto.categoryType = NewsCategoryTypeCanada;
+    toronto.locationType = LocationTypeCity;
     
-    self.categoriesArray = @[allNewsDict, localNewsDict];
+    FeedCategory *montreal = [[FeedCategory alloc] initWithName:@"Montreal" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-montreal.xml"] andImage:[UIImage imageNamed:@"montreal.jpg"]];
+    montreal.categoryType = NewsCategoryTypeCanada;
+    montreal.locationType = LocationTypeCity;
     
-    [self separateFeedTypes:[localNewsDict allKeys]];
+    FeedCategory *novaScotia = [[FeedCategory alloc] initWithName:@"Nova Scotia" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-novascotia.xml"] andImage:[UIImage imageNamed:@"nova_scotia.jpg"]];
+    novaScotia.categoryType = NewsCategoryTypeCanada;
+    novaScotia.locationType = LocationTypeProvince;
+
+    FeedCategory *newBrunswick = [[FeedCategory alloc] initWithName:@"New Brunswick" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-newbrunswick.xml"] andImage:[UIImage imageNamed:@"new_brunswick.jpg"]];
+    newBrunswick.categoryType = NewsCategoryTypeCanada;
+    newBrunswick.locationType = LocationTypeProvince;
+
+    FeedCategory *newFoundLand = [[FeedCategory alloc] initWithName:@"NewFoundLand" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-newfoundland.xml"] andImage:[UIImage imageNamed:@"newfoundland.jpg"]];
+    newFoundLand.categoryType = NewsCategoryTypeCanada;
+    newFoundLand.locationType = LocationTypeProvince;
+
+    FeedCategory *edmonton = [[FeedCategory alloc] initWithName:@"Edmonton" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-edmonton.xml"] andImage:[UIImage imageNamed:@"edmonton.jpg"]];
+    edmonton.categoryType = NewsCategoryTypeCanada;
+    edmonton.locationType = LocationTypeProvince;
     
+    FeedCategory *calgary = [[FeedCategory alloc] initWithName:@"Calgary" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-calgary.xml"] andImage:[UIImage imageNamed:@"calgary.jpg"]];
+    calgary.categoryType = NewsCategoryTypeCanada;
+    calgary.locationType = LocationTypeCity;
+    
+    FeedCategory *saskatchewan = [[FeedCategory alloc] initWithName:@"Saskatchewan" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-saskatchewan.xml"] andImage:[UIImage imageNamed:@"saskatchewan.jpg"]];
+    saskatchewan.categoryType = NewsCategoryTypeCanada;
+    saskatchewan.locationType = LocationTypeProvince;
+
+    FeedCategory *thunderBay = [[FeedCategory alloc] initWithName:@"Thunder Bay" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-thunderbay.xml"] andImage:[UIImage imageNamed:@"thunder_bay.jpg"]];
+    thunderBay.categoryType = NewsCategoryTypeCanada;
+    thunderBay.locationType = LocationTypeCity;
+    
+    FeedCategory *kamloops = [[FeedCategory alloc] initWithName:@"Kamloops" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-kamloops.xml"] andImage:[UIImage imageNamed:@"kamloops.jpg"]];
+    kamloops.categoryType = NewsCategoryTypeCanada;
+    kamloops.locationType = LocationTypeCity;
+    
+    FeedCategory *saskatoon = [[FeedCategory alloc] initWithName:@"Saskatoon" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-saskatoon.xml"] andImage:[UIImage imageNamed:@"saskatoon.jpg"]];
+    saskatoon.categoryType = NewsCategoryTypeCanada;
+    saskatoon.locationType = LocationTypeCity;
+    
+    FeedCategory *windsor = [[FeedCategory alloc] initWithName:@"Windsor" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-windsor.xml"] andImage:[UIImage imageNamed:@"windsor.jpg"]];
+    windsor.categoryType = NewsCategoryTypeCanada;
+    windsor.locationType = LocationTypeCity;
+    
+    FeedCategory *sudbury = [[FeedCategory alloc] initWithName:@"Sudbury" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-sudbury.xml"] andImage:[UIImage imageNamed:@"sudbury.jpg"]];
+    sudbury.categoryType = NewsCategoryTypeCanada;
+    sudbury.locationType = LocationTypeCity;
+    
+    FeedCategory *kitchenerWaterloo = [[FeedCategory alloc] initWithName:@"Kitchener-Waterloo" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-kitchenerwaterloo.xml"] andImage:[UIImage imageNamed:@"waterloo.jpg"]];
+    kitchenerWaterloo.categoryType = NewsCategoryTypeCanada;
+    kitchenerWaterloo.locationType = LocationTypeCity;
+
+    FeedCategory *hamilton = [[FeedCategory alloc] initWithName:@"Hamilton" feedURL:[NSURL URLWithString:@"http://rss.cbc.ca/lineup/canada-hamiltonnews.xml"] andImage:[UIImage imageNamed:@"hamilton.jpg"]];
+    hamilton.categoryType = NewsCategoryTypeCanada;
+    hamilton.locationType = LocationTypeCity;
+    
+    self.allFeedTypesArray = @[tech, aboriginal, world, health, politics, offBeat, business, topStories, world, arts, canada, toronto, ottawa, montreal, britishColumbia, novaScotia, newBrunswick, newFoundLand, saskatchewan, calgary, edmonton, thunderBay, kamloops, saskatoon, windsor, kitchenerWaterloo, hamilton, sudbury];
+    
+    self.allObjectsArray = [NSMutableArray array];
+    self.provinceArray = [NSMutableArray array];
+    self.citiesArray = [NSMutableArray array];
+    [self separateFeedTypes:self.allFeedTypesArray];
+
 }
 
-
-- (void) separateFeedTypes: (NSArray*) localNewsArray {
-    
-    NSArray *tempArray = [[NSArray alloc] initWithArray:localNewsArray];
-    self.tempCitiesArray = [[NSMutableArray alloc] init];
-    self.tempProvinceArray = [[NSMutableArray alloc] init];
-    for (NSString *string in tempArray) {
-        NSRange range = [string rangeOfString:@","];
-        if (range.length != 0) { //is a city
-            [self.tempCitiesArray addObject:string];
-        } else {
-            [self.tempProvinceArray addObject:string];
+- (void) separateFeedTypes: (NSArray*) allFeedTypesArray {
+   
+    for (FeedCategory *newsCategory in allFeedTypesArray) {
+        if (newsCategory.categoryType == NewsCategoryTypeAll) {
+            [self.allObjectsArray addObject:newsCategory];
         }
+        else {
+            if (newsCategory.locationType == LocationTypeProvince) {
+                [self.provinceArray addObject:newsCategory];
+            } else if (newsCategory.locationType == LocationTypeCity) {
+                [self.citiesArray addObject:newsCategory];
+            }
+                
+        }
+        
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - Segues
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(DetailNewsCell*)sender {
+
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSURL *url = [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] objectForKey:sender.textLabel.text];
+        
+        FeedCategory *newsCategory = [[FeedCategory alloc] init];
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
+        
+        if (self.newsTypeSegment.selectedSegmentIndex == 0) {
+            newsCategory = self.allObjectsArray[indexPath.row];
+        } else {
+            if (indexPath.section == 0) {
+                newsCategory = self.provinceArray[indexPath.row];
+            } else if (indexPath.section == 1) {
+                newsCategory = self.citiesArray[indexPath.row];
+            }
+        }
+        
+        NSURL *url = newsCategory.feedURL;
         [[segue destinationViewController] setDetailItem:url];
-        [[segue destinationViewController] setTitle:sender.textLabel.text];
+        [[segue destinationViewController] setTitle:newsCategory.name];
+        NSLog(@"%@", indexPath);
     }
 }
 
-#pragma mark - Collection View
-
-//- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//
-//    return CGSizeMake(100, 10);
-//    //size of each cell in collection
-//    
-//}
-
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+
     if (self.newsTypeSegment.selectedSegmentIndex == 0) {
         return 1;
     }
@@ -138,52 +233,76 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    if (self.newsTypeSegment.selectedSegmentIndex == 1) {
+    if (self.newsTypeSegment.selectedSegmentIndex == 0) {
+        return self.allObjectsArray.count;
+    } else {
         if (section == 0) {
-            return self.tempProvinceArray.count;
-        } else if (section == 1) {
-            return self.tempCitiesArray.count;
+            return self.provinceArray.count;
+        } else {
+            return self.citiesArray.count;
         }
     }
-    
-    return [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] count];
+    return 0;
 }
 
--(DetailNewsCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
-    DetailNewsCell *customCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NewsListCell" forIndexPath:indexPath];
-    customCell.contentMode = UIViewContentModeScaleAspectFit;
-    NSArray *tempArray = [self.categoriesArray[self.newsTypeSegment.selectedSegmentIndex] allKeys];
+    return UIEdgeInsetsMake(0,11,0,11);
+}
 
+
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DetailNewsCell *customCell = (DetailNewsCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"NewsListCell" forIndexPath:indexPath];
+    FeedCategory *feedCategory = [[FeedCategory alloc] init];
+    
     if (self.newsTypeSegment.selectedSegmentIndex == 0) {
-
-        customCell.textLabel.text = tempArray[indexPath.row];
-        
-    } else if (self.newsTypeSegment.selectedSegmentIndex == 1) {
+        feedCategory = self.allObjectsArray[indexPath.row];
+    } else {
         if (indexPath.section == 0) {
-            customCell.textLabel.text = self.tempProvinceArray[indexPath.row];
-        } else if (indexPath.section == 1) {
-            customCell.textLabel.text = self.tempCitiesArray[indexPath.row];
-            }
-
+            feedCategory = self.provinceArray[indexPath.row];
+        } else {
+            feedCategory = self.citiesArray[indexPath.row];
+        }
+        
     }
     
-    customCell.layer.masksToBounds = YES;
-    customCell.layer.cornerRadius = customCell.frame.size.width/2;
+    customCell.textLabel.text = feedCategory.name;
+    customCell.newsImageView.image = feedCategory.image;
     
-    return customCell;
+    if (feedCategory.hasLoaded) {
+        return customCell;
+        
+    } else {
+        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+        gradientLayer.frame = customCell.layer.bounds;
+        gradientLayer.colors = [NSArray arrayWithObjects:
+                                (id)[UIColor clearColor].CGColor,
+                                (id)[UIColor colorWithWhite:0.0f alpha:0.8f].CGColor,
+                                nil];
+        gradientLayer.locations = [NSArray arrayWithObjects:
+                                   [NSNumber numberWithFloat:0.6f],
+                                   [NSNumber numberWithFloat:1.0f],
+                                   nil];
+        [customCell.newsImageView.layer addSublayer:gradientLayer];
+        feedCategory.hasLoaded = YES;
+        
+        return customCell;
+    }
+    
+    return nil;
 }
-    
+
+
+
+
 - (IBAction)changedSegment:(id)sender {
     
     [self.collectionView reloadData];
     
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    
-    return UIEdgeInsetsMake(10, 10, 10, 10);
-}
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -198,44 +317,39 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     
+    if (self.newsTypeSegment.selectedSegmentIndex == 0) {
+        return CGSizeMake(0, 0);
+    }
+    
     return CGSizeMake(self.view.frame.size.width, 65);
 }
+
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+    return CGSizeMake(self.collectionView.frame.size.width/2 - 20, self.collectionView.frame.size.width/2 - 20);
+}
+
 
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     
-    UICollectionReusableView *sectionHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-    
-    UILabel *headerLabel1 = [[UILabel alloc] init];
-    UILabel *headerLabel2 = [[UILabel alloc] init];
-    
-    headerLabel1=[[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 45)];
-    headerLabel1.textColor = [UIColor colorWithRed:206.0/255 green:248.0/255 blue:249.0/255 alpha:1.0];
-    headerLabel1.backgroundColor = [UIColor darkGrayColor];
-    
-    headerLabel2=[[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 45)];
-    headerLabel2.textColor = [UIColor colorWithRed:206.0/255 green:248.0/255 blue:249.0/255 alpha:1.0];
-    headerLabel2.backgroundColor = [UIColor darkGrayColor];
+    HeaderView *sectionHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
+    sectionHeader.titleLabel.backgroundColor = [UIColor darkGrayColor];
+    sectionHeader.titleLabel.textColor = [UIColor whiteColor];
+    sectionHeader.titleLabel.alpha = 0.6;
     
     if (self.newsTypeSegment.selectedSegmentIndex == 1) {
-        
         sectionHeader.hidden = NO;
-        
         if (indexPath.section == 0) {
-            NSString *title1 = @" Province";
-            headerLabel1.text=title1;
-            [sectionHeader addSubview:headerLabel1];
-            
-        } else if (indexPath.section == 1) {
-            NSString *title2 = @" Cities";
-            headerLabel2.text=title2;
-            [sectionHeader addSubview:headerLabel2];
+            sectionHeader.titleLabel.text = @"  Provinces";
+        } else {
+            sectionHeader.titleLabel.text = @"  Cities";
         }
-        return sectionHeader;
         
     } else {
-        
         sectionHeader.hidden = YES;
     }
     

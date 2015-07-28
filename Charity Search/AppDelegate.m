@@ -78,6 +78,7 @@
     tabBarController.tabBar.barTintColor = [UIColor blackColor];
     tabBarController.tabBar.tintColor = [UIColor whiteColor];
     
+    
     //Add the tab bar controller to the window
  
     [self.window setRootViewController:tabBarController];
