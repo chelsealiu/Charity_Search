@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 @property (strong, nonatomic) NSString *htmlString;
 @property (strong, nonatomic) UIBarButtonItem *readerViewButton;
+@property (nonatomic) BOOL isReaderMode;
+@property (strong, nonatomic) UIWebView *readerWebView;
 
 @end
 
@@ -204,23 +206,64 @@
 }
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)loadWebView {
     NSString *fullURL = self.detailFeedItem.link;
-    self.hideButton.titleLabel.text = @"Hide";
-    
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-   // [self.webView loadRequest:requestObj];
-  //  [self getNewsThroughReadabilityAPI];
-     self.webView.scrollView.delegate = self;
-  
-        [self getNewsThroughReadabilityAPI];
+    [self.webView loadRequest:requestObj];
+    [self setupWebViewWithConstraint:-110.0];
+}
 
+-(void)setupWebViewWithConstraint:(float)x {
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0 constant:x]];
+    [UIView animateWithDuration:0.7 animations:^{
+        [self.webView layoutIfNeeded];
+    }];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.readerWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height +10, self.view.frame.size.width, self.view.frame.size.height - 64)];
+    [self.view addSubview:self.readerWebView];
+    self.isReaderMode = NO;
+    [self loadWebView];
+    [self getNewsThroughReadabilityAPI];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self getNewsKeyWordsForNewsItem:self.newsItem];
     });
-   }
+}
+
+-(void)findAndRemoveTopConstraint {
+    for(NSLayoutConstraint *constraint in self.view.constraints) {
+        if((constraint.firstItem == self.webView) || (constraint.secondItem == self.webView)) {
+            if(constraint.firstAttribute == NSLayoutAttributeTop) {
+                [self.view removeConstraints:@[constraint]];
+            }
+        }
+    }
+}
+
+-(void)readerViewButtonPressed {
+    if(self.isReaderMode) {
+        [self animateReaderView:self.view.frame.size.height +10];
+        self.isReaderMode = NO;
+    }
+    else {
+        [self animateReaderView:64];
+        self.isReaderMode = YES;
+    }
+}
+
+-(void)animateReaderView:(float)y {
+    [UIView animateWithDuration:1.0 animations:^{
+        self.readerWebView.frame = CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height - 103);
+    }];
+}
 
 -(void)getNewsThroughReadabilityAPI {
     NSString *urlString = [NSString stringWithFormat:@"https://www.readability.com/api/content/v1/parser?url=%@&token=c70afc46a6e6b38f84fb9fb3528da93a4030f610", self.newsItem.newsURL];
@@ -233,30 +276,22 @@
                                       
                                       NSString *content = [responseDict objectForKey:@"content"];
                                       NSString *newContent = [self checkForVideos:content];
-                                      NSLog(@"new content: %@", newContent);
                                       NSString *title = [responseDict objectForKey:@"title"];
-                                      NSString *imageURL = [responseDict objectForKey:@"lead_image_url"];
-                                      self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica' > <img src=\"%@\" style=\"width: 100%%; height: auto;\"> <h1> %@ </h1> %@", imageURL, title, newContent];
+                                     // NSString *imageURL = [responseDict objectForKey:@"lead_image_url"];
+                                      self.htmlString = [NSString stringWithFormat:@"<font face= 'Helvetica' > <h1> %@ </h1> %@",title, newContent];
+//                                       <img src=\"%@\" style=\"width: 100%%; height: auto;\">
                                       if (fetchingError) {
                                           NSLog(@"%@", fetchingError.localizedDescription);
                                           return;
                                       }
                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                          [self.webView loadHTMLString:self.htmlString baseURL:nil];
+                                          [self.readerWebView loadHTMLString:self.htmlString baseURL:nil];
                                           
                                       });
                                   }];
     [task resume];
 }
 
--(void)setupCharitiesButton {
-    self.charitiesButton.layer.masksToBounds = YES;
-    self.charitiesButton.layer.cornerRadius = 8;
-
-    self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
-    self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
-    self.charitiesButton.userInteractionEnabled = YES;
-}
 
 -(NSString *)checkForVideos:(NSString *)htmlString {
     NSError *error = nil;
@@ -268,15 +303,22 @@
     return modifiedString;
 }
 
+-(void)setupCharitiesButton {
+    self.charitiesButton.layer.masksToBounds = YES;
+    self.charitiesButton.layer.cornerRadius = 8;
+    
+    self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
+    self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
+    self.charitiesButton.userInteractionEnabled = YES;
+}
+
+
 -(void)setupReaderViewButton {
     self.readerViewButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"glasses.png"] style:UIBarButtonItemStylePlain target:self action:@selector(readerViewButtonPressed)];
     [self.readerViewButton setTintColor:[UIColor grayColor]];
     self.navigationItem.rightBarButtonItems = @[self.navigationItem.rightBarButtonItem, self.readerViewButton];
 }
 
--(BOOL)readerViewButtonPressed {
-    return YES;
-}
 
 - (IBAction)articleFavourited:(UIBarButtonItem *)sender {
     
@@ -361,15 +403,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-- (void)loadRequest:(NSURLRequest *)request {
-    
-}
-- (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL {
-    }
-- (void)loadData:(NSData *)data MIMEType:(NSString *)MIMEType textEncodingName:(NSString *)textEncodingName baseURL:(NSURL *)baseURL {
-    
-}
-
 
 @end
