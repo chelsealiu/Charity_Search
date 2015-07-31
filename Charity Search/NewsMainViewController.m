@@ -269,7 +269,8 @@
     }
     
     customCell.textLabel.text = feedCategory.name;
-    customCell.newsImageView.image = feedCategory.image;
+    customCell.newsImageView.image = [UIImage resizeTabIcon:feedCategory.image withX:155 andY:155];
+    
     
     if (feedCategory.hasLoaded) {
         return customCell;

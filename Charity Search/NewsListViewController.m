@@ -156,7 +156,8 @@
         
         //TODO: Load images
         NSArray *imageUrls = [self imagesFromString:feedItem.summary];
-        NSData *data = [NSData dataWithContentsOfURL:imageUrls[0]];
+        
+       
         cell.articleImageView.image = nil;
         [cell.task cancel];
         
@@ -171,7 +172,7 @@
             else
             {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    
+                     NSData *data = [NSData dataWithContentsOfURL:imageUrls[0]];
                     UIImage *image = [UIImage imageWithData:data];
                     if (!image) return;
                     
