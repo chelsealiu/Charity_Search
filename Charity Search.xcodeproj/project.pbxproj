@@ -94,9 +94,23 @@
 		FA8E50231B6AB02700FE9B64 /* DoSomethingAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FA8E50181B6AB02700FE9B64 /* DoSomethingAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FA8E502A1B6AD1BF00FE9B64 /* CharityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8E50291B6AD1BF00FE9B64 /* CharityCell.m */; };
 		FA8E502D1B6BD74B00FE9B64 /* CharityRanker.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8E502C1B6BD74B00FE9B64 /* CharityRanker.m */; };
+		FAA614B51B6C200E00CC95F1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94A51B5422FE007C0EE8 /* Parse.framework */; };
+		FAA614B61B6C202100CC95F1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94A41B5422FE007C0EE8 /* Bolts.framework */; };
+		FAA614B81B6C21A800CC95F1 /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD7B9261B5D9C50002919E5 /* NewsItem.m */; };
+		FAA614B91B6C21C200CC95F1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94C21B5459AD007C0EE8 /* libsqlite3.dylib */; };
+		FAA614BA1B6C21C800CC95F1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94C41B5459EB007C0EE8 /* AudioToolbox.framework */; };
+		FAA614BB1B6C21CE00CC95F1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94BE1B54598F007C0EE8 /* SystemConfiguration.framework */; };
+		FAA614BC1B6C21DB00CC95F1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94BC1B545908007C0EE8 /* Foundation.framework */; };
+		FAA614BD1B6C21DB00CC95F1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94BA1B5458E7007C0EE8 /* QuartzCore.framework */; };
+		FAA614BE1B6C21DB00CC95F1 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94B81B5458DC007C0EE8 /* CoreImage.framework */; };
+		FAA614BF1B6C21DB00CC95F1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94B61B545799007C0EE8 /* CoreData.framework */; };
+		FAA614C01B6C21DB00CC95F1 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94A61B5422FE007C0EE8 /* ParseCrashReporting.framework */; };
+		FAA614C11B6C21DB00CC95F1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E6B04731B459BCC00AAA2FE /* MapKit.framework */; };
+		FAA614C21B6C28D900CC95F1 /* Charity.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3C1B5D4DF70025C851 /* Charity.m */; };
 		FABC0F3D1B5D4DF70025C851 /* Charity.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3C1B5D4DF70025C851 /* Charity.m */; };
 		FABC0F401B5D50390025C851 /* CharityData.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3F1B5D50390025C851 /* CharityData.m */; };
 		FAD7B9271B5D9C50002919E5 /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD7B9261B5D9C50002919E5 /* NewsItem.m */; };
+		FAE36E301B71661B00C235EA /* CharityRanker.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8E502C1B6BD74B00FE9B64 /* CharityRanker.m */; };
 		FAE3C4BF1B68259600F822D4 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE3C4BD1B6824FA00F822D4 /* CoreAudio.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -295,6 +309,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA614B51B6C200E00CC95F1 /* Parse.framework in Frameworks */,
+				FAA614C01B6C21DB00CC95F1 /* ParseCrashReporting.framework in Frameworks */,
+				FAA614BF1B6C21DB00CC95F1 /* CoreData.framework in Frameworks */,
+				FAA614BC1B6C21DB00CC95F1 /* Foundation.framework in Frameworks */,
+				FAA614C11B6C21DB00CC95F1 /* MapKit.framework in Frameworks */,
+				FAA614BD1B6C21DB00CC95F1 /* QuartzCore.framework in Frameworks */,
+				FAA614BE1B6C21DB00CC95F1 /* CoreImage.framework in Frameworks */,
+				FAA614BB1B6C21CE00CC95F1 /* SystemConfiguration.framework in Frameworks */,
+				FAA614B91B6C21C200CC95F1 /* libsqlite3.dylib in Frameworks */,
+				FAA614B61B6C202100CC95F1 /* Bolts.framework in Frameworks */,
+				FAA614BA1B6C21C800CC95F1 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +659,12 @@
 					};
 					FA8E50171B6AB02700FE9B64 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = ZTR68ZN56A;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -762,8 +793,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA614B81B6C21A800CC95F1 /* NewsItem.m in Sources */,
+				FAE36E301B71661B00C235EA /* CharityRanker.m in Sources */,
 				FA8E502A1B6AD1BF00FE9B64 /* CharityCell.m in Sources */,
 				FA8E501E1B6AB02700FE9B64 /* ActionViewController.m in Sources */,
+				FAA614C21B6C28D900CC95F1 /* Charity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -913,6 +947,13 @@
 		FA8E50251B6AB02700FE9B64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DoSomethingAction/DoSomethingAction.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -921,6 +962,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -928,10 +970,18 @@
 		FA8E50261B6AB02700FE9B64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DoSomethingAction/DoSomethingAction.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = DoSomethingAction/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -964,6 +1014,7 @@
 				FA8E50261B6AB02700FE9B64 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

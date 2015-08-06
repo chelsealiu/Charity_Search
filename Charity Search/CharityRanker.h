@@ -15,4 +15,6 @@
 
 -(void)getNewsKeyWords;
 
+-(void)makeNetworkCallsForKeywords;
+
 @end

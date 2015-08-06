@@ -10,12 +10,20 @@
 #import "Key.h"
 #import "Charity.h"
 
-@implementation CharityRanker
+typedef void (^completionBlock)(void) ;
 
+
+@interface CharityRanker()
+
+@property (nonatomic, strong) NSArray *parseObjects;
+
+@end
+
+@implementation CharityRanker
 
 // Step 1: get keyword sets for news
 
--(void)getNewsKeyWords {
+-(void)getNewsKeyWords: (completionBlock)compBlock {
     NSString *newsString = [NSString stringWithFormat:@"http://access.alchemyapi.com/calls/url/URLGetRankedKeywords?apikey=%@&outputMode=json&url=%@", ALCHEMY_KEY, self.newsItem.newsURL];
     NSURL *newsURL = [NSURL URLWithString:newsString];
     NSLog(@"%@", newsURL);
@@ -45,17 +53,17 @@
             }];
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSMutableArray *allObjects = [[NSMutableArray alloc] init];
-            [self getCharitiesFromParse:0 :allObjects];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSMutableArray *allObjects = [[NSMutableArray alloc] init];
+//            [self getCharitiesFromParse:0 :allObjects];
+//        });
     }];
     [task resume];
 }
 
 // get charity rankings from parse
 
--(void)getCharitiesFromParse:(NSUInteger)skip :(NSMutableArray *)allObjects {
+-(void)getCharitiesFromParse:(NSUInteger)skip :(NSMutableArray *)allObjects :(completionBlock)compBlock {
     
     NSUInteger limit = 100;
     __block NSUInteger skipValue = skip;
@@ -70,20 +78,23 @@
         
         if (objects.count == limit) {
             // There might be more objects in the table. Update the skip value and execute the query again.
-            [self getCharitiesFromParse:(skipValue += limit) :blockObjects];
+            [self getCharitiesFromParse:(skipValue += limit) :blockObjects :nil];
             NSLog(@"%lu", limit);
         }
-        
+//        else {
+//            //we are done getting charities
+//            self.parseObjects = [[NSArray alloc] init];
+//            self.parseObjects =[blockObjects copy];
+//        }
         else {
             [self getCharityRankings:blockObjects];
         }
     }];
-    
 }
 
 //get the charity keywords and then find keyword intersection of news set
 
--(void)getCharityRankings:(NSMutableArray *)allObjects{
+-(void)getCharityRankings:(NSArray *)allObjects{
     NSMutableArray *tempRankings = [[NSMutableArray alloc] init];
     int i = 0;
     for (Charity *charity in allObjects) {
@@ -144,9 +155,75 @@
     NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Rank" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:rankDescriptor];
     NSArray *sortedArray = [charities sortedArrayUsingDescriptors:sortDescriptors];
-   // [self setupCharitiesButton];
     return [sortedArray mutableCopy];
 }
+
+-(void)makeNetworkCallsForKeywords {
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_group_t group = dispatch_group_create();
+    
+    dispatch_group_async(group, queue, ^{
+        [self getNewsKeyWords:nil];
+    });
+                         
+    dispatch_group_async(group, queue, ^{
+        NSMutableArray *allObjects = [[NSMutableArray alloc] init];
+        [self getCharitiesFromParse:0 :allObjects :nil];
+    });
+//    dispatch_group_enter(group);
+//        [self getNewsKeyWords: ^ {
+//            dispatch_group_leave(group);
+//        }];
+//    
+//    dispatch_group_enter(group);
+//        NSMutableArray *allObjects = [[NSMutableArray alloc] init];
+//        [self getCharitiesFromParse:0 :allObjects :^{
+//            dispatch_group_leave(group);
+//        }];
+//    dispatch_group_notify(group, queue, ^{
+//      
+//        NSLog(@"finished!");
+//        //[self getCharityRankings:self.parseObjects];
+//    });
+////
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @end

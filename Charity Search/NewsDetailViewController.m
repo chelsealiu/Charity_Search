@@ -20,7 +20,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *savedView;
 @property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
-//@property (weak, nonatomic) IBOutlet UIButton *hideButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 @property (strong, nonatomic) NSString *htmlString;
 @property (strong, nonatomic) UIBarButtonItem *readerViewButton;
@@ -70,22 +69,11 @@
 
 - (void)loadWebView {
     NSString *fullURL = self.detailFeedItem.link;
-    //self.hideButton.titleLabel.text = @"Hide";
-    // [self setupWebViewWithConstraint:-110.0];
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
    
 }
-
-//-(void)setupWebViewWithConstraint:(float)y {
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webView
-//                                                          attribute:NSLayoutAttributeTop
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:self.view
-//                                                          attribute:NSLayoutAttributeTop
-//                                                         multiplier:1.0 constant:y]];
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -97,9 +85,13 @@
     CharityRanker *charityRanker = [[CharityRanker alloc] init];
     charityRanker.newsItem = self.newsItem;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [charityRanker getNewsKeyWords];
+        [charityRanker makeNetworkCallsForKeywords];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setupCharitiesButton];
     });
-    [self setupCharitiesButton];
+});
+    
 }
 
 -(void)readerViewButtonPressed {
