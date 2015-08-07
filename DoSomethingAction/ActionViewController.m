@@ -12,6 +12,7 @@
 #import "NewsItem.h"
 #import "Key.h"
 #import "Charity.h"
+#import "NSString+CamelCase.h"
 @import UIKit;
 
 @interface ActionViewController ()
@@ -79,7 +80,8 @@
         
         Charity *charity = [[self.ranker.newsItem.charityRankings objectAtIndex:indexPath.row] objectForKey:@"Charity"];
         NSLog(@"Charity Ranking: %@", [[self.ranker.newsItem.charityRankings objectAtIndex:indexPath.row]objectForKey:@"Rank"]);
-        cell.textLabel.text = charity.name;
+        NSString *charityName = [charity.name makeStringCamelCase];
+        cell.textLabel.text = charityName;
         return cell;
     }
     else {
@@ -89,9 +91,6 @@
 }
 
 - (IBAction)reloadDataButtonPressed:(id)sender {
-//    if (self.ranker.newsItem.charityRankings) {
-//        [self.seeCharitiesButton setEnabled:YES];
-//    }
     [self.tableView reloadData];
 }
 

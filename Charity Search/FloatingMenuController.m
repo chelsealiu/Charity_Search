@@ -13,6 +13,7 @@
 #import "Key.h"
 #import "Charity.h"
 #import "CharityDetailViewController.h"
+#import "NSString+CamelCase.h"
 
 @interface FloatingMenuController()
 @property (nonatomic, strong) NSMutableArray *charities;
@@ -86,7 +87,8 @@
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.closeButton.frame.origin.y - self.buttonPadding *(idx + 1), 300, 75)];
     button.tag = 4 - idx;
-    [button setTitle:charity.name forState:UIControlStateNormal];
+    NSString *charityName = [charity.name makeStringCamelCase];
+    [button setTitle:charityName forState:UIControlStateNormal];
     
     button.titleLabel.numberOfLines = 2;
     button.backgroundColor = [UIColor darkGrayColor];

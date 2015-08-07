@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Charity Detail View Controller-->
+        <!--Charity Website View Controller-->
         <scene sceneID="mtI-Be-uCC">
             <objects>
-                <viewController storyboardIdentifier="charityDetailViewController" modalPresentationStyle="currentContext" id="seg-CD-Z3x" customClass="CharityDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="charityWebsiteViewController" modalPresentationStyle="currentContext" id="seg-CD-Z3x" customClass="CharityWebsiteViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="69j-JT-Pan"/>
                         <viewControllerLayoutGuide type="bottom" id="hQ1-f4-4mD"/>
@@ -62,7 +62,71 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="26j-r5-52G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="824" y="326"/>
+            <point key="canvasLocation" x="1247" y="326"/>
+        </scene>
+        <!--Charity Detail View Controller-->
+        <scene sceneID="eWY-6j-JcV">
+            <objects>
+                <viewController storyboardIdentifier="charityDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jRE-hk-8Io" customClass="CharityDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F9L-Sq-PR3"/>
+                        <viewControllerLayoutGuide type="bottom" id="3nz-LO-Iot"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8W5-p1-w7g">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charity Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnC-rX-Lr4">
+                                <rect key="frame" x="16" y="97" width="288" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4e-Bu-Wnr">
+                                <rect key="frame" x="46" y="454" width="228" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="See Charity Website">
+                                    <color key="titleColor" red="0.062578079869999997" green="0.1103456397" blue="0.59998421719999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="charityWebsiteButtonPressed:" destination="jRE-hk-8Io" eventType="touchUpInside" id="yoF-1H-1DD"/>
+                                    <segue destination="seg-CD-Z3x" kind="push" id="cXi-ll-5dd"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwm-rw-4eb">
+                                <rect key="frame" x="40" y="149" width="240" height="268"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="268" id="Ei4-O0-pve"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="C4e-Bu-Wnr" secondAttribute="trailing" constant="30" id="8aa-gY-5Z4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fwm-rw-4eb" secondAttribute="trailing" constant="24" id="Ghd-Ln-eVR"/>
+                            <constraint firstItem="tnC-rX-Lr4" firstAttribute="top" secondItem="F9L-Sq-PR3" secondAttribute="bottom" constant="33" id="IhU-2P-P16"/>
+                            <constraint firstItem="tnC-rX-Lr4" firstAttribute="trailing" secondItem="8W5-p1-w7g" secondAttribute="trailingMargin" id="JTW-aI-2b0"/>
+                            <constraint firstItem="fwm-rw-4eb" firstAttribute="leading" secondItem="8W5-p1-w7g" secondAttribute="leadingMargin" constant="24" id="Xzp-vm-HPA"/>
+                            <constraint firstItem="fwm-rw-4eb" firstAttribute="top" secondItem="F9L-Sq-PR3" secondAttribute="bottom" constant="85" id="ZZN-Zs-SeY"/>
+                            <constraint firstItem="fwm-rw-4eb" firstAttribute="top" secondItem="tnC-rX-Lr4" secondAttribute="bottom" constant="20" id="ghT-tg-fEA"/>
+                            <constraint firstItem="C4e-Bu-Wnr" firstAttribute="top" secondItem="F9L-Sq-PR3" secondAttribute="bottom" constant="390" id="sbk-7h-32a"/>
+                            <constraint firstItem="tnC-rX-Lr4" firstAttribute="leading" secondItem="8W5-p1-w7g" secondAttribute="leadingMargin" id="tdz-Mk-nS4"/>
+                            <constraint firstItem="C4e-Bu-Wnr" firstAttribute="leading" secondItem="8W5-p1-w7g" secondAttribute="leadingMargin" constant="30" id="u8e-TW-5LK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ena-si-veP"/>
+                    <connections>
+                        <outlet property="charityDescriptionLabel" destination="fwm-rw-4eb" id="ARI-k5-swm"/>
+                        <outlet property="charityNameLabel" destination="tnC-rX-Lr4" id="zQH-ff-zCm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NZd-Oz-eGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="813" y="326"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Iw1-YT-bgB">
@@ -75,7 +139,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="seg-CD-Z3x" kind="relationship" relationship="rootViewController" id="bWh-v5-LIh"/>
+                        <segue destination="jRE-hk-8Io" kind="push" identifier="charityDetailViewController" id="9Mw-Wc-50a"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGz-qM-z6n" userLabel="First Responder" sceneMemberID="firstResponder"/>

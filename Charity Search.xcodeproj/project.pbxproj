@@ -87,7 +87,7 @@
 		5EDC94D21B554297007C0EE8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDC94D11B554297007C0EE8 /* HomeViewController.m */; };
 		5EDC94D41B55AA46007C0EE8 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDC94D31B55AA46007C0EE8 /* heart.png */; };
 		FA52075E1B602F4F00D93AC6 /* CharityStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */; };
-		FA5207611B60306400D93AC6 /* CharityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5207601B60306400D93AC6 /* CharityDetailViewController.m */; };
+		FA5207611B60306400D93AC6 /* CharityWebsiteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5207601B60306400D93AC6 /* CharityWebsiteViewController.m */; };
 		FA8E4FCC1B6827DB00FE9B64 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC94C41B5459EB007C0EE8 /* AudioToolbox.framework */; };
 		FA8E501E1B6AB02700FE9B64 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8E501D1B6AB02700FE9B64 /* ActionViewController.m */; };
 		FA8E50201B6AB02700FE9B64 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA8E501F1B6AB02700FE9B64 /* MainInterface.storyboard */; };
@@ -111,6 +111,10 @@
 		FABC0F401B5D50390025C851 /* CharityData.m in Sources */ = {isa = PBXBuildFile; fileRef = FABC0F3F1B5D50390025C851 /* CharityData.m */; };
 		FAD7B9271B5D9C50002919E5 /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD7B9261B5D9C50002919E5 /* NewsItem.m */; };
 		FAE36E301B71661B00C235EA /* CharityRanker.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8E502C1B6BD74B00FE9B64 /* CharityRanker.m */; };
+		FAE36E611B74F81F00C235EA /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE36E601B74F81F00C235EA /* NSString+CamelCase.m */; };
+		FAE36E621B74F81F00C235EA /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE36E601B74F81F00C235EA /* NSString+CamelCase.m */; };
+		FAE36E651B75091200C235EA /* CharityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE36E641B75091200C235EA /* CharityDetailViewController.m */; };
+		FAE36E661B75091200C235EA /* CharityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE36E641B75091200C235EA /* CharityDetailViewController.m */; };
 		FAE3C4BF1B68259600F822D4 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE3C4BD1B6824FA00F822D4 /* CoreAudio.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -265,8 +269,8 @@
 		5EDC94D11B554297007C0EE8 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		5EDC94D31B55AA46007C0EE8 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		FA52075D1B602F4F00D93AC6 /* CharityStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CharityStoryboard.storyboard; sourceTree = "<group>"; };
-		FA52075F1B60306400D93AC6 /* CharityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityDetailViewController.h; sourceTree = "<group>"; };
-		FA5207601B60306400D93AC6 /* CharityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityDetailViewController.m; sourceTree = "<group>"; };
+		FA52075F1B60306400D93AC6 /* CharityWebsiteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityWebsiteViewController.h; sourceTree = "<group>"; };
+		FA5207601B60306400D93AC6 /* CharityWebsiteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityWebsiteViewController.m; sourceTree = "<group>"; };
 		FA5625C21B64419200D14E5A /* APIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = APIKeys.h; path = "Charity Search/APIKeys.h"; sourceTree = "<group>"; };
 		FA8E50181B6AB02700FE9B64 /* DoSomethingAction.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DoSomethingAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA8E501B1B6AB02700FE9B64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -283,6 +287,10 @@
 		FABC0F3F1B5D50390025C851 /* CharityData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityData.m; sourceTree = "<group>"; };
 		FAD7B9251B5D9C50002919E5 /* NewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsItem.h; path = ../NewsItem.h; sourceTree = "<group>"; };
 		FAD7B9261B5D9C50002919E5 /* NewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsItem.m; path = ../NewsItem.m; sourceTree = "<group>"; };
+		FAE36E5F1B74F81F00C235EA /* NSString+CamelCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CamelCase.h"; sourceTree = "<group>"; };
+		FAE36E601B74F81F00C235EA /* NSString+CamelCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CamelCase.m"; sourceTree = "<group>"; };
+		FAE36E631B75091200C235EA /* CharityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharityDetailViewController.h; sourceTree = "<group>"; };
+		FAE36E641B75091200C235EA /* CharityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharityDetailViewController.m; sourceTree = "<group>"; };
 		FAE3C4BD1B6824FA00F822D4 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -350,6 +358,8 @@
 		5E6B04281B443CB300AAA2FE /* Charity Search */ = {
 			isa = PBXGroup;
 			children = (
+				FAE36E5F1B74F81F00C235EA /* NSString+CamelCase.h */,
+				FAE36E601B74F81F00C235EA /* NSString+CamelCase.m */,
 				5E6B042D1B443CB300AAA2FE /* AppDelegate.h */,
 				5E6B042E1B443CB300AAA2FE /* AppDelegate.m */,
 				5E8953F61B66D55F005142D2 /* UIImage+ResizedIcon.h */,
@@ -592,8 +602,10 @@
 				FABC0F3C1B5D4DF70025C851 /* Charity.m */,
 				FABC0F3E1B5D50390025C851 /* CharityData.h */,
 				FABC0F3F1B5D50390025C851 /* CharityData.m */,
-				FA52075F1B60306400D93AC6 /* CharityDetailViewController.h */,
-				FA5207601B60306400D93AC6 /* CharityDetailViewController.m */,
+				FAE36E631B75091200C235EA /* CharityDetailViewController.h */,
+				FAE36E641B75091200C235EA /* CharityDetailViewController.m */,
+				FA52075F1B60306400D93AC6 /* CharityWebsiteViewController.h */,
+				FA5207601B60306400D93AC6 /* CharityWebsiteViewController.m */,
 				5E8954981B680DCF005142D2 /* hands_two.jpg */,
 				5E11ACAA1B5D8E3000CB4A35 /* PopularCharitiesViewController.h */,
 				5E11ACAB1B5D8E3000CB4A35 /* PopularCharitiesViewController.m */,
@@ -747,6 +759,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAE36E611B74F81F00C235EA /* NSString+CamelCase.m in Sources */,
 				5EBAAED41B5EF45A002F34B2 /* SavedArticle.m in Sources */,
 				5E8CB93C1B59782F008DCA9D /* NSString+XMLEntities.m in Sources */,
 				5EA13AE61B5B239F0098CD64 /* FloatingButton.m in Sources */,
@@ -784,7 +797,8 @@
 				FABC0F3D1B5D4DF70025C851 /* Charity.m in Sources */,
 				5E8CB9351B59782F008DCA9D /* GTMNSString+HTML.m in Sources */,
 				5E6B042C1B443CB300AAA2FE /* main.m in Sources */,
-				FA5207611B60306400D93AC6 /* CharityDetailViewController.m in Sources */,
+				FAE36E651B75091200C235EA /* CharityDetailViewController.m in Sources */,
+				FA5207611B60306400D93AC6 /* CharityWebsiteViewController.m in Sources */,
 				5EA13AE51B5B239F0098CD64 /* UIColor+ButtonColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -793,7 +807,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAE36E621B74F81F00C235EA /* NSString+CamelCase.m in Sources */,
 				FAA614B81B6C21A800CC95F1 /* NewsItem.m in Sources */,
+				FAE36E661B75091200C235EA /* CharityDetailViewController.m in Sources */,
 				FAE36E301B71661B00C235EA /* CharityRanker.m in Sources */,
 				FA8E502A1B6AD1BF00FE9B64 /* CharityCell.m in Sources */,
 				FA8E501E1B6AB02700FE9B64 /* ActionViewController.m in Sources */,
