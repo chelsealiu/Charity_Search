@@ -25,8 +25,7 @@
  
 }
 
-- (instancetype)initWithView:(UIView *)view
-{
+- (instancetype)initWithView:(UIView *)view {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _fromView = view;

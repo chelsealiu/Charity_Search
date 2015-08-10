@@ -19,7 +19,7 @@
 @interface NewsDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *savedView;
-@property (weak, nonatomic) IBOutlet UIButton *charitiesButton;
+@property (strong, nonatomic) UIButton *charitiesButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *heartButton;
 @property (strong, nonatomic) NSString *htmlString;
 @property (strong, nonatomic) UIBarButtonItem *readerViewButton;
@@ -28,14 +28,11 @@
 
 @end
 
-
 @implementation NewsDetailViewController
-
 
 - (void)setDetailFeedItem:(MWFeedItem*)newDetailItem {
     if (_detailFeedItem != newDetailItem) {
         _detailFeedItem = newDetailItem;
-
     }
 }
 
@@ -72,7 +69,6 @@
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:requestObj];
-   
 }
 
 - (void)viewDidLoad {
@@ -84,13 +80,16 @@
     [self getNewsThroughReadabilityAPI];
     CharityRanker *charityRanker = [[CharityRanker alloc] init];
     charityRanker.newsItem = self.newsItem;
+    charityRanker.delegate = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [charityRanker makeNetworkCallsForKeywords];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setupCharitiesButton];
+    self.charitiesButton = [[UIButton alloc] initWithFrame: CGRectMake(0, self.view.frame.size.height + 10, self.view.frame.size.width, self.view.frame.size.height -64)];
     });
-});
+    
+}
+
+-(void) addCharitiesButton {
+    
     
 }
 
@@ -150,9 +149,9 @@
 }
 
 -(void)setupCharitiesButton {
-//    self.charitiesButton.layer.masksToBounds = YES;
-//    self.charitiesButton.layer.cornerRadius = 8;
+
     [UIButton animateWithDuration:1.0 animations:^{
+        self.charitiesButton.frame = CGRectMake(0, self.view.frame.size.height - self.charitiesButton.frame.size.height, self.view.frame.size.width, self.charitiesButton.frame.size.height);
         self.charitiesButton.backgroundColor = [UIColor darkGrayColor];
         self.charitiesButton.titleLabel.textColor = [UIColor whiteColor];
         self.charitiesButton.userInteractionEnabled = YES;
@@ -241,5 +240,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+-(void)reloadCharityData {
+    [self setupCharitiesButton];
+}
+
 
 @end

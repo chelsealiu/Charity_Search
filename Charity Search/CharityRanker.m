@@ -127,6 +127,7 @@ typedef void (^completionBlock)(void) ;
     [self.newsItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if(succeeded) {
             NSLog(@"saved charity rankings!");
+            [self.delegate reloadCharityData];
         }
         else {
             NSLog(@"%@", error.localizedDescription);

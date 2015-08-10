@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CharityRankerDelegate.h"
 
-@interface ActionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ActionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CharityRankerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "NewsItem.h"
+#import "CharityRankerDelegate.h"
 
 @interface CharityRanker : NSObject
 
 @property (nonatomic, strong) NewsItem *newsItem;
+@property (weak, nonatomic) id<CharityRankerDelegate> delegate;
 
 -(void)getNewsKeyWords;
 

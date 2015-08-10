@@ -874,20 +874,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hZ5-Ug-pXh">
-                                <rect key="frame" x="0.0" y="515" width="320" height="53"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="53" id="j9m-Ed-dh4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="See Related Charities"/>
-                                <connections>
-                                    <action selector="showFloatingMenu:" destination="kdD-Dw-OZl" eventType="touchUpInside" id="Na6-gN-CXB"/>
-                                </connections>
-                            </button>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0V-Yb-FGo">
-                                <rect key="frame" x="0.0" y="-47" width="320" height="562"/>
+                                <rect key="frame" x="0.0" y="-110" width="320" height="625"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="kdD-Dw-OZl" id="bYX-G6-cqw"/>
@@ -907,14 +895,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="w0V-Yb-FGo" firstAttribute="top" secondItem="GgD-qw-fol" secondAttribute="top" constant="-47" id="GtI-6G-DbX"/>
+                            <constraint firstItem="w0V-Yb-FGo" firstAttribute="top" secondItem="GgD-qw-fol" secondAttribute="top" constant="-110" id="GtI-6G-DbX"/>
                             <constraint firstAttribute="centerX" secondItem="vcF-Dm-YbP" secondAttribute="centerX" id="Hau-mX-zjC"/>
-                            <constraint firstItem="hZ5-Ug-pXh" firstAttribute="top" secondItem="w0V-Yb-FGo" secondAttribute="bottom" id="N2D-I9-v65"/>
-                            <constraint firstAttribute="trailing" secondItem="hZ5-Ug-pXh" secondAttribute="trailing" id="QC0-wH-tx8"/>
-                            <constraint firstItem="hZ5-Ug-pXh" firstAttribute="leading" secondItem="GgD-qw-fol" secondAttribute="leading" id="aUc-bi-3Mi"/>
+                            <constraint firstItem="drb-Uj-A6n" firstAttribute="top" secondItem="w0V-Yb-FGo" secondAttribute="bottom" constant="53" id="akY-6d-Eor"/>
                             <constraint firstAttribute="trailing" secondItem="w0V-Yb-FGo" secondAttribute="trailing" id="hZF-8Q-iPN"/>
                             <constraint firstAttribute="centerY" secondItem="vcF-Dm-YbP" secondAttribute="centerY" id="sf7-dF-xCH"/>
-                            <constraint firstItem="drb-Uj-A6n" firstAttribute="top" secondItem="hZ5-Ug-pXh" secondAttribute="bottom" id="trq-cb-Y7N"/>
                             <constraint firstItem="w0V-Yb-FGo" firstAttribute="leading" secondItem="GgD-qw-fol" secondAttribute="leading" id="zgW-AF-Cld"/>
                         </constraints>
                     </view>
@@ -928,7 +913,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="charitiesButton" destination="hZ5-Ug-pXh" id="JZT-ty-yxL"/>
                         <outlet property="heartButton" destination="Uih-0g-YTM" id="k8m-WD-joD"/>
                         <outlet property="savedView" destination="vcF-Dm-YbP" id="wOb-Jj-72e"/>
                         <outlet property="webView" destination="w0V-Yb-FGo" id="vPu-eP-Oo4"/>

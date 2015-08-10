@@ -13,6 +13,8 @@
 #import "Key.h"
 #import "Charity.h"
 #import "NSString+CamelCase.h"
+
+
 @import UIKit;
 
 @interface ActionViewController ()
@@ -29,6 +31,7 @@
     [Parse setApplicationId:[NSString stringWithFormat:@"%@", APPLICATION_ID]
                   clientKey:[NSString stringWithFormat:@"%@", CLIENT_KEY]];
     self.ranker = [[CharityRanker alloc] init];
+    self.ranker.delegate = self;
     self.ranker.newsItem = [[NewsItem alloc] init];
     // Get the item[s] we're handling from the extension context.
     for (NSExtensionItem *item in self.extensionContext.inputItems) {
@@ -94,5 +97,9 @@
     [self.tableView reloadData];
 }
 
+-(void)reloadCharityData {
+    [self.tableView reloadData];
+    
+}
 
 @end

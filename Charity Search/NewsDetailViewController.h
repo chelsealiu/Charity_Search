@@ -10,8 +10,9 @@
 #import "MWFeedItem.h"
 #import <Parse/Parse.h>
 #import "NewsItem.h"
+#import "CharityRankerDelegate.h"
 
-@interface NewsDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
+@interface NewsDetailViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, CharityRankerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) MWFeedItem *detailFeedItem;
